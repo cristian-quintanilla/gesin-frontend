@@ -3,7 +3,7 @@ interface Props {
 	content: object;
 }
 
-export const TableRecords = ({ headings, content }: Props): JSX.Element => {
+const TableRecords = ({ headings, content }: Props): JSX.Element => {
 	return (
 		<table className='table-auto'>
 			<thead>
@@ -26,3 +26,5 @@ export const TableRecords = ({ headings, content }: Props): JSX.Element => {
 		</table>
 	);
 }
+
+export default TableRecords;

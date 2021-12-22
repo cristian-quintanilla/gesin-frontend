@@ -2,10 +2,10 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-import { SidebarLink } from '../../../components/Links/SidebarLink';
+import SidebarLink from '../../components/SidebarLink';
 
 export default {
-	title: 'Components/Links/SidebarLink',
+	title: 'Components/SidebarLink',
 	component: SidebarLink,
 } as ComponentMeta<typeof SidebarLink>;
 

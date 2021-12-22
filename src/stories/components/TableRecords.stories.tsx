@@ -1,11 +1,10 @@
-import { action } from '@storybook/addon-actions';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { TableRecords } from '../../../components/Table/TableRecords';
-import { Button } from '../../../components/Button/Button';
+import TableRecords from '../../components/TableRecords';
+import Button from '../../components/Button';
 
 export default {
-	title: 'Components/Table/TableRecords',
+	title: 'Components/TableRecords',
 	component: TableRecords,
 } as ComponentMeta<typeof TableRecords>;
 

@@ -1,14 +1,15 @@
 interface Props {
 	style: 'primary' | 'secondary' | 'danger';
 	size: 'default' | 'small' | 'large';
-	label: string;
+	label?: string;
 	type: 'button' | 'submit';
-	icon: string;
+	icon?: string;
+	disabled?: boolean;
 	onClick?: () => void;
 	onSubmit?: () => void;
 }
 
-export const Button = ({ style, size, label, type, icon, onClick, onSubmit }: Props): JSX.Element => {
+const Button = ({ style, size, label, type, icon, disabled, onClick, onSubmit }: Props): JSX.Element => {
 	let buttonStyles: string;
 	let sizeStyles: string;
 
@@ -43,12 +44,13 @@ export const Button = ({ style, size, label, type, icon, onClick, onSubmit }: Pr
 	return (
 		<button
 			type={ type }
-			className={ `${ buttonStyles } ${ sizeStyles } inline-flex items-center` }
+			className={ `${ buttonStyles } ${ sizeStyles } ${ disabled && 'opacity-60' } inline-flex items-center` }
+			disabled={ disabled }
 			onClick={ onClick }
 			onSubmit={ onSubmit }
 		>
 			<div>
-				{ icon && <i className={ `fas ${ icon } mr-2` }></i> }
+				{ icon && <i className={ `fas ${ icon } ${ label && 'mr-2' }` }></i> }
 			</div>
 			<div className='text-center'>
 				{ label }
@@ -56,3 +58,5 @@ export const Button = ({ style, size, label, type, icon, onClick, onSubmit }: Pr
 		</button>
 	);
 }
+
+export default Button;

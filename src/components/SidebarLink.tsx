@@ -6,7 +6,7 @@ interface Props {
 	icon: string;
 }
 
-export const SidebarLink = ({ route, text, icon }: Props): JSX.Element => {
+const SidebarLink = ({ route, text, icon }: Props): JSX.Element => {
 	const defaultClass: string = 'text-sm sm:text-lg uppercase font-medium ';
 	const className: string = defaultClass + (
 		window.location.href.indexOf(route) !== -1
@@ -31,3 +31,5 @@ export const SidebarLink = ({ route, text, icon }: Props): JSX.Element => {
 		// </li>
 	);
 }
+
+export default SidebarLink;
