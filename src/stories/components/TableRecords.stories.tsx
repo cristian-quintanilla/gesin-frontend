@@ -52,20 +52,20 @@ const renderCustomers = (customers: Customer[]): object => customers.map(
 			<td className='border-2 border-gray-400 py-1 px-4 text-sm sm:text-base text-gray-700'>
 				{ company }
 			</td>
-			<td className='border-2 border-gray-400 py-1 px-2 text-sm sm:text-base text-gray-700'>
-				<p className='inline-flex items-center'>
+			<td className='border-2 border-gray-400 py-1 px-4 text-sm sm:text-base text-gray-700'>
+				<p className='items-center'>
 					<i className='fas fa-envelope mr-2'></i>{ email }
 				</p>
 				{
 					phone && (
-						<p className='inline-flex items-center'>
+						<p className='items-center'>
 							<i className='fas fa-phone mr-2'></i>{ phone }
 						</p>
 					)
 				}
 			</td>
-			<td className='border-2 border-gray-400 py-1 px-2 text-sm sm:text-base text-gray-700'>
-				{ address.length > 25 ? address.substring(0, 25) + '...' : address }
+			<td className='border-2 border-gray-400 py-1 px-4 text-sm sm:text-base text-gray-700'>
+				{ address.length > 25 ? address.substring(0, 30) + '...' : address }
 			</td>
 			<td className='border-r-2 border-b-2 border-gray-400 py-2 px-4 flex flex-col items-center gap-2'>
 				<div>
