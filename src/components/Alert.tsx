@@ -4,7 +4,7 @@ interface Props {
 	icon?: string;
 }
 
-const Alert = ({ message, type, icon }: Props) => {
+const Alert = ({ message, type, icon }: Props): JSX.Element => {
 	const classes = 'rounded px-4 py-2 mb-4 font-medium tracking-wide';
 	let alertClasses: string = '';
 

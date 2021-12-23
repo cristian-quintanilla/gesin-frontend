@@ -9,7 +9,7 @@ interface Props {
 	onBlur: () => void;
 }
 
-const Input = ({ type, id, name, placeholder, value, onChange, onBlur }: Props) => {
+const Input = ({ type, id, name, placeholder, value, onChange, onBlur }: Props): JSX.Element => {
 	return (
 		<input
 			type={ type }

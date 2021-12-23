@@ -11,7 +11,7 @@ interface Props {
 	onBlur: () => void;
 }
 
-const Select = ({ id, options, value, onChange, onBlur }: Props) => {
+const Select = ({ id, options, value, onChange, onBlur }: Props): JSX.Element => {
 	return (
 		<select
 			className='px-2 py-1 text-gray-700 bg-white border-2 border-gray-300 focus:border-blue-600 outline-none cursor-pointer rounded'

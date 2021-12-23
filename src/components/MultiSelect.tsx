@@ -12,7 +12,7 @@ interface Props {
 	onChange: (values: OnChangeValue<SelectedOption, true>) => void;
 }
 
-const MultiSelect = ({ name, options, onChange }: Props) => {
+const MultiSelect = ({ name, options, onChange }: Props): JSX.Element => {
 	// const [ selectedOptions, setSelectedOptions ] = useState<SelectedOption[]>([]);
 
 	// const onChange = (values: OnChangeValue<SelectedOption, true>) => {
