@@ -70,7 +70,7 @@ const renderCustomers = (customers: Customer[]): object => customers.map(
 			<td className='border-r-2 border-b-2 border-gray-400 py-2 px-4 flex flex-col items-center gap-2'>
 				<div>
 					<Button
-						style='danger'
+						variant='danger'
 						size='small'
 						label='Delete'
 						type='button'
@@ -79,7 +79,7 @@ const renderCustomers = (customers: Customer[]): object => customers.map(
 				</div>
 				<div>
 					<Button
-						style='primary'
+						variant='primary'
 						size='small'
 						label='Edit'
 						type='button'

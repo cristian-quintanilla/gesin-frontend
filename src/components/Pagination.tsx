@@ -22,7 +22,7 @@ const renderItems = ({currentPage, totalRecords, setCurrentPage, paginate}: Rend
 		items.push(
 			<Button
 				key={ number }
-				style='primary'
+				variant='primary'
 				size='small'
 				type='button'
 				label={ `${ number }` }
@@ -48,7 +48,7 @@ const Pagination = ({ page, totalRecords, paginate }: Props): JSX.Element => {
 	return (
 		<section className='flex gap-1'>
 			<Button
-				style='primary'
+				variant='primary'
 				size='small'
 				type='button'
 				icon='fa-chevron-left'
@@ -62,7 +62,7 @@ const Pagination = ({ page, totalRecords, paginate }: Props): JSX.Element => {
 			{ renderItems({ currentPage, totalRecords, setCurrentPage, paginate }) }
 
 			<Button
-				style='primary'
+				variant='primary'
 				size='small'
 				type='button'
 				icon='fa-chevron-right'

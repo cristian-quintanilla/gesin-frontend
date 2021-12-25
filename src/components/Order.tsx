@@ -66,7 +66,7 @@ const Order = ({ order }: Props): JSX.Element => {
 						<div className='flex gap-2'>
 							<div>
 								<Button
-									style='danger'
+									variant='danger'
 									size='small'
 									label='Cancel Order'
 									type='button'
@@ -75,7 +75,7 @@ const Order = ({ order }: Props): JSX.Element => {
 							</div>
 							<div>
 								<Button
-									style='primary'
+									variant='primary'
 									size='small'
 									label='Deliver Order'
 									type='button'

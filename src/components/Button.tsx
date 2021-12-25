@@ -33,11 +33,9 @@ const Button = ({ variant, size, label, type, icon, disabled, onClick, onSubmit 
 			onSubmit={ onSubmit }
 		>
 			<div>
-				{ icon && <i className={ `fas ${ icon } ${ label && 'mr-2' }` }></i> }
+				{ icon && <i className={ `fas ${ icon } ${ label ? 'mr-2' : '' }` }></i> }
 			</div>
-			<div className='text-center'>
-				{ label }
-			</div>
+			{ label && <div className='text-center'>{ label }</div> }
 		</button>
 	);
 }
