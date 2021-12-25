@@ -1,6 +1,6 @@
 interface Props {
-	style: 'primary' | 'secondary' | 'danger';
-	size: 'default' | 'small' | 'large';
+	variant: 'primary' | 'secondary' | 'danger';
+	size: 'normal' | 'small' | 'large';
 	label?: string;
 	type: 'button' | 'submit';
 	icon?: string;
@@ -9,42 +9,25 @@ interface Props {
 	onSubmit?: () => void;
 }
 
-const Button = ({ style, size, label, type, icon, disabled, onClick, onSubmit }: Props): JSX.Element => {
-	let buttonStyles: string;
-	let sizeStyles: string;
-
-	switch (style) {
-		case 'primary':
-			buttonStyles = 'bg-blue-600 hover:bg-blue-500 text-white rounded';
-			break;
-		case 'secondary':
-			buttonStyles = 'bg-stone-200 hover:bg-stone-300 text-stone-800 rounded';
-			break;
-		case 'danger':
-			buttonStyles = 'bg-red-600 hover:bg-red-500 text-white rounded';
-			break;
-		default:
-			buttonStyles = 'bg-blue-600 hover:bg-blue-500 text-white text-sm sm:text-lg rounded';
+const Button = ({ variant, size, label, type, icon, disabled, onClick, onSubmit }: Props): JSX.Element => {
+	const buttonVariants = {
+		button_primary: 'bg-blue-600 hover:bg-blue-500 text-white rounded ',
+		button_secondary: 'bg-stone-200 hover:bg-stone-300 text-stone-800 rounded ',
+		button_danger: 'bg-red-600 hover:bg-red-500 text-white rounded ',
 	}
 
-	switch (size) {
-		case 'default':
-			sizeStyles = 'text-sm sm:text-lg px-4 py-2';
-			break
-		case 'small':
-			sizeStyles = 'text-sm sm:text-base px-2 py-1';
-			break
-		case 'large':
-			sizeStyles = 'text-lg sm:text-xl px-5 py-3';
-			break
-		default:
-			sizeStyles = 'text-sm sm:text-lg px-4 py-2';
+	const sizeVariants = {
+		size_normal: 'text-sm sm:text-lg px-4 py-2',
+		size_small: 'text-sm sm:text-base px-2 py-1',
+		size_large: 'text-lg sm:text-xl px-5 py-3',
 	}
+
+	const styles = buttonVariants[`button_${ variant }`] + sizeVariants[`size_${ size }`];
 
 	return (
 		<button
 			type={ type }
-			className={ `${ buttonStyles } ${ sizeStyles } ${ disabled && 'opacity-60' } inline-flex items-center` }
+			className={ `${ styles } ${ disabled ? 'opacity-60' : '' } inline-flex items-center` }
 			disabled={ disabled }
 			onClick={ onClick }
 			onSubmit={ onSubmit }
