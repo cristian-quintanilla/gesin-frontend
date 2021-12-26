@@ -10,7 +10,7 @@ const Alert = ({ message, type, icon }: Props): JSX.Element => {
 
 	switch (type) {
 		case 'success':
-			alertClasses = `${ classes } bg-emerald-100 text-emerald-600`;
+			alertClasses = `${ classes } bg-green-100 text-green-600`;
 			break;
 		case 'normal':
 			alertClasses = `${ classes } bg-yellow-100 text-yellow-700`;
@@ -19,7 +19,7 @@ const Alert = ({ message, type, icon }: Props): JSX.Element => {
 			alertClasses = `${ classes } bg-red-100 text-red-700`;
 			break;
 		default:
-			alertClasses = `${ classes } bg-emerald-100 text-emerald-600`;
+			alertClasses = `${ classes } bg-green-100 text-green-600`;
 	}
 
 	return (

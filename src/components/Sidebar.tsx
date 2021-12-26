@@ -10,7 +10,7 @@ const Sidebar = (): JSX.Element => {
 		<>
 			<nav
 				className='md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row
-					md:flex-nowrap md:overflow-hidden shadow-xl bg-emerald-600 flex flex-wrap
+					md:flex-nowrap md:overflow-hidden shadow-xl bg-green-600 flex flex-wrap
 					justify-between relative md:w-64 z-10 py-4'
 			>
 				<div
@@ -29,7 +29,7 @@ const Sidebar = (): JSX.Element => {
 					</div>
 
 					{/* Brand */}
-					<h1 className='hidden md:block uppercase text-orange-200 text-center text-base md:text-4xl'>
+					<h1 className='hidden md:block uppercase text-white text-center text-base md:text-4xl'>
 						Gesin
 					</h1>
 
@@ -58,8 +58,8 @@ const Sidebar = (): JSX.Element => {
 						</div>
 
 						{/* MENU */}
-						<ul className='md:flex-col md:min-w-full flex flex-col list-none'>
-							<li className='md:bg-orange-200 flex-row py-2 pl-4 mb-2'>
+						<ul className='md:flex-col md:min-w-full flex flex-col list-none mt-4'>
+							<li className='md:bg-yellow-100 flex-row py-2 pl-4 mb-2'>
 								<SidebarLink
 									route='/customers'
 									text='Customers'
@@ -67,7 +67,7 @@ const Sidebar = (): JSX.Element => {
 								/>
 							</li>
 
-							<li className='md:bg-orange-200 flex-row py-2 pl-4 mb-2'>
+							<li className='md:bg-yellow-100 flex-row py-2 pl-4 mb-2'>
 								<SidebarLink
 									route='/products'
 									text='Products'
@@ -75,7 +75,7 @@ const Sidebar = (): JSX.Element => {
 								/>
 							</li>
 
-							<li className='md:bg-orange-200 flex-row py-2 pl-4 mb-2'>
+							<li className='md:bg-yellow-100 flex-row py-2 pl-4 mb-2'>
 								<SidebarLink
 									route='/orders'
 									text='Orders'

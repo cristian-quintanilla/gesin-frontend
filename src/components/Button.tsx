@@ -12,7 +12,7 @@ interface Props {
 const Button = ({ variant, size, label, type, icon, disabled, onClick, onSubmit }: Props): JSX.Element => {
 	const buttonVariants = {
 		button_primary: 'bg-blue-600 hover:bg-blue-500 text-white rounded ',
-		button_secondary: 'bg-stone-200 hover:bg-stone-300 text-stone-800 rounded ',
+		button_secondary: 'bg-gray-200 hover:bg-gray-300 text-gray-800 rounded ',
 		button_danger: 'bg-red-600 hover:bg-red-500 text-white rounded ',
 	}
 
