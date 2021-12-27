@@ -7,11 +7,11 @@ interface Props {
 }
 
 const SidebarLink = ({ route, text, icon }: Props): JSX.Element => {
-	const defaultClass: string = 'text-sm sm:text-lg uppercase font-medium ';
+	const defaultClass: string = 'text-sm md:text-base uppercase font-medium px-4 py-2 rounded-md mb-2 ';
 	const className: string = defaultClass + (
 		window.location.href.indexOf(route) !== -1
-		? 'text-green-500 hover:text-gray-500'
-		: 'text-gray-500 hover:text-green-500'
+		? 'text-gray-200 bg-gray-700 hover:text-gray-700 hover:bg-gray-200'
+		: 'text-gray-700 bg-gray-200 hover:text-gray-200 hover:bg-gray-700'
 	);
 
 	return (

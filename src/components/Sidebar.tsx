@@ -10,11 +10,11 @@ const Sidebar = (): JSX.Element => {
 		<>
 			<nav
 				className='md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row
-					md:flex-nowrap md:overflow-hidden shadow-xl bg-green-600 flex flex-wrap
+					md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap
 					justify-between relative md:w-64 z-10 py-4'
 			>
 				<div
-					className='md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap
+					className='md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-2 flex flex-wrap
 					items-center justify-between w-full mx-auto'
 				>
 					{/* Toggler */}
@@ -29,7 +29,7 @@ const Sidebar = (): JSX.Element => {
 					</div>
 
 					{/* Brand */}
-					<h1 className='hidden md:block uppercase text-white text-center text-base md:text-4xl'>
+					<h1 className='hidden md:block uppercase font-semibold text-gray-800 text-base md:text-4xl'>
 						Gesin
 					</h1>
 
@@ -58,31 +58,38 @@ const Sidebar = (): JSX.Element => {
 						</div>
 
 						{/* MENU */}
-						<ul className='md:flex-col md:min-w-full flex flex-col list-none mt-4'>
-							<li className='md:bg-yellow-100 flex-row py-2 pl-4 mb-2'>
+						<div className='flex flex-col justify-between flex-1 md:mt-6'>
+							<nav className='md:flex-col md:min-w-full flex flex-col list-none mt-2 md:mt-4'>
 								<SidebarLink
 									route='/customers'
 									text='Customers'
 									icon='fa-people-arrows'
 								/>
-							</li>
 
-							<li className='md:bg-yellow-100 flex-row py-2 pl-4 mb-2'>
 								<SidebarLink
 									route='/products'
 									text='Products'
 									icon='fa-boxes'
 								/>
-							</li>
 
-							<li className='md:bg-yellow-100 flex-row py-2 pl-4 mb-2'>
 								<SidebarLink
 									route='/orders'
 									text='Orders'
 									icon='fa-folder-open'
 								/>
-							</li>
-						</ul>
+							</nav>
+
+							<div className='self-center px-4 -mx-2'>
+								<Button
+									variant='secondary'
+									size='small'
+									label='Logout'
+									icon='fa-sign-out-alt'
+									type='button'
+									onClick={ () => console.log('Logout') }
+								/>
+							</div>
+						</div>
 					</div>
 				</div>
 			</nav>

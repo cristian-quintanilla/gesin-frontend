@@ -17,9 +17,9 @@ const Button = ({ variant, size, label, type, icon, disabled, onClick, onSubmit 
 	}
 
 	const sizeVariants = {
-		size_normal: 'text-sm sm:text-lg px-4 py-2',
-		size_small: 'text-sm sm:text-base px-2 py-1',
-		size_large: 'text-lg sm:text-xl px-5 py-3',
+		size_normal: 'text-sm md:text-lg px-4 py-2',
+		size_small: 'text-sm md:text-base px-2 py-1',
+		size_large: 'text-lg md:text-xl px-5 py-3',
 	}
 
 	const styles = buttonVariants[`button_${ variant }`] + sizeVariants[`size_${ size }`];

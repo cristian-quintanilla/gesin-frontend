@@ -46,13 +46,13 @@ const customersArr = [
 const renderCustomers = (customers: Customer[]): object => customers.map(
 	({ _id, firstName, lastName, company, email, address, phone }) => (
 		<tr className='bg-gray-100' key={ _id }>
-			<td className='border-2 border-gray-400 py-1 px-4 text-sm sm:text-base text-gray-700'>
+			<td className='border-2 border-gray-400 py-1 px-4 text-sm md:text-base text-gray-700'>
 				{ firstName } { lastName }
 			</td>
-			<td className='border-2 border-gray-400 py-1 px-4 text-sm sm:text-base text-gray-700'>
+			<td className='border-2 border-gray-400 py-1 px-4 text-sm md:text-base text-gray-700'>
 				{ company }
 			</td>
-			<td className='border-2 border-gray-400 py-1 px-4 text-sm sm:text-base text-gray-700'>
+			<td className='border-2 border-gray-400 py-1 px-4 text-sm md:text-base text-gray-700'>
 				<p className='items-center'>
 					<i className='fas fa-envelope mr-2'></i>{ email }
 				</p>
@@ -64,7 +64,7 @@ const renderCustomers = (customers: Customer[]): object => customers.map(
 					)
 				}
 			</td>
-			<td className='border-2 border-gray-400 py-1 px-4 text-sm sm:text-base text-gray-700'>
+			<td className='border-2 border-gray-400 py-1 px-4 text-sm md:text-base text-gray-700'>
 				{ address.length > 25 ? address.substring(0, 30) + '...' : address }
 			</td>
 			<td className='border-r-2 border-b-2 border-gray-400 py-2 px-4 flex flex-col items-center gap-2'>

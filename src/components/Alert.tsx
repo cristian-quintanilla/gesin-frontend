@@ -1,31 +1,36 @@
 interface Props {
 	message: string;
-	type: 'success' | 'error' | 'normal';
-	icon?: string;
+	type: 'success' | 'error' | 'default';
+	icon: string;
 }
 
 const Alert = ({ message, type, icon }: Props): JSX.Element => {
-	const classes = 'rounded px-4 py-2 mb-4 font-medium tracking-wide';
-	let alertClasses: string = '';
+	const classes = 'flex items-center justify-center w-12';
+	const alertVariants = {
+		alert_success: 'bg-green-500 text-white',
+		alert_error: 'bg-red-500 text-white',
+		alert_default: 'bg-blue-500 text-white',
+	}
 
-	switch (type) {
-		case 'success':
-			alertClasses = `${ classes } bg-green-100 text-green-600`;
-			break;
-		case 'normal':
-			alertClasses = `${ classes } bg-yellow-100 text-yellow-700`;
-			break;
-		case 'error':
-			alertClasses = `${ classes } bg-red-100 text-red-700`;
-			break;
-		default:
-			alertClasses = `${ classes } bg-green-100 text-green-600`;
+	const contentVariants = {
+		alert_success: 'text-green-600',
+		alert_error: 'text-red-600',
+		alert_default: 'text-blue-600',
 	}
 
 	return (
-		<div className={ alertClasses }>
-			{ icon && <i className={ `fas ${ icon } mr-2 }` }></i> }
-			{ message }
+		<div className='flex w-full bg-white shadow-md'>
+			<div className={ `rounded-l-lg ${classes} ${alertVariants[`alert_${type}`]}` }>
+				<i className={ `fas ${ icon } }` }></i>
+			</div>
+
+			<div className='px-4 py-2'>
+				<div className='mx-3'>
+					<p className={ `text-base ${ contentVariants[`alert_${ type }`] }` }>
+						{ message }
+					</p>
+				</div>
+			</div>
 		</div>
 	);
 }
