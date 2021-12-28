@@ -1,4 +1,5 @@
 import { ReactNode, useReducer } from 'react';
+import  { AxiosError } from 'axios';
 
 import { LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT } from '../../types';
 
@@ -21,23 +22,24 @@ const AuthState = ({ children }: { children: ReactNode }) => {
 	const login = async (data: { email: string, password: string }) => {
 		try{
 			const result = await clientAxios.post('/api/v1/auth/login', data);
-			console.log(result);
 
-			// dispatch({
-			// 	type: LOGIN_SUCCESS,
-			// 	payload: result.data
-			// });
-		}catch (error){
-			console.log(error);
-			// const alert = {
-			// 	msg: error.response.data.msg,
-			// 	category: 'bg-red-500'
-			// }
+			dispatch({
+				type: LOGIN_SUCCESS,
+				payload: result.data
+			});
 
-			// dispatch({
-			// 	type: ADMIN_LOGIN_ERROR,
-			// 	payload: alert
-			// });
+			//_ Get admin authenticated
+			// adminAuthenticated();
+		}catch (error) {
+			const err = error as AxiosError;
+			const msg = err.response?.data.msg || 'Network Error';
+			const type = 'error';
+			const alert = { msg, type };
+
+			dispatch({
+				type: LOGIN_ERROR,
+				payload: alert
+			});
 		}
 	}
 
@@ -45,6 +47,8 @@ const AuthState = ({ children }: { children: ReactNode }) => {
 		<authContext.Provider
 			value={{
 				token: state.token,
+				authenticated: state.authenticated,
+				message: state.message,
 				login
 			}}
 		>

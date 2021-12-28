@@ -14,16 +14,16 @@ const authReducer = (state: AuthInterface, action: ActionType) => {
 				authenticated: true,
 				message: null,
 			}
-		// case LOGIN_ERROR:
-		// case LOGOUT:
-		// 	sessionStorage.removeItem('auth-token');
-		// 	return {
-		// 		...state,
-		// 		authenticated: null,
-		// 		message: payload,
-		// 		token: null,
-		// 		// user: null
-		// 	}
+			case LOGIN_ERROR:
+			// case LOGOUT:
+			sessionStorage.removeItem('auth-token');
+			return {
+				...state,
+				authenticated: null,
+				message: payload,
+				token: null,
+				// user: null
+			}
 		default:
 			return state;
 	}

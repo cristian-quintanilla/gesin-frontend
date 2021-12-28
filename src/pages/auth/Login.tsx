@@ -1,4 +1,5 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -10,11 +11,19 @@ import alertContext from '../../context/alert/alertContext';
 import authContext from '../../context/auth/authContext';
 
 const LoginPage = (): JSX.Element => {
+	const navigate = useNavigate();
+
 	const AlertContext = useContext(alertContext);
 	const AuthContext = useContext(authContext);
 
 	const { msg, type, showAlert } = AlertContext;
-	const { login, token } = AuthContext;
+	const { authenticated, message, login } = AuthContext;
+
+	//* Verify if user is authenticated
+	useEffect(() => {
+		if (authenticated) navigate('/customers');
+		if (message) showAlert(message.msg, message.type);
+	}, [authenticated, message]);
 
 	//* Formik and Yup Validation
 	const formik = useFormik({
@@ -27,7 +36,6 @@ const LoginPage = (): JSX.Element => {
 			password: Yup.string().required('Password is required.').min(8, 'Password must be at least 8 characters.'),
 		}),
 		onSubmit: values => {
-			// showAlert('Logged in successfully.', 'error');
 			login(values);
 		}
 	});

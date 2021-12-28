@@ -1,17 +1,22 @@
+import { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import Sidebar from '../components/Sidebar';
 
-interface Props {
-  children: JSX.Element;
-}
+import authContext from '../context/auth/authContext';
 
-const PrivateRoute = ({ children }: Props): JSX.Element => {
+const PrivateRoute = ({ children }: { children: JSX.Element }): JSX.Element => {
   let location = useLocation();
 
-  const auth: boolean = true;
+  const AuthContext = useContext(authContext);
+	const { authenticated /*, adminAuthenticated */ } = AuthContext;
 
-  if (!auth) {
+  // useEffect(() => {
+	// 	adminAuthenticated();
+	// 	// eslint-disable-next-line
+	// }, []);
+
+  if (!authenticated) {
     return <Navigate to='/' state={{ from: location }} />;
   }
 
