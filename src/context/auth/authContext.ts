@@ -7,7 +7,12 @@ export interface AuthInterface {
 		msg: string;
 		type: string;
 	} | null;
-	// user: string;
+	user?: {
+		_id: string;
+		name: string;
+		email: string;
+		__v: string | number;
+	} | null;
 }
 
 type ContextType = {
@@ -17,8 +22,14 @@ type ContextType = {
 		msg: string;
 		type: string;
 	} | null;
+	user?: {
+		_id: string;
+		name: string;
+		email: string;
+		__v: string | number;
+	} | null;
 	login: (data: { email: string, password: string }) => void;
-	// user: string;
+	userAuthenticated: () => void;
 }
 
 const authContext = createContext({} as ContextType);
