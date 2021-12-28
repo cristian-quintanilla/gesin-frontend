@@ -7,10 +7,14 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 
 import alertContext from '../../context/alert/alertContext';
+import authContext from '../../context/auth/authContext';
 
 const LoginPage = (): JSX.Element => {
 	const AlertContext = useContext(alertContext);
+	const AuthContext = useContext(authContext);
+
 	const { msg, type, showAlert } = AlertContext;
+	const { login, token } = AuthContext;
 
 	//* Formik and Yup Validation
 	const formik = useFormik({
@@ -23,7 +27,8 @@ const LoginPage = (): JSX.Element => {
 			password: Yup.string().required('Password is required.').min(8, 'Password must be at least 8 characters.'),
 		}),
 		onSubmit: values => {
-			showAlert('Logged in successfully.', 'error');
+			// showAlert('Logged in successfully.', 'error');
+			login(values);
 		}
 	});
 

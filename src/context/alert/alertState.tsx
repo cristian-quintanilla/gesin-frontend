@@ -1,22 +1,14 @@
-import { ReactElement, ReactNode, useReducer } from 'react';
+import { ReactNode, useReducer } from 'react';
 
 import { SHOW_ALERT, HIDE_ALERT } from '../../types';
-import AlertContext from './alertContext';
+import alertContext from './alertContext';
 import alertReducer from './alertReducer';
 
-interface Props {
-  children: ReactNode;
-}
-
-const AlertState = ({ children }: Props) => {
-	const initialState = {
-		// alert: undefined
+const AlertState = ({ children }: { children: ReactNode }) => {
+	const [ state, dispatch ] = useReducer(alertReducer, {
 		msg: '',
 		type: '',
-	}
-
-	/* Dispatch for Actions */
-	const [ state, dispatch ] = useReducer(alertReducer, initialState);
+	});
 
 	//* Show the Alert
 	const showAlert = (msg: string, type: string) => {
@@ -36,7 +28,7 @@ const AlertState = ({ children }: Props) => {
 	}
 
 	return (
-		<AlertContext.Provider
+		<alertContext.Provider
 			value={{
 				msg: state.msg,
 				type: state.type,
@@ -44,7 +36,7 @@ const AlertState = ({ children }: Props) => {
 			}}
 		>
 			{ children }
-		</AlertContext.Provider>
+		</alertContext.Provider>
 	);
 }
 
