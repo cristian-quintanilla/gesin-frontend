@@ -73,6 +73,7 @@ const AuthState = ({ children }: { children: ReactNode }) => {
 				token: state.token,
 				authenticated: state.authenticated,
 				message: state.message,
+				user: state.user,
 				login,
 				userAuthenticated
 			}}

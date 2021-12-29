@@ -1,7 +1,13 @@
+import Header from '../../components/Header';
+
 const Orders = (): JSX.Element => {
-  return (
-    <h1>Orders</h1>
-  );
+	return (
+		<>
+			<Header />
+
+			<h1>Orders</h1>
+		</>
+	);
 }
 
 export default Orders;
