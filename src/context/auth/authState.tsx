@@ -67,6 +67,13 @@ const AuthState = ({ children }: { children: ReactNode }) => {
 		}
 	}
 
+	//* Logout
+	const logout = () => {
+		dispatch({
+			type: LOGOUT
+		});
+	}
+
 	return (
 		<authContext.Provider
 			value={{
@@ -75,7 +82,8 @@ const AuthState = ({ children }: { children: ReactNode }) => {
 				message: state.message,
 				user: state.user,
 				login,
-				userAuthenticated
+				userAuthenticated,
+				logout
 			}}
 		>
 			{ children }

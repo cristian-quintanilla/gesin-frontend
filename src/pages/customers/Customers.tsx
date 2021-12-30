@@ -86,7 +86,7 @@ const Customers = (): JSX.Element => {
 		<>
 			<Header />
 
-			<main className='p-2 md:px-4 mt-2 md:mt-4'>
+			<main className='w-full md:w-10/12 mx-auto'>
 				<section className='mt-4'>
 					<TableRecords
 						headings={[ 'Name', 'Company', 'Contact', 'Address', 'Options' ]}

@@ -30,6 +30,7 @@ type ContextType = {
 	} | null;
 	login: (data: { email: string, password: string }) => void;
 	userAuthenticated: () => void;
+	logout: () => void;
 }
 
 const authContext = createContext({} as ContextType);

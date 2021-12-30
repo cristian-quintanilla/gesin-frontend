@@ -22,7 +22,7 @@ const authReducer = (state: AuthInterface, action: ActionType) => {
 				authenticated: null,
 				message: payload,
 				token: null,
-				// user: null
+				user: null
 			}
 		case GET_USER:
 			return {

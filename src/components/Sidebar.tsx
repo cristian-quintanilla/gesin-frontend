@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import Button from './Button';
 import SidebarLink from './SidebarLink';
 
+import authContext from '../context/auth/authContext';
+
 const Sidebar = (): JSX.Element => {
+	const AuthContext = useContext(authContext);
+	const { logout } = AuthContext;
+
 	const [ collapseShow, setCollapseShow ] = useState('hidden');
 
 	return (
@@ -86,7 +91,7 @@ const Sidebar = (): JSX.Element => {
 									label='Logout'
 									icon='fa-sign-out-alt'
 									type='button'
-									onClick={ () => console.log('Logout') }
+									onClick={ () => logout() }
 								/>
 							</div>
 						</div>
