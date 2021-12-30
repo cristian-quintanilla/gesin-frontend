@@ -69,12 +69,13 @@ const renderCustomers = (customers: Customer[]): object => customers.map(
 					icon='fa-trash'
 				/>
 
-				<Button
-					variant='primary'
-					size='small'
-					label='Edit'
-					type='button'
+				<LinkRouter
+					isButton
+					linkText='Edit'
+					linkTo={`/customers/edit/${ _id }`}
 					icon='fa-edit'
+					size='small'
+					variant='primary'
 				/>
 			</td>
 		</tr>
@@ -87,6 +88,17 @@ const Customers = (): JSX.Element => {
 			<Header />
 
 			<main className='w-full md:w-10/12 mx-auto'>
+				<header className='flex items-center justify-between px-5 py-4'>
+					<h2 className='text-xl font-semibold text-gray-800'>Customers</h2>
+					<LinkRouter
+						isButton
+						linkText='Add Customer'
+						linkTo='/customers/new'
+						size='normal'
+						variant='primary'
+					/>
+				</header>
+
 				<section className='mt-4'>
 					<TableRecords
 						headings={[ 'Name', 'Company', 'Contact', 'Address', 'Options' ]}

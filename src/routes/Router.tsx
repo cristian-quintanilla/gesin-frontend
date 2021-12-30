@@ -6,9 +6,11 @@ import AddCustomer from '../pages/customers/AddCustomer';
 import AddOrder from '../pages/orders/AddOrder';
 import AddProduct from '../pages/products/AddProduct';
 import Customers from '../pages/customers/Customers';
+import EditCustomer from '../pages/customers/EditCustomer';
+import EditProduct from '../pages/products/EditProduct';
 import LoginPage from '../pages/auth/Login';
-import Orders from '../pages/orders/Orders';
 import NotFound from '../pages/auth/NotFound';
+import Orders from '../pages/orders/Orders';
 import Products from '../pages/products/Products';
 
 const Router = (): JSX.Element => {
@@ -29,6 +31,11 @@ const Router = (): JSX.Element => {
 			/>
 
 			<Route
+				path='/customers/edit/:id'
+				element={ <PrivateRoute children={ <EditCustomer /> } /> }
+			/>
+
+			<Route
 				path='/products'
 				element={ <PrivateRoute children={ <Products /> } /> }
 			/>
@@ -36,6 +43,11 @@ const Router = (): JSX.Element => {
 			<Route
 				path='/products/new'
 				element={ <PrivateRoute children={ <AddProduct /> } /> }
+			/>
+
+			<Route
+				path='/products/edit/:id'
+				element={ <PrivateRoute children={ <EditProduct /> } /> }
 			/>
 
 			<Route

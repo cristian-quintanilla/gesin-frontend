@@ -164,6 +164,7 @@ const AddCustomer = (): JSX.Element => {
 							isButton
 							linkText='Cancel'
 							linkTo='/customers'
+							size='normal'
 							variant='danger'
 						/>
 

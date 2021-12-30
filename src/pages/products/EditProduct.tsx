@@ -7,7 +7,7 @@ import Header from '../../components/Header';
 import Input from '../../components/Input';
 import LinkRouter from '../../components/LinkRouter';
 
-const AddProduct = (): JSX.Element => {
+const EditProduct = (): JSX.Element => {
 	//* Formik and Yup Validation
 	const formik = useFormik({
 		initialValues: {
@@ -32,7 +32,8 @@ const AddProduct = (): JSX.Element => {
 
 	return (
 		<>
-			<Header />
+			<h1>Edit Product</h1>
+			{/* <Header />
 
 			<main className='w-full md:w-10/12 mx-auto'>
 				<h1 className='text-xl md:text-2xl font-medium md:font-normal text-center'>
@@ -117,7 +118,6 @@ const AddProduct = (): JSX.Element => {
 							isButton
 							linkText='Cancel'
 							linkTo='/products'
-							size='normal'
 							variant='danger'
 						/>
 
@@ -130,9 +130,9 @@ const AddProduct = (): JSX.Element => {
 						/>
 					</div>
 				</form>
-			</main>
+			</main> */}
 		</>
 	);
 }
 
-export default AddProduct;
+export default EditProduct;
