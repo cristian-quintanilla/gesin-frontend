@@ -1,6 +1,10 @@
+import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
+import Modal from '../../components/Modal';
 import TableRecords from '../../components/TableRecords';
 
 interface Customer {
@@ -36,7 +40,9 @@ const customersArr = [
 	}
 ];
 
-const renderCustomers = (customers: Customer[]): object => customers.map(
+const renderCustomers = (
+	customers: Customer[], setShowModal: Dispatch<SetStateAction<boolean>>, setIdCustomer: Dispatch<SetStateAction<string>>
+): object => customers.map(
 	({ _id, firstName, lastName, company, email, address, phone }) => (
 		<tr key={ _id }>
 			<td className='p-2 whitespace-nowrap'>
@@ -67,6 +73,10 @@ const renderCustomers = (customers: Customer[]): object => customers.map(
 					label='Delete'
 					type='button'
 					icon='fa-trash'
+					onClick={() => {
+						setShowModal(true);
+						setIdCustomer(_id);
+					}}
 				/>
 
 				<LinkRouter
@@ -83,6 +93,14 @@ const renderCustomers = (customers: Customer[]): object => customers.map(
 );
 
 const Customers = (): JSX.Element => {
+  const [ showModal, setShowModal ] = useState(false);
+	const [ idCustomer, setIdCustomer ] = useState('');
+
+	const onDeleteCustomer = useCallback((_id: string): void => {
+		toast.success(_id);
+		setShowModal(false);
+	}, []);
+
 	return (
 		<>
 			<Header />
@@ -102,10 +120,26 @@ const Customers = (): JSX.Element => {
 				<section className='mt-4'>
 					<TableRecords
 						headings={[ 'Name', 'Company', 'Contact', 'Address', 'Options' ]}
-						content={ renderCustomers(customersArr) }
+						content={ renderCustomers(customersArr, setShowModal, setIdCustomer) }
 					/>
 				</section>
 			</main>
+
+			{/* Modal for delete confirmation */}
+			{ showModal ? (
+        <Modal
+					id={ idCustomer }
+					setId={ setIdCustomer }
+					onDelete={ onDeleteCustomer }
+					setShowModal={ setShowModal }
+				/>
+      ) : null }
+
+			{/* Toast */}
+			<Toaster
+				position='top-right'
+				reverseOrder={false}
+			/>
 		</>
 	);
 }

@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -8,6 +9,9 @@ import Input from '../../components/Input';
 import LinkRouter from '../../components/LinkRouter';
 
 const EditProduct = (): JSX.Element => {
+	const params = useParams();
+	const { id } = params;
+
 	//* Formik and Yup Validation
 	const formik = useFormik({
 		initialValues: {
@@ -32,12 +36,11 @@ const EditProduct = (): JSX.Element => {
 
 	return (
 		<>
-			<h1>Edit Product</h1>
-			{/* <Header />
+			<Header />
 
 			<main className='w-full md:w-10/12 mx-auto'>
 				<h1 className='text-xl md:text-2xl font-medium md:font-normal text-center'>
-					Add Product
+					Edit Product: { id }
 				</h1>
 
 				<form
@@ -118,6 +121,7 @@ const EditProduct = (): JSX.Element => {
 							isButton
 							linkText='Cancel'
 							linkTo='/products'
+							size='normal'
 							variant='danger'
 						/>
 
@@ -130,7 +134,7 @@ const EditProduct = (): JSX.Element => {
 						/>
 					</div>
 				</form>
-			</main> */}
+			</main>
 		</>
 	);
 }

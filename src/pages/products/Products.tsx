@@ -1,6 +1,10 @@
+import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
+import Modal from '../../components/Modal';
 import TableRecords from '../../components/TableRecords';
 
 interface Product {
@@ -30,7 +34,9 @@ const productsArr = [
 	},
 ];
 
-const renderProducts = (products: Product[]): object => products.map(
+const renderProducts = (
+	products: Product[], setShowModal: Dispatch<SetStateAction<boolean>>, setIdProduct: Dispatch<SetStateAction<string>>
+): object => products.map(
 	({ _id, name, stock, price }) => (
 		<tr key={ _id }>
 			<td className='p-2 whitespace-nowrap'>
@@ -49,6 +55,10 @@ const renderProducts = (products: Product[]): object => products.map(
 					label='Delete'
 					type='button'
 					icon='fa-trash'
+					onClick={() => {
+						setShowModal(true);
+						setIdProduct(_id);
+					}}
 				/>
 
 				<LinkRouter
@@ -65,6 +75,14 @@ const renderProducts = (products: Product[]): object => products.map(
 );
 
 const Products = (): JSX.Element => {
+	const [ showModal, setShowModal ] = useState(false);
+	const [ idProduct, setIdProduct ] = useState('');
+
+	const onDeleteProduct = useCallback((_id: string): void => {
+		toast.success(_id);
+		setShowModal(false);
+	}, []);
+
 	return (
 		<>
 			<Header />
@@ -84,10 +102,26 @@ const Products = (): JSX.Element => {
 				<section className='mt-4'>
 					<TableRecords
 						headings={[ 'Name', 'Stock', 'Price', 'Options' ]}
-						content={ renderProducts(productsArr) }
+						content={ renderProducts(productsArr, setShowModal, setIdProduct) }
 					/>
 				</section>
 			</main>
+
+			{/* Modal for delete confirmation */}
+			{ showModal ? (
+				<Modal
+					id={ idProduct }
+					setId={ setIdProduct }
+					onDelete={ onDeleteProduct }
+					setShowModal={ setShowModal }
+				/>
+      ) : null }
+
+			{/* Toast */}
+			<Toaster
+				position='top-right'
+				reverseOrder={false}
+			/>
 		</>
 	);
 }
