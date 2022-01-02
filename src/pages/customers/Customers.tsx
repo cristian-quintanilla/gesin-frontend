@@ -20,7 +20,7 @@ interface Customer {
 
 const customersArr = [
 	{
-		_id: '61b2b5d6cc192be8c6af3bf3',
+		_id: 'customer-1',
 		firstName: 'Juan',
 		lastName: 'Pérez',
 		company: 'Spartacos',
@@ -30,7 +30,7 @@ const customersArr = [
 		phone: '182 169 1002'
 	},
 	{
-		_id: '61b2b621cc192be8c6af3bf6',
+		_id: 'customer-2',
 		firstName: 'Karla',
 		lastName: 'Martinez',
 		company: 'Karla\'s',
@@ -105,9 +105,9 @@ const Customers = (): JSX.Element => {
 		<>
 			<Header />
 
-			<main className='w-full md:w-10/12 mx-auto'>
+			<main className='w-full md:w-10/12 mx-auto mb-4'>
 				<header className='flex items-center justify-between px-5 py-4'>
-					<h2 className='text-xl font-semibold text-gray-800'>Customers</h2>
+					<h2 className='text-lg md:text-2xl text-gray-800'>Customers</h2>
 					<LinkRouter
 						isButton
 						linkText='Add Customer'

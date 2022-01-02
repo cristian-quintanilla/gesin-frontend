@@ -26,7 +26,6 @@ const AddCustomer = (): JSX.Element => {
 		}),
 		onSubmit: values => {
 			console.log(values);
-			// login(values);
 		}
 	});
 
@@ -34,8 +33,8 @@ const AddCustomer = (): JSX.Element => {
 		<>
 			<Header />
 
-			<main className='w-full md:w-10/12 mx-auto'>
-				<h1 className='text-xl md:text-2xl font-medium md:font-normal text-center'>
+			<main className='w-full md:w-10/12 mx-auto mb-4'>
+				<h1 className='text-xl md:text-2xl text-center'>
 					Add Customer
 				</h1>
 
@@ -44,6 +43,9 @@ const AddCustomer = (): JSX.Element => {
 					className='grid gap-4 grid-cols-12 mx-4 mt-4 md:mt-6'
 				>
 					<div className='col-span-12 md:col-span-6'>
+						<label className='block text-gray-700 mb-2' htmlFor='firstName'>
+							First Name:
+						</label>
 						<Input
 							type='text'
 							id='firstName'
@@ -67,6 +69,9 @@ const AddCustomer = (): JSX.Element => {
 					</div>
 
 					<div className='col-span-12 md:col-span-6'>
+						<label className='block text-gray-700 mb-2' htmlFor='lastName'>
+							Last Name:
+						</label>
 						<Input
 							type='text'
 							id='lastName'
@@ -90,6 +95,9 @@ const AddCustomer = (): JSX.Element => {
 					</div>
 
 					<div className='col-span-12'>
+						<label className='block text-gray-700 mb-2' htmlFor='company'>
+							Company:
+						</label>
 						<Input
 							type='text'
 							id='company'
@@ -113,11 +121,14 @@ const AddCustomer = (): JSX.Element => {
 					</div>
 
 					<div className='col-span-12'>
+						<label className='block text-gray-700 mb-2' htmlFor='email'>
+							Email Address:
+						</label>
 						<Input
 							type='email'
 							id='email'
 							name='email'
-							placeholder='Email'
+							placeholder='Email Address'
 							value={ formik.values.email }
 							onChange={ formik.handleChange }
 							onBlur={ formik.handleBlur }
@@ -136,6 +147,9 @@ const AddCustomer = (): JSX.Element => {
 					</div>
 
 					<div className='col-span-12'>
+						<label className='block text-gray-700 mb-2' htmlFor='address'>
+							Address:
+						</label>
 						<Input
 							type='text'
 							id='address'
@@ -148,11 +162,14 @@ const AddCustomer = (): JSX.Element => {
 					</div>
 
 					<div className='col-span-12'>
+						<label className='block text-gray-700 mb-2' htmlFor='phone'>
+							Phone Number:
+						</label>
 						<Input
 							type='text'
 							id='phone'
 							name='phone'
-							placeholder='Phone'
+							placeholder='Phone Number'
 							value={ formik.values.phone }
 							onChange={ formik.handleChange }
 							onBlur={ formik.handleBlur }

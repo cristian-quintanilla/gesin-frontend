@@ -20,17 +20,20 @@ const EditProduct = (): JSX.Element => {
 			price: '',
 		},
 		validationSchema: Yup.object({
-			name: Yup.string().required('Name is required.'),
-			stock: Yup.number().required('Stock is required.')
-							.typeError('You must specify a number.')
-							.min(0, 'Min value for stock is 0.'),
-			price: Yup.number().required('Price is required.')
-							.typeError('You must specify a number.')
-							.min(0, 'Min value for price is 0.'),
+			name: Yup.string().required('Product Name is required.'),
+			stock: Yup.number()
+				.required('Product Stock is required.')
+				.typeError('You must specify a number.')
+				.min(0, 'Min value for price is 0.')
+				.integer('Stock must be an integer.'),
+			price: Yup.number()
+				.required('Product Price is required.')
+				.typeError('You must specify a number.')
+				.min(0, 'Min value for price is 0.')
 		}),
 		onSubmit: values => {
-			console.log(values);
-			// login(values);
+			const { stock } = values;
+			console.log(Number(stock));
 		}
 	});
 
@@ -38,8 +41,8 @@ const EditProduct = (): JSX.Element => {
 		<>
 			<Header />
 
-			<main className='w-full md:w-10/12 mx-auto'>
-				<h1 className='text-xl md:text-2xl font-medium md:font-normal text-center'>
+			<main className='w-full md:w-10/12 mx-auto mb-4'>
+				<h1 className='text-xl md:text-2xl text-center'>
 					Edit Product: { id }
 				</h1>
 
@@ -48,6 +51,9 @@ const EditProduct = (): JSX.Element => {
 					className='grid gap-4 grid-cols-12 mx-4 mt-4 md:mt-6'
 				>
 					<div className='col-span-12'>
+						<label className='block text-gray-700 mb-2' htmlFor='name'>
+							Product Name:
+						</label>
 						<Input
 							type='text'
 							id='name'
@@ -71,6 +77,9 @@ const EditProduct = (): JSX.Element => {
 					</div>
 
 					<div className='col-span-12'>
+						<label className='block text-gray-700 mb-2' htmlFor='stock'>
+							Product Stock:
+						</label>
 						<Input
 							type='text'
 							id='stock'
@@ -94,6 +103,9 @@ const EditProduct = (): JSX.Element => {
 					</div>
 
 					<div className='col-span-12'>
+						<label className='block text-gray-700 mb-2' htmlFor='price'>
+							Product Price:
+						</label>
 						<Input
 							type='text'
 							id='price'

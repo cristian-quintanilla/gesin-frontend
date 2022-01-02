@@ -3,20 +3,21 @@ import { Dispatch, SetStateAction } from 'react';
 import Button from './Button';
 
 interface Props {
+	type: 'cancel' | 'deliver';
 	id: string;
 	setId: Dispatch<SetStateAction<string>>;
-	onDelete: (id: string) => void;
+	onAction: (id: string) => void;
 	setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
-const Modal = ({ id, setId, onDelete, setShowModal }: Props): JSX.Element => (
+const ModalOrder = ({ type, id, setId, onAction, setShowModal }: Props): JSX.Element => (
 	<>
 		<div className='justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50'>
 			<div className='relative w-auto my-6 mx-auto max-w-sm'>
 				<div className='border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white'>
 					<div className='flex items-start justify-between p-5'>
 						<h3 className='text-lg md:text-3xl mr-8'>
-							Delete
+							{ type === 'cancel' ? 'Cancel Order' : 'Deliver Order' }
 						</h3>
 
 						<Button
@@ -32,13 +33,16 @@ const Modal = ({ id, setId, onDelete, setShowModal }: Props): JSX.Element => (
 					</div>
 
 					<p className='mx-4 pb-3 text-gray-600 text-base md:text-lg leading-relaxed border-b border-gray-400'>
-						Are you sure you want to delete the record?
-						This action can't be undone.
+						{
+							type === 'cancel'
+							? 'Are you sure you want to cancel this order?'
+							: 'Are you sure you want to deliver this order?'
+						}
 					</p>
 
 					<div className='flex items-center justify-end p-4 gap-2'>
 						<Button
-							variant='danger'
+							variant='secondary'
 							size='normal'
 							label='Close'
 							type='button'
@@ -50,12 +54,12 @@ const Modal = ({ id, setId, onDelete, setShowModal }: Props): JSX.Element => (
 						/>
 
 						<Button
-							variant='primary'
+							variant={ type === 'cancel' ? 'danger' : 'primary' }
 							size='normal'
-							label='Yes, Delete'
+							label={ type === 'cancel' ? 'Cancel Order' : 'Deliver Order' }
 							type='button'
-							icon='fa-trash'
-							onClick={ () => onDelete(id) }
+							icon={ type === 'cancel' ? 'fa-ban' : 'fa-truck-loading' }
+							onClick={ () => onAction(id) }
 						/>
 					</div>
 				</div>
@@ -65,4 +69,4 @@ const Modal = ({ id, setId, onDelete, setShowModal }: Props): JSX.Element => (
 	</>
 );
 
-export default Modal;
+export default ModalOrder;

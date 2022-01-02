@@ -12,13 +12,17 @@ const Template: ComponentStory<typeof Order> = args => <Order { ...args } />;
 export const OrderStory = Template.bind({});
 OrderStory.args = {
   order: {
+    _id: 'order-1',
     client: {
+      _id: '61b65e814848e3470a90f4c1',
       firstName: 'Juan',
       lastName: 'Perez',
       company: 'Spartacos',
       email: 'juanperez@gmail.com',
       address: 'Calle Uruguay 500 Col. Universal',
       phone: '182 169 1002',
+      status: true,
+      __v: 0,
     },
     details: [
       {

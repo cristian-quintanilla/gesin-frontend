@@ -16,18 +16,18 @@ interface Product {
 
 const productsArr = [
 	{
-		_id: '61b2b5d6cc192be8c6af3bf3',
+		_id: 'product-1',
 		name: 'Memoria USB 8GB',
 		stock: 100,
 		price: 99.99,
 	},
 	{
-		_id: '61b2b5d6cc192be8c6af3bf4',
+		_id: 'product-2',
 		name: 'Laptop Gamer HP',
 		stock: 50,
 		price: 899.99,
 	},{
-		_id: '61b2b5d6cc192be8c6af3bf5',
+		_id: 'product-3',
 		name: 'Laptop Gamer MSI',
 		stock: 10,
 		price: 199.99,
@@ -87,9 +87,9 @@ const Products = (): JSX.Element => {
 		<>
 			<Header />
 
-			<main className='w-full md:w-10/12 mx-auto'>
+			<main className='w-full md:w-10/12 mx-auto mb-4'>
 				<header className='flex items-center justify-between px-5 py-4'>
-					<h2 className='text-xl font-semibold text-gray-800'>Products</h2>
+					<h2 className='text-lg md:text-2xl text-gray-800'>Products</h2>
 					<LinkRouter
 						isButton
 						linkText='Add Product'
