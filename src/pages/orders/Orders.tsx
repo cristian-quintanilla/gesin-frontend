@@ -1,8 +1,9 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 
 import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
 import Order from '../../components/Order';
+import Pagination from '../../components/Pagination';
 
 type Details = {
 	_id: string;
@@ -98,16 +99,81 @@ const ordersArr: Order[] = [
 		],
 		total: 999.95,
 		delivered: false
+	},
+	{
+		_id: '61b65e814848e3470a90f4c1',
+		client: {
+      _id: '61b65e814848e3470a90f4c1',
+      firstName: 'Juan',
+      lastName: 'Perez',
+      company: 'Spartacos',
+      email: 'juanperez@gmail.com',
+      address: 'Calle Uruguay 500 Col. Universal',
+      phone: '182 169 1002',
+      status: true,
+      __v: 0,
+    },
+		details: [
+      {
+        _id: '61b65e814848e3470a90f4c2',
+        product: {
+					_id: 'product-1',
+          name: 'Mochila para Laptop',
+          price: 199.99
+        },
+        quantity: 5,
+      },
+      {
+        _id: '61b65e814848e3470a90f4c3',
+        product: {
+					_id: 'product-2',
+          name: 'Memoria USB',
+          price: 100.00
+        },
+        quantity: 2,
+      }
+    ],
+    total: 1199.95,
+    delivered: true,
+	},
+	{
+		_id: '61b661734a4dc82f42b0268a',
+		client: {
+			_id: '61b2b5d6cc192be8c6af3bf3',
+			firstName: 'Juan',
+			lastName: 'Pérez',
+			company: 'Spartacos',
+			email: 'juanperez@gmail.com',
+			address: 'Calle Uruguay 500 Col. Universal',
+			status: true,
+			__v: 0,
+			phone: '182 169 1002'
+		},
+		details: [
+			{
+				product: {
+					_id: '61b2b213005c3c8c33d39960',
+					name: 'Mochila para Laptop',
+					price: 199.99
+				},
+				quantity: 5,
+				_id: '61b661734a4dc82f42b0268b'
+			}
+		],
+		total: 999.95,
+		delivered: false
 	}
 ];
 
-const renderOrders = (orders: Order[]): object => orders.map(order => (
-	<Fragment key={ order._id }>
-		<Order order={ order } />
-	</Fragment>
-));
-
 const Orders = (): JSX.Element => {
+	const [ page, setPage ] = useState(1);
+
+	//* Pagination
+	const paginate = (pageNumber: number) => {
+		// setPagination(`?page=${ pageNumber }&size=${ SIZE }&filterAnd=clientId%7Cjn%7C${ client }%26`);
+		setPage(pageNumber);
+	}
+
 	return (
 		<>
 			<Header />
@@ -126,7 +192,21 @@ const Orders = (): JSX.Element => {
 				</header>
 
 				<section className='mt-4 flex flex-col gap-4'>
-					{ renderOrders(ordersArr) }
+					{
+						ordersArr.map(order => (
+							<Fragment key={ order._id }>
+								<Order order={ order } />
+							</Fragment>
+						))
+					}
+				</section>
+
+				<section className='flex justify-end mt-4'>
+					<Pagination
+						page={ page }
+						totalRecords={ 8 }
+						paginate={ paginate }
+					/>
 				</section>
 			</main>
 		</>

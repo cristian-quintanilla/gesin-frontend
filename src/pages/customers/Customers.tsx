@@ -5,6 +5,7 @@ import Button from '../../components/Button';
 import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
 import Modal from '../../components/Modal';
+import Pagination from '../../components/Pagination';
 import TableRecords from '../../components/TableRecords';
 
 interface Customer {
@@ -95,11 +96,19 @@ const renderCustomers = (
 const Customers = (): JSX.Element => {
   const [ showModal, setShowModal ] = useState(false);
 	const [ idCustomer, setIdCustomer ] = useState('');
+	const [ page, setPage ] = useState(1);
 
+	//* Delete Customer
 	const onDeleteCustomer = useCallback((_id: string): void => {
 		toast.success(_id);
 		setShowModal(false);
 	}, []);
+
+	//* Pagination
+	const paginate = (pageNumber: number) => {
+		// setPagination(`?page=${ pageNumber }&size=${ SIZE }&filterAnd=clientId%7Cjn%7C${ client }%26`);
+		setPage(pageNumber);
+	}
 
 	return (
 		<>
@@ -121,6 +130,14 @@ const Customers = (): JSX.Element => {
 					<TableRecords
 						headings={[ 'Name', 'Company', 'Contact', 'Address', 'Options' ]}
 						content={ renderCustomers(customersArr, setShowModal, setIdCustomer) }
+					/>
+				</section>
+
+				<section className='flex justify-end mt-4'>
+					<Pagination
+						page={ page }
+						totalRecords={ 8 }
+						paginate={ paginate }
 					/>
 				</section>
 			</main>

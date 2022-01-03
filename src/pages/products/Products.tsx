@@ -5,6 +5,7 @@ import Button from '../../components/Button';
 import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
 import Modal from '../../components/Modal';
+import Pagination from '../../components/Pagination';
 import TableRecords from '../../components/TableRecords';
 
 interface Product {
@@ -46,7 +47,7 @@ const renderProducts = (
 				{ stock }
 			</td>
 			<td className='p-2 whitespace-nowrap'>
-				${ price }
+				$ { price }
 			</td>
 			<td className='flex gap-2 p-2 whitespace-nowrap'>
 				<Button
@@ -77,11 +78,19 @@ const renderProducts = (
 const Products = (): JSX.Element => {
 	const [ showModal, setShowModal ] = useState(false);
 	const [ idProduct, setIdProduct ] = useState('');
+	const [ page, setPage ] = useState(1);
 
+	//* Delete Product
 	const onDeleteProduct = useCallback((_id: string): void => {
 		toast.success(_id);
 		setShowModal(false);
 	}, []);
+
+	//* Pagination
+	const paginate = (pageNumber: number) => {
+		// setPagination(`?page=${ pageNumber }&size=${ SIZE }&filterAnd=clientId%7Cjn%7C${ client }%26`);
+		setPage(pageNumber);
+	}
 
 	return (
 		<>
@@ -103,6 +112,14 @@ const Products = (): JSX.Element => {
 					<TableRecords
 						headings={[ 'Name', 'Stock', 'Price', 'Options' ]}
 						content={ renderProducts(productsArr, setShowModal, setIdProduct) }
+					/>
+				</section>
+
+				<section className='flex justify-end mt-4'>
+					<Pagination
+						page={ page }
+						totalRecords={ 8 }
+						paginate={ paginate }
 					/>
 				</section>
 			</main>

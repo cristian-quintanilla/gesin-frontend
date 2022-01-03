@@ -38,7 +38,7 @@ const Modal = ({ id, setId, onDelete, setShowModal }: Props): JSX.Element => (
 
 					<div className='flex items-center justify-end p-4 gap-2'>
 						<Button
-							variant='danger'
+							variant='secondary'
 							size='normal'
 							label='Close'
 							type='button'
@@ -50,7 +50,7 @@ const Modal = ({ id, setId, onDelete, setShowModal }: Props): JSX.Element => (
 						/>
 
 						<Button
-							variant='primary'
+							variant='danger'
 							size='normal'
 							label='Yes, Delete'
 							type='button'

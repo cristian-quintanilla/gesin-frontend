@@ -5,14 +5,14 @@ import Button from './Button';
 interface Props {
 	page: number;
 	totalRecords: number;
-	paginate: (() => void) | ((page: number) => number);
+	paginate: (() => void) | ((page: number) => number) | ((page: number) => void);
 }
 
 interface RenderItemsProps {
 	currentPage: number;
 	totalRecords: number;
 	setCurrentPage: (page: number) => void;
-	paginate: (() => void) | ((page: number) => number);
+	paginate: (() => void) | ((page: number) => number)  | ((page: number) => void);
 }
 
 const renderItems = ({currentPage, totalRecords, setCurrentPage, paginate}: RenderItemsProps) => {
