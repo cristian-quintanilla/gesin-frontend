@@ -1,24 +1,16 @@
-import { useState, Fragment } from 'react';
+import { useState, useEffect } from 'react';
 import Select, { OnChangeValue, SingleValue } from 'react-select';
 
+import Button from '../../components/Button';
 import Header from '../../components/Header';
+import LinkRouter from '../../components/LinkRouter';
 import MultiSelect from '../../components/MultiSelect';
 import Number from '../../components/Number';
-import Button from '../../components/Button';
-import LinkRouter from '../../components/LinkRouter';
 
 type SelectedOption = {
 	value: string;
 	label: string;
-}
-
-interface Order {
-	client: string;
-	details: {
-		product: string;
-		quantity: number;
-		label?: string;
-	}[];
+	price?: number;
 }
 
 const arrayCustomers: SelectedOption[] = [
@@ -44,18 +36,22 @@ const arrayProducts: SelectedOption[] = [
 	{
 		value: 'product1',
 		label: 'Mochila',
+		price: 100,
 	},
 	{
 		value: 'product2',
 		label: 'Celular',
+		price: 200,
 	},
 	{
 		value: 'product3',
 		label: 'Cámara',
+		price: 300,
 	},
 	{
 		value: 'product4',
 		label: 'Laptop HP 15',
+		price: 1500,
 	}
 ];
 
@@ -64,64 +60,62 @@ const AddOrder = (): JSX.Element => {
 		product: string;
 		label: string;
 		quantity: number;
+		price: number;
 	}[]>([]);
 
-	const [ order, setOrder ] = useState<Order>({
-		client: '',
-		details: [],
-	});
+	const [ client, setClient ] = useState<string>('');
+	const [ total, setTotal ] = useState<number>(0);
+
+	useEffect(() => {
+		const total = details.reduce((acc, { price, quantity }) => acc + price * quantity, 0);
+		setTotal(total);
+	}, [details]);
 
 	//* Add client to the order
 	const onChangeCustomer = (values: SingleValue<SelectedOption>) => {
-		setOrder(order => ({
-			...order,
-			client: values?.value || '',
-		}));
+		setClient(values?.value || '');
 	}
 
 	//* Add product to the order
 	const onChangeProducts = (values: OnChangeValue<SelectedOption, true>) => {
-		if (values){
+		if (values) {
 			setDetails(values.map(({ value, label }) => ({
 				product: value,
 				quantity: 1,
 				label,
+				price: arrayProducts.find(({ value: product }) => product === value)?.price || 0
 			})));
 		}
 	}
 
 	//* Change quantity of the product
 	const onChangeQuantity = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setDetails(quantities => quantities.map(quantity => {
-			if (quantity.product === e.target.name) {
+		if ( e.target.valueAsNumber > 100 && e.target.valueAsNumber <= 0 && !isNaN(e.target.valueAsNumber) ) return;
+
+		setDetails(details => details.map(detail => {
+			if (detail.product === e.target.name) {
 				return {
-					...quantity,
+					...detail,
 					quantity: e.target.valueAsNumber,
 				}
 			}
 
-			return quantity;
-		}));
-
-		//* Remove the 'label' property from the product
-		const detailsOrder = details.map(({ label, ...rest} ) => {
-			return rest;
-		});;
-
-		setOrder(order => ({
-			...order,
-			details: detailsOrder
+			return detail;
 		}));
 	}
 
 	//* Send the order
-	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
+		//* Remove the 'label' property from the product
+		const detailsOrder = details.map(({ label, price, ...rest} ) => {
+			return rest;
+		});
+
+		const order = { client, details: detailsOrder }
 		console.log(order);
 	}
-
-	// TODO: Remove one product button
 
 	return (
 		<>
@@ -132,7 +126,7 @@ const AddOrder = (): JSX.Element => {
 					New Order
 				</h1>
 
-				<form onSubmit={ onSubmit } className='mt-4'>
+				<form onSubmit={ onSubmit } className='mt-4 px-4'>
 					<div className='w-full bg-green-700 shadow-md rounded-md px-4 py-2'>
 						<h3 className='text-gray-100'>Select Client</h3>
 					</div>
@@ -176,15 +170,12 @@ const AddOrder = (): JSX.Element => {
 						</div>
 					</section>
 
-					{/* <div className='flex items-center justify-center mt-8'>
-						<Button
-							variant='primary'
-							size='large'
-							label='Create Order'
-							type='submit'
-							icon='fa-plus'
-						/>
-					</div> */}
+					<section className='w-full bg-gray-100 shadow-md rounded-md px-4 py-2 mt-8'>
+						<h2 className='text-lg md:text-xl font-medium text-green-700'>
+							Total: ${ total }
+						</h2>
+					</section>
+
 					<div className='mt-4 col-span-12 flex flex-wrap gap-2 justify-end'>
 						<LinkRouter
 							isButton
@@ -200,7 +191,7 @@ const AddOrder = (): JSX.Element => {
 							label='Create Order'
 							type='submit'
 							icon='fa-plus'
-							disabled={ !order.client || !details.length }
+							disabled={ !client || !details.length }
 						/>
 					</div>
 				</form>
