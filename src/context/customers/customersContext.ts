@@ -12,6 +12,7 @@ type ContextType = {
 	customers: CustomerType[];
 	message: MessageType | null;
 	getCustomers: () => void;
+	addCustomer: (customer: CustomerType) => void;
 }
 
 const customersContext = createContext({} as ContextType);

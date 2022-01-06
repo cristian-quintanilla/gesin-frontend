@@ -4,13 +4,13 @@ export type ActionType = {
 };
 
 export type CustomerType = {
-	_id: string;
+	_id?: string;
 	firstName: string;
 	lastName: string;
 	company: string
 	email: string;
 	address?: string;
-	status: boolean;
+	status?: boolean;
 	phone?: string;
 }
 

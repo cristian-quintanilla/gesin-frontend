@@ -20,7 +20,7 @@ const Alert = ({ message, type, icon }: Props): JSX.Element => {
 
 	return (
 		<div className='flex w-full bg-white shadow-md'>
-			<div className={ `rounded-l-lg ${classes} ${alertVariants[`alert_${type}`]}` }>
+			<div className={ `rounded-l-lg ${ classes } ${ alertVariants[`alert_${ type }`] }` }>
 				<i className={ `fas ${ icon } }` }></i>
 			</div>
 

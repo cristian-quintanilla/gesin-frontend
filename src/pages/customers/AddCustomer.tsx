@@ -1,3 +1,6 @@
+import { useContext } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -7,7 +10,14 @@ import Header from '../../components/Header';
 import Input from '../../components/Input';
 import LinkRouter from '../../components/LinkRouter';
 
+import customersContext from '../../context/customers/customersContext';
+
 const AddCustomer = (): JSX.Element => {
+	const navigate = useNavigate();
+
+	const CustomersContext = useContext(customersContext);
+	const { message, addCustomer } = CustomersContext;
+
 	//* Formik and Yup Validation
 	const formik = useFormik({
 		initialValues: {
@@ -24,8 +34,9 @@ const AddCustomer = (): JSX.Element => {
 			company: Yup.string().required('Company is required.'),
 			email: Yup.string().required('Email is required.').email('Invalid email address.'),
 		}),
-		onSubmit: values => {
-			console.log(values);
+		onSubmit: async values => {
+			await addCustomer(values);
+			message ? toast.error(message.msg) : navigate('/customers');
 		}
 	});
 
@@ -195,6 +206,12 @@ const AddCustomer = (): JSX.Element => {
 					</div>
 				</form>
 			</main>
+
+			{/* Toast */}
+			<Toaster
+				position='top-right'
+				reverseOrder={false}
+			/>
 		</>
 	);
 }

@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useCallback, useContext, useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
+import Alert from '../../components/Alert';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
@@ -48,7 +49,7 @@ const renderCustomers = (
 					icon='fa-trash'
 					onClick={() => {
 						setShowModal(true);
-						setIdCustomer(_id);
+						setIdCustomer(_id as string);
 					}}
 				/>
 
@@ -69,17 +70,14 @@ const Customers = (): JSX.Element => {
 	const CustomersContext = useContext(customersContext);
 	const { customers, message, getCustomers } = CustomersContext;
 
-	const PAGES_PER_PAGE = 1;
+	const CUSTOMERS_PER_PAGE = 2;
 	const [ showModal, setShowModal ] = useState(false);
-	const [ loading, setLoading ] = useState<boolean>();
 	const [ idCustomer, setIdCustomer ] = useState('');
 	const [ currentPage, setCurrentPage ] = useState(1);
 
 	//* Get customers
 	useEffect(() => {
-		setLoading(true);
 		getCustomers();
-		setLoading(false);
 	}, []);
 
 	//* Delete Customer
@@ -92,9 +90,21 @@ const Customers = (): JSX.Element => {
 	const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
 	//* Get current customers
-	const indexOfLastPost = currentPage * PAGES_PER_PAGE;
-	const indexOfFirstPost = indexOfLastPost - PAGES_PER_PAGE;
+	const indexOfLastPost = currentPage * CUSTOMERS_PER_PAGE;
+	const indexOfFirstPost = indexOfLastPost - CUSTOMERS_PER_PAGE;
 	const currentCustomers = customers.slice(indexOfFirstPost, indexOfLastPost);
+
+	if ( message ) {
+		return (
+			<main className='w-full md:w-10/12 mx-auto mb-4 p-6 md:px-0'>
+				<Alert
+					type='error'
+					message={ message.msg }
+					icon='fa-exclamation-triangle'
+				/>
+			</main>
+		);
+	}
 
 	if ( customers.length === 0 ) {
 		return (
@@ -102,19 +112,17 @@ const Customers = (): JSX.Element => {
 				<Header />
 
 				<main className='w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
-					<h2 className='text-lg md:text-2xl text-gray-800'>No Customers</h2>
+					<h2 className='text-lg md:text-2xl text-gray-800'>
+						No Customers. Try adding one.
+					</h2>
 
-					{
-						loading && (
-							<LinkRouter
-								isButton
-								linkText='Add Customer'
-								linkTo='/customers/new'
-								size='normal'
-								variant='primary'
-							/>
-						)
-					}
+					<LinkRouter
+						isButton
+						linkText='Add Customer'
+						linkTo='/customers/new'
+						size='normal'
+						variant='primary'
+					/>
 				</main>
 			</>
 		);
@@ -146,7 +154,7 @@ const Customers = (): JSX.Element => {
 				<section className='flex justify-end mt-4'>
 					<Pagination
 						page={ currentPage }
-						totalRecords={ Math.ceil( customers.length / PAGES_PER_PAGE ) }
+						totalRecords={ Math.ceil( customers.length / CUSTOMERS_PER_PAGE ) }
 						paginate={ paginate }
 					/>
 				</section>

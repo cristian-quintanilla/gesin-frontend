@@ -20,6 +20,17 @@ const customersReducer = (state: CustomerInterface, action: ActionType) => {
 				customers: payload,
 				message: null,
 			};
+		case ADD_CUSTOMER:
+			return {
+				...state,
+				customers: [ ...state.customers, payload ],
+				message: null,
+			}
+		case CUSTOMERS_ERROR:
+			return {
+				...state,
+				message: payload,
+			}
 		default:
 			return state;
 	}
