@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useContext, useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 import Button from '../../components/Button';
@@ -8,41 +8,13 @@ import Modal from '../../components/Modal';
 import Pagination from '../../components/Pagination';
 import TableRecords from '../../components/TableRecords';
 
-interface Customer {
-	_id: string;
-	firstName: string;
-	lastName: string;
-	company: string;
-	email: string;
-	address: string;
-	phone?: string;
-	status: boolean;
-}
-
-const customersArr = [
-	{
-		_id: 'customer-1',
-		firstName: 'Juan',
-		lastName: 'Pérez',
-		company: 'Spartacos',
-		email: 'juanperez@gmail.com',
-		address: 'Calle Uruguay 500 Col. Universal',
-		status: true,
-		phone: '182 169 1002'
-	},
-	{
-		_id: 'customer-2',
-		firstName: 'Karla',
-		lastName: 'Martinez',
-		company: 'Karla\'s',
-		email: 'karla@gmail.com',
-		address: 'Calle 20 de Noviembre Col. Centro',
-		status: true,
-	}
-];
+import { CustomerType } from '../../types';
+import customersContext from '../../context/customers/customersContext';
 
 const renderCustomers = (
-	customers: Customer[], setShowModal: Dispatch<SetStateAction<boolean>>, setIdCustomer: Dispatch<SetStateAction<string>>
+	customers: CustomerType[],
+	setShowModal: Dispatch<SetStateAction<boolean>>,
+	setIdCustomer: Dispatch<SetStateAction<string>>
 ): object => customers.map(
 	({ _id, firstName, lastName, company, email, address, phone }) => (
 		<tr key={ _id }>
@@ -65,7 +37,7 @@ const renderCustomers = (
 		 		}
 			</td>
 			<td className='p-2 whitespace-nowrap'>
-				{ address.length > 25 ? address.substring(0, 30) + '...' : address }
+				{ address && address.length > 25 ? address.substring(0, 30) + '...' : address }
 			</td>
 			<td className='flex gap-2 p-2 whitespace-nowrap'>
 				<Button
@@ -94,9 +66,21 @@ const renderCustomers = (
 );
 
 const Customers = (): JSX.Element => {
-  const [ showModal, setShowModal ] = useState(false);
+	const CustomersContext = useContext(customersContext);
+	const { customers, message, getCustomers } = CustomersContext;
+
+	const PAGES_PER_PAGE = 1;
+	const [ showModal, setShowModal ] = useState(false);
+	const [ loading, setLoading ] = useState<boolean>();
 	const [ idCustomer, setIdCustomer ] = useState('');
-	const [ page, setPage ] = useState(1);
+	const [ currentPage, setCurrentPage ] = useState(1);
+
+	//* Get customers
+	useEffect(() => {
+		setLoading(true);
+		getCustomers();
+		setLoading(false);
+	}, []);
 
 	//* Delete Customer
 	const onDeleteCustomer = useCallback((_id: string): void => {
@@ -105,16 +89,42 @@ const Customers = (): JSX.Element => {
 	}, []);
 
 	//* Pagination
-	const paginate = (pageNumber: number) => {
-		// setPagination(`?page=${ pageNumber }&size=${ SIZE }&filterAnd=clientId%7Cjn%7C${ client }%26`);
-		setPage(pageNumber);
+	const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+	//* Get current customers
+	const indexOfLastPost = currentPage * PAGES_PER_PAGE;
+	const indexOfFirstPost = indexOfLastPost - PAGES_PER_PAGE;
+	const currentCustomers = customers.slice(indexOfFirstPost, indexOfLastPost);
+
+	if ( customers.length === 0 ) {
+		return (
+			<>
+				<Header />
+
+				<main className='w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
+					<h2 className='text-lg md:text-2xl text-gray-800'>No Customers</h2>
+
+					{
+						loading && (
+							<LinkRouter
+								isButton
+								linkText='Add Customer'
+								linkTo='/customers/new'
+								size='normal'
+								variant='primary'
+							/>
+						)
+					}
+				</main>
+			</>
+		);
 	}
 
 	return (
 		<>
 			<Header />
 
-			<main className='w-full md:w-10/12 mx-auto mb-4'>
+			<main className='w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
 				<header className='flex items-center justify-between px-5 py-4'>
 					<h2 className='text-lg md:text-2xl text-gray-800'>Customers</h2>
 					<LinkRouter
@@ -129,14 +139,14 @@ const Customers = (): JSX.Element => {
 				<section className='mt-4'>
 					<TableRecords
 						headings={[ 'Name', 'Company', 'Contact', 'Address', 'Options' ]}
-						content={ renderCustomers(customersArr, setShowModal, setIdCustomer) }
+						content={ renderCustomers(currentCustomers, setShowModal, setIdCustomer) }
 					/>
 				</section>
 
 				<section className='flex justify-end mt-4'>
 					<Pagination
-						page={ page }
-						totalRecords={ 8 }
+						page={ currentPage }
+						totalRecords={ Math.ceil( customers.length / PAGES_PER_PAGE ) }
 						paginate={ paginate }
 					/>
 				</section>

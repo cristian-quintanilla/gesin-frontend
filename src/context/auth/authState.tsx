@@ -5,10 +5,8 @@ import { GET_USER, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT } from '../../types';
 
 import authContext from './authContext';
 import authReducer from './authReducer';
-
 import clientAxios from '../../config/axios';
-// import Toast from '../../components/Toast';
-import tokenAdminAuth from '../../config/tokenUser';
+import tokenUser from '../../config/tokenUser';
 
 const AuthState = ({ children }: { children: ReactNode }) => {
 	const initialState = {
@@ -50,7 +48,7 @@ const AuthState = ({ children }: { children: ReactNode }) => {
 		const userToken = sessionStorage.getItem('auth-token');
 
 		//_ Send token via headers
-		if (userToken) tokenAdminAuth(userToken);
+		if (userToken) tokenUser(userToken);
 
 		try{
 			const result = await clientAxios.get('/api/v1/auth/me');
