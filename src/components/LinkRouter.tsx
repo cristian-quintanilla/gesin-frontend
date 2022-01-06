@@ -7,9 +7,10 @@ interface Props {
 	linkTo: string;
 	size: 'normal' | 'small' | 'large';
 	variant: 'primary' | 'secondary' | 'danger';
+	state?: any;
 }
 
-const LinkRouter = ({ isButton, icon, linkText, linkTo, size, variant }: Props): JSX.Element => {
+const LinkRouter = ({ isButton, icon, linkText, linkTo, size, variant, state }: Props): JSX.Element => {
 	const variants = {
 		button_primary: 'border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white rounded ',
 		button_secondary: 'border-2 border-gray-600 text-gray-800 hover:bg-gray-600 hover:text-gray-100 rounded ',
@@ -32,6 +33,7 @@ const LinkRouter = ({ isButton, icon, linkText, linkTo, size, variant }: Props):
 		<NavLink
 			to={ linkTo }
 			className={({ isActive }) => styles + (isActive ? ' font-semibold' : '') }
+			state={ state }
 		>
 			<div>
 				{ icon && <i className={ `fas ${ icon } ${ linkText ? 'mr-2' : '' }` }></i> }

@@ -16,7 +16,7 @@ export type CustomerType = {
 
 export type MessageType = {
 	msg: string;
-	type: string;
+	type: 'success' | 'error' | 'default';
 }
 
 export type UserType = {

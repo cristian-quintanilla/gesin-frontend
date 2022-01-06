@@ -56,10 +56,19 @@ const renderCustomers = (
 				<LinkRouter
 					isButton
 					linkText='Edit'
-					linkTo={`/customers/edit/${ _id }`}
+					linkTo={ `/customers/edit/${ _id }`}
 					icon='fa-edit'
 					size='small'
 					variant='primary'
+					state={{
+						_id,
+						firstName,
+						lastName,
+						company,
+						email,
+						address,
+						phone
+					}}
 				/>
 			</td>
 		</tr>
@@ -68,7 +77,7 @@ const renderCustomers = (
 
 const Customers = (): JSX.Element => {
 	const CustomersContext = useContext(customersContext);
-	const { customers, message, getCustomers } = CustomersContext;
+	const { customers, message, getCustomers, deleteCustomer } = CustomersContext;
 
 	const CUSTOMERS_PER_PAGE = 2;
 	const [ showModal, setShowModal ] = useState(false);
@@ -82,7 +91,7 @@ const Customers = (): JSX.Element => {
 
 	//* Delete Customer
 	const onDeleteCustomer = useCallback((_id: string): void => {
-		toast.success(_id);
+		deleteCustomer(_id);
 		setShowModal(false);
 	}, []);
 
@@ -98,15 +107,13 @@ const Customers = (): JSX.Element => {
 		return (
 			<main className='w-full md:w-10/12 mx-auto mb-4 p-6 md:px-0'>
 				<Alert
-					type='error'
+					type={ message.type }
 					message={ message.msg }
 					icon='fa-exclamation-triangle'
 				/>
 			</main>
 		);
-	}
-
-	if ( customers.length === 0 ) {
+	} else if ( customers.length === 0 ) {
 		return (
 			<>
 				<Header />

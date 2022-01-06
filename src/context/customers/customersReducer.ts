@@ -26,6 +26,12 @@ const customersReducer = (state: CustomerInterface, action: ActionType) => {
 				customers: [ ...state.customers, payload ],
 				message: null,
 			}
+		case DELETE_CUSTOMER:
+			return {
+				...state,
+				customers: state.customers.filter(customer => customer._id !== payload),
+				message: null
+			}
 		case CUSTOMERS_ERROR:
 			return {
 				...state,

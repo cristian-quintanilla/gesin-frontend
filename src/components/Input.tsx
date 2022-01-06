@@ -3,7 +3,7 @@ interface Props {
 	id: string;
 	name: string;
 	placeholder: string;
-	value: string;
+	value: string | undefined;
 	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	onBlur: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }

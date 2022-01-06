@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -8,19 +8,23 @@ import Header from '../../components/Header';
 import Input from '../../components/Input';
 import LinkRouter from '../../components/LinkRouter';
 
+import { CustomerType } from '../../types';
+
 const EditCustomer = (): JSX.Element => {
-	const params = useParams();
-	const { id } = params;
+	const location = useLocation();
+
+	const { state } = location;
+	const { _id, firstName, lastName, company, email, address, status, phone } = state as CustomerType;
 
 	//* Formik and Yup Validation
 	const formik = useFormik({
 		initialValues: {
-			firstName: '',
-			lastName: '',
-			company: '',
-			email: '',
-			address: '',
-			phone: '',
+			firstName,
+			lastName,
+			company,
+			email,
+			address,
+			phone,
 		},
 		validationSchema: Yup.object({
 			firstName: Yup.string().required('First name is required.'),
@@ -39,7 +43,7 @@ const EditCustomer = (): JSX.Element => {
 
 			<main className='w-full md:w-10/12 mx-auto mb-4'>
 				<h1 className='text-xl md:text-2xl text-center'>
-					Edit Customer: { id }
+					Edit Customer: { `${ firstName  } ${ lastName }` }
 				</h1>
 
 				<form

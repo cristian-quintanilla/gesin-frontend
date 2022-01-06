@@ -1,6 +1,7 @@
 import { ReactNode, useReducer } from 'react';
-import  { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import  { AxiosError } from 'axios';
 
 import {
 	GET_CUSTOMERS,
@@ -17,6 +18,8 @@ import customersContext from './customersContext';
 import customersReducer from './customersReducer';
 
 const CustomersState = ({ children }: { children: ReactNode }) => {
+	const navigate = useNavigate();
+
 	const initialState = {
 		customers: [],
 		message: null,
@@ -51,15 +54,39 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 		try{
 			const { data } = await clientAxios.post('/api/v1/customers/create', customer);
 
-			toast.success(data.msg);
-
 			dispatch({
 				type: ADD_CUSTOMER,
 				payload: customer
 			});
+
+			toast.success(data.msg);
+			navigate('/customers');
 		} catch (error) {
 			const err = error as AxiosError;
 			const msg = err.response?.data.msg || 'Error adding customer. Try again later or contact support.';
+			const message = { msg, type: 'error' };
+
+			dispatch({
+				type: CUSTOMERS_ERROR,
+				payload: message
+			});
+		}
+	}
+
+	//* Delete customer
+	const deleteCustomer = async (_id: string) => {
+		try{
+			const { data } = await clientAxios.delete(`/api/v1/customers/delete/${ _id }`);
+
+			dispatch({
+				type: DELETE_CUSTOMER,
+				payload: _id
+			});
+
+			toast.success(data.msg);
+		} catch (error) {
+			const err = error as AxiosError;
+			const msg = err.response?.data.msg || 'Error deleting customer. Try again later or contact support.';
 			const message = { msg, type: 'error' };
 
 			dispatch({
@@ -75,7 +102,8 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 				customers: state.customers,
 				message: state.message,
 				getCustomers,
-				addCustomer
+				addCustomer,
+				deleteCustomer
 			}}
 		>
 			{ children }

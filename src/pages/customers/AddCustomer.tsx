@@ -1,6 +1,5 @@
 import { useContext } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -13,7 +12,6 @@ import LinkRouter from '../../components/LinkRouter';
 import customersContext from '../../context/customers/customersContext';
 
 const AddCustomer = (): JSX.Element => {
-	const navigate = useNavigate();
 
 	const CustomersContext = useContext(customersContext);
 	const { message, addCustomer } = CustomersContext;
@@ -36,7 +34,6 @@ const AddCustomer = (): JSX.Element => {
 		}),
 		onSubmit: async values => {
 			await addCustomer(values);
-			message ? toast.error(message.msg) : navigate('/customers');
 		}
 	});
 
@@ -48,6 +45,18 @@ const AddCustomer = (): JSX.Element => {
 				<h1 className='text-xl md:text-2xl text-center'>
 					Add Customer
 				</h1>
+
+				{
+					message && (
+						<div className='w-full my-2'>
+							<Alert
+								type={ message.type }
+								icon='fa-exclamation-triangle'
+								message={ message.msg }
+							/>
+						</div>
+					)
+				}
 
 				<form
 					onSubmit={ formik.handleSubmit }
