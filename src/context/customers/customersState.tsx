@@ -5,7 +5,6 @@ import  { AxiosError } from 'axios';
 
 import {
 	GET_CUSTOMERS,
-	GET_CUSTOMER,
 	ADD_CUSTOMER,
 	DELETE_CUSTOMER,
 	UPDATE_CUSTOMER,
@@ -59,7 +58,7 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 				payload: customer
 			});
 
-			toast.success(data.msg);
+			toast.success(data.msg, { duration: 3000 });
 			navigate('/customers');
 		} catch (error) {
 			const err = error as AxiosError;
@@ -83,10 +82,35 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 				payload: _id
 			});
 
-			toast.success(data.msg);
+			toast.success(data.msg, { duration: 3000 });
 		} catch (error) {
 			const err = error as AxiosError;
 			const msg = err.response?.data.msg || 'Error deleting customer. Try again later or contact support.';
+			const message = { msg, type: 'error' };
+
+			dispatch({
+				type: CUSTOMERS_ERROR,
+				payload: message
+			});
+		}
+	}
+
+	//* Update customer
+	const updateCustomer = async (customer: CustomerType) => {
+		try{
+			const { _id, ...customerObject } = customer;
+			const { data } = await clientAxios.put(`/api/v1/customers/edit/${ _id }`, customerObject);
+
+			dispatch({
+				type: UPDATE_CUSTOMER,
+				payload: customer
+			});
+
+			toast.success(data.msg, { duration: 3000 });
+			navigate('/customers');
+		} catch (error) {
+			const err = error as AxiosError;
+			const msg = err.response?.data.msg || 'Error updating customer. Try again later or contact support.';
 			const message = { msg, type: 'error' };
 
 			dispatch({
@@ -103,7 +127,8 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 				message: state.message,
 				getCustomers,
 				addCustomer,
-				deleteCustomer
+				deleteCustomer,
+				updateCustomer
 			}}
 		>
 			{ children }

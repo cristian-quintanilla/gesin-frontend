@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -9,12 +10,16 @@ import Input from '../../components/Input';
 import LinkRouter from '../../components/LinkRouter';
 
 import { CustomerType } from '../../types';
+import customersContext from '../../context/customers/customersContext';
 
 const EditCustomer = (): JSX.Element => {
 	const location = useLocation();
 
+	const CustomerContext = useContext(customersContext);
+	const { message, updateCustomer } = CustomerContext;
+
 	const { state } = location;
-	const { _id, firstName, lastName, company, email, address, status, phone } = state as CustomerType;
+	const { _id, firstName, lastName, company, email, address, phone } = state as CustomerType;
 
 	//* Formik and Yup Validation
 	const formik = useFormik({
@@ -33,7 +38,8 @@ const EditCustomer = (): JSX.Element => {
 			email: Yup.string().required('Email is required.').email('Invalid email address.'),
 		}),
 		onSubmit: values => {
-			console.log(values);
+			const customer: CustomerType = { _id, ...values };
+			updateCustomer(customer);
 		}
 	});
 
@@ -45,6 +51,18 @@ const EditCustomer = (): JSX.Element => {
 				<h1 className='text-xl md:text-2xl text-center'>
 					Edit Customer: { `${ firstName  } ${ lastName }` }
 				</h1>
+
+				{
+					message && (
+						<section className='w-full md:w-10/12 mx-auto p-4 md:px-0'>
+							<Alert
+								type={ message.type }
+								message={ message.msg }
+								icon='fa-exclamation-triangle'
+							/>
+						</section>
+					)
+				}
 
 				<form
 					onSubmit={ formik.handleSubmit }
@@ -195,9 +213,9 @@ const EditCustomer = (): JSX.Element => {
 						<Button
 							variant='primary'
 							size='normal'
-							label='Add Customer'
+							label='Edit Customer'
 							type='submit'
-							icon='fa-plus'
+							icon='fa-edit'
 						/>
 					</div>
 				</form>

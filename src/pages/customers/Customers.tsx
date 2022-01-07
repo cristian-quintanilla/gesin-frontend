@@ -93,6 +93,7 @@ const Customers = (): JSX.Element => {
 	const onDeleteCustomer = useCallback((_id: string): void => {
 		deleteCustomer(_id);
 		setShowModal(false);
+		setCurrentPage(1);
 	}, []);
 
 	//* Pagination

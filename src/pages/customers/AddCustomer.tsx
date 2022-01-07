@@ -215,12 +215,6 @@ const AddCustomer = (): JSX.Element => {
 					</div>
 				</form>
 			</main>
-
-			{/* Toast */}
-			<Toaster
-				position='top-right'
-				reverseOrder={false}
-			/>
 		</>
 	);
 }

@@ -1,6 +1,5 @@
 import {
 	GET_CUSTOMERS,
-	GET_CUSTOMER,
 	ADD_CUSTOMER,
 	DELETE_CUSTOMER,
 	UPDATE_CUSTOMER,
@@ -30,7 +29,13 @@ const customersReducer = (state: CustomerInterface, action: ActionType) => {
 			return {
 				...state,
 				customers: state.customers.filter(customer => customer._id !== payload),
-				message: null
+				message: null,
+			}
+		case UPDATE_CUSTOMER:
+			return {
+				...state,
+				customers: state.customers.map(customer => customer._id === payload._id ? payload : customer),
+				message: null,
 			}
 		case CUSTOMERS_ERROR:
 			return {

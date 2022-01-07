@@ -13,7 +13,8 @@ type ContextType = {
 	message: MessageType | null;
 	getCustomers: () => void;
 	addCustomer: (customer: CustomerType) => void;
-	deleteCustomer: (id: string) => void;
+	deleteCustomer: (_id: string) => void;
+	updateCustomer: (customer: CustomerType) => void;
 }
 
 const customersContext = createContext({} as ContextType);
