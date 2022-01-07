@@ -1,7 +1,6 @@
-import { GET_USER, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT } from '../../types';
+import { ActionType, GET_USER, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT } from '../../types';
 
 import { AuthInterface } from './authContext';
-import { ActionType } from '../../types/index';
 
 const authReducer = (state: AuthInterface, action: ActionType) => {
 	const { type, payload } = action;

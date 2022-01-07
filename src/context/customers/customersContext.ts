@@ -1,7 +1,6 @@
 import { createContext } from 'react';
 
-import { CustomerType } from '../../types';
-import { MessageType } from '../../types/index';
+import { CustomerType, MessageType } from '../../types';
 
 export interface CustomerInterface {
 	customers: CustomerType[];

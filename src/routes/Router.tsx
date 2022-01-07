@@ -20,45 +20,16 @@ const Router = (): JSX.Element => {
 			<Route path='/' element={ <LoginPage /> } />
 
 			{/* Private Routes */}
-			<Route
-				path='/customers'
-				element={ <PrivateRoute children={ <Customers /> } /> }
-			/>
+			<Route path='/customers' element={ <PrivateRoute children={ <Customers /> } /> } />
+			<Route path='/customers/edit/:id' element={ <PrivateRoute children={ <EditCustomer /> } /> } />
+			<Route path='/customers/new' element={ <PrivateRoute children={ <AddCustomer /> } /> } />
 
-			<Route
-				path='/customers/new'
-				element={ <PrivateRoute children={ <AddCustomer /> } /> }
-			/>
+			<Route path='/products' element={ <PrivateRoute children={ <Products /> } /> } />
+			<Route path='/products/new' element={ <PrivateRoute children={ <AddProduct /> } /> } />
+			<Route path='/products/edit/:id' element={ <PrivateRoute children={ <EditProduct /> } /> } />
 
-			<Route
-				path='/customers/edit/:id'
-				element={ <PrivateRoute children={ <EditCustomer /> } /> }
-			/>
-
-			<Route
-				path='/products'
-				element={ <PrivateRoute children={ <Products /> } /> }
-			/>
-
-			<Route
-				path='/products/new'
-				element={ <PrivateRoute children={ <AddProduct /> } /> }
-			/>
-
-			<Route
-				path='/products/edit/:id'
-				element={ <PrivateRoute children={ <EditProduct /> } /> }
-			/>
-
-			<Route
-				path='/orders'
-				element={ <PrivateRoute children={ <Orders /> } /> }
-			/>
-
-			<Route
-				path='/orders/new'
-				element={ <PrivateRoute children={ <AddOrder /> } /> }
-			/>
+			<Route path='/orders' element={ <PrivateRoute children={ <Orders /> } /> } />
+			<Route path='/orders/new' element={ <PrivateRoute children={ <AddOrder /> } /> } />
 
 			{/* No Match */}
 			<Route path='*' element={ <NotFound /> } />

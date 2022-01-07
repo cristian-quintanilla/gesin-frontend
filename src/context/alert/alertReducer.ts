@@ -1,7 +1,6 @@
-import { SHOW_ALERT, HIDE_ALERT } from '../../types';
+import { ActionType, SHOW_ALERT, HIDE_ALERT } from '../../types';
 
 import { AlertInterface } from './alertContext';
-import { ActionType } from '../../types';
 
 const alertReducer = (state: AlertInterface, action: ActionType) => {
 	const { type, payload } = action;

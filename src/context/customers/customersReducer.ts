@@ -1,4 +1,5 @@
 import {
+	ActionType,
 	GET_CUSTOMERS,
 	ADD_CUSTOMER,
 	DELETE_CUSTOMER,
@@ -7,7 +8,6 @@ import {
 } from '../../types';
 
 import { CustomerInterface } from './customersContext';
-import { ActionType } from '../../types';
 
 const customersReducer = (state: CustomerInterface, action: ActionType) => {
 	const { type, payload } = action;

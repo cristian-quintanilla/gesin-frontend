@@ -86,7 +86,7 @@ const Customers = (): JSX.Element => {
 
 	//* Get customers
 	useEffect(() => {
-		getCustomers();
+		if ( customers.length === 0 ) getCustomers();
 	}, []);
 
 	//* Delete Customer
@@ -120,17 +120,16 @@ const Customers = (): JSX.Element => {
 				<Header />
 
 				<main className='w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
-					<h2 className='text-lg md:text-2xl text-gray-800'>
-						No Customers. Try adding one.
-					</h2>
-
-					<LinkRouter
-						isButton
-						linkText='Add Customer'
-						linkTo='/customers/new'
-						size='normal'
-						variant='primary'
-					/>
+					<section className='flex items-center justify-between px-5 py-4'>
+						<h2 className='text-lg md:text-2xl text-gray-800'>No Customers.</h2>
+						<LinkRouter
+							isButton
+							linkText='Add Product'
+							linkTo='/customers/new'
+							size='normal'
+							variant='primary'
+						/>
+					</section>
 				</main>
 			</>
 		);
@@ -141,7 +140,7 @@ const Customers = (): JSX.Element => {
 			<Header />
 
 			<main className='w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
-				<header className='flex items-center justify-between px-5 py-4'>
+				<section className='flex items-center justify-between px-5 py-4'>
 					<h2 className='text-lg md:text-2xl text-gray-800'>Customers</h2>
 					<LinkRouter
 						isButton
@@ -150,7 +149,7 @@ const Customers = (): JSX.Element => {
 						size='normal'
 						variant='primary'
 					/>
-				</header>
+				</section>
 
 				<section className='mt-4'>
 					<TableRecords
@@ -162,7 +161,7 @@ const Customers = (): JSX.Element => {
 				<section className='flex justify-end mt-4'>
 					<Pagination
 						page={ currentPage }
-						totalRecords={ Math.ceil( customers.length / CUSTOMERS_PER_PAGE ) }
+						totalRecords={ Math.ceil(customers.length / CUSTOMERS_PER_PAGE) }
 						paginate={ paginate }
 					/>
 				</section>

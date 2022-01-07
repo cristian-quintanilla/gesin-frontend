@@ -179,7 +179,7 @@ const Orders = (): JSX.Element => {
 			<Header />
 
 			<main className='w-full md:w-10/12 mx-auto mb-4'>
-				<header className='flex items-center justify-between px-5 py-4'>
+				<section className='flex items-center justify-between px-5 py-4'>
 					<h2 className='text-lg md:text-2xl text-gray-800'>Orders</h2>
 
 					<LinkRouter
@@ -189,7 +189,7 @@ const Orders = (): JSX.Element => {
 						size='normal'
 						variant='primary'
 					/>
-				</header>
+				</section>
 
 				<section className='mt-4 flex flex-col gap-4'>
 					{

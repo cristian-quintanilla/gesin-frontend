@@ -3,6 +3,7 @@ import tokenUser from './config/tokenUser';
 import AlertState from './context/alert/alertState';
 import AuthState from './context/auth/authState';
 import CustomersState from './context/customers/customersState';
+import ProductsState from './context/products/productsState';
 
 //* Router
 import Router from './routes/Router';
@@ -15,7 +16,9 @@ function App() {
 		<AuthState>
 			<AlertState>
 				<CustomersState>
-					<Router />
+					<ProductsState>
+						<Router />
+					</ProductsState>
 				</CustomersState>
 			</AlertState>
 		</AuthState>

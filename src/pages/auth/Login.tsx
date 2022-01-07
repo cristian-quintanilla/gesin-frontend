@@ -21,7 +21,7 @@ const LoginPage = (): JSX.Element => {
 
 	//* Verify if user is authenticated
 	useEffect(() => {
-		if (authenticated) navigate('/customers');
+		if (authenticated) navigate(localStorage.getItem('last-path') || '/customers');
 		if (message) showAlert(message.msg, message.type);
 	}, [authenticated, message]);
 

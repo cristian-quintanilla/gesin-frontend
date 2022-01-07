@@ -1,5 +1,6 @@
-import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useContext, useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import Alert from '../../components/Alert';
 
 import Button from '../../components/Button';
 import Header from '../../components/Header';
@@ -8,35 +9,11 @@ import Modal from '../../components/Modal';
 import Pagination from '../../components/Pagination';
 import TableRecords from '../../components/TableRecords';
 
-interface Product {
-	_id: string;
-	name: string;
-	stock: number;
-	price: number;
-}
-
-const productsArr = [
-	{
-		_id: 'product-1',
-		name: 'Memoria USB 8GB',
-		stock: 100,
-		price: 99.99,
-	},
-	{
-		_id: 'product-2',
-		name: 'Laptop Gamer HP',
-		stock: 50,
-		price: 899.99,
-	},{
-		_id: 'product-3',
-		name: 'Laptop Gamer MSI',
-		stock: 10,
-		price: 199.99,
-	},
-];
+import productsContext from '../../context/products/productsContext';
+import { ProductType } from '../../types';
 
 const renderProducts = (
-	products: Product[], setShowModal: Dispatch<SetStateAction<boolean>>, setIdProduct: Dispatch<SetStateAction<string>>
+	products: ProductType[], setShowModal: Dispatch<SetStateAction<boolean>>, setIdProduct: Dispatch<SetStateAction<string>>
 ): object => products.map(
 	({ _id, name, stock, price }) => (
 		<tr key={ _id }>
@@ -58,7 +35,7 @@ const renderProducts = (
 					icon='fa-trash'
 					onClick={() => {
 						setShowModal(true);
-						setIdProduct(_id);
+						setIdProduct(_id as string);
 					}}
 				/>
 
@@ -76,9 +53,18 @@ const renderProducts = (
 );
 
 const Products = (): JSX.Element => {
+	const ProductsContext = useContext(productsContext);
+	const { message, products, getProducts, deleteProduct } = ProductsContext;
+
+	const PRODUCTS_PER_PAGE = 2;
 	const [ showModal, setShowModal ] = useState(false);
 	const [ idProduct, setIdProduct ] = useState('');
-	const [ page, setPage ] = useState(1);
+	const [ currentPage, setCurrentPage ] = useState(1);
+
+	//* Get products
+	useEffect(() => {
+		if ( products.length === 0 ) getProducts();
+	}, []);
 
 	//* Delete Product
 	const onDeleteProduct = useCallback((_id: string): void => {
@@ -87,17 +73,52 @@ const Products = (): JSX.Element => {
 	}, []);
 
 	//* Pagination
-	const paginate = (pageNumber: number) => {
-		// setPagination(`?page=${ pageNumber }&size=${ SIZE }&filterAnd=clientId%7Cjn%7C${ client }%26`);
-		setPage(pageNumber);
+	const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+	//* Get current products
+	const indexOfLastPost = currentPage * PRODUCTS_PER_PAGE;
+	const indexOfFirstPost = indexOfLastPost - PRODUCTS_PER_PAGE;
+	const currentProducts = products.slice(indexOfFirstPost, indexOfLastPost);
+
+	if ( message ) {
+		return (
+			<main className='w-full md:w-10/12 mx-auto mb-4 p-6 md:px-0'>
+				<Alert
+					type={ message.type }
+					message={ message.msg }
+					icon='fa-exclamation-triangle'
+				/>
+			</main>
+		);
+	} else if ( products.length === 0 ) {
+		return (
+			<>
+				<Header />
+
+				<main className='w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
+					<section className='flex items-center justify-between px-5 py-4'>
+						<h2 className='text-lg md:text-2xl text-gray-800'>
+							No Products.
+						</h2>
+						<LinkRouter
+							isButton
+							linkText='Add Product'
+							linkTo='/products/new'
+							size='normal'
+							variant='primary'
+						/>
+					</section>
+				</main>
+			</>
+		);
 	}
 
 	return (
 		<>
 			<Header />
 
-			<main className='w-full md:w-10/12 mx-auto mb-4'>
-				<header className='flex items-center justify-between px-5 py-4'>
+			<main className='w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
+				<section className='flex items-center justify-between px-5 py-4'>
 					<h2 className='text-lg md:text-2xl text-gray-800'>Products</h2>
 					<LinkRouter
 						isButton
@@ -106,19 +127,19 @@ const Products = (): JSX.Element => {
 						size='normal'
 						variant='primary'
 					/>
-				</header>
+				</section>
 
 				<section className='mt-4'>
 					<TableRecords
 						headings={[ 'Name', 'Stock', 'Price', 'Options' ]}
-						content={ renderProducts(productsArr, setShowModal, setIdProduct) }
+						content={ renderProducts(currentProducts, setShowModal, setIdProduct) }
 					/>
 				</section>
 
 				<section className='flex justify-end mt-4'>
 					<Pagination
-						page={ page }
-						totalRecords={ 8 }
+						page={ currentPage }
+						totalRecords={ Math.ceil(products.length / PRODUCTS_PER_PAGE) }
 						paginate={ paginate }
 					/>
 				</section>

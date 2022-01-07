@@ -8,6 +8,9 @@ import authContext from '../context/auth/authContext';
 const PrivateRoute = ({ children }: { children: JSX.Element }): JSX.Element => {
 	let location = useLocation();
 
+	//* Set the last route visited
+	localStorage.setItem('last-path', location.pathname);
+
 	const AuthContext = useContext(authContext);
 	const { authenticated, userAuthenticated } = AuthContext;
 

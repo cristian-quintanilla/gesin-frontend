@@ -7,7 +7,7 @@ const Header = memo((): JSX.Element => {
 	const { user, userAuthenticated } = AuthContext;
 
   useEffect(() => {
-	  userAuthenticated();
+	  if (!user) userAuthenticated();
 	}, []);
 
 	return (

@@ -29,17 +29,16 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 	//* Get customers
 	const getCustomers = async () => {
 		try{
-			const result = await clientAxios.get('/api/v1/customers');
+			const { data } = await clientAxios.get('/api/v1/customers');
 
 			dispatch({
 				type: GET_CUSTOMERS,
-				payload: result.data.customers
+				payload: data.customers
 			});
 		} catch (error) {
 			const err = error as AxiosError;
 			const msg = err.response?.data.msg || 'Error getting customers. Try again later or contact support.';
-			const type = 'error';
-			const message = { msg, type };
+			const message = { msg, type: 'error' };
 
 			dispatch({
 				type: CUSTOMERS_ERROR,
