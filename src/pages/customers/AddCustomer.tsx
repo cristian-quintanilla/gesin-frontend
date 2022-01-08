@@ -12,7 +12,7 @@ import customersContext from '../../context/customers/customersContext';
 
 const AddCustomer = (): JSX.Element => {
 	const CustomersContext = useContext(customersContext);
-	const { message, addCustomer } = CustomersContext;
+	const { message, addCustomer, hideAlert } = CustomersContext;
 
 	//* Formik and Yup Validation
 	const formik = useFormik({
@@ -51,6 +51,7 @@ const AddCustomer = (): JSX.Element => {
 								type={ message.type }
 								icon='fa-exclamation-triangle'
 								message={ message.msg }
+								hideAlert={ hideAlert }
 							/>
 						</div>
 					)

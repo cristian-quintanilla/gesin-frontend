@@ -16,6 +16,7 @@ import {
 import clientAxios from '../../config/axios';
 import customersContext from './customersContext';
 import customersReducer from './customersReducer';
+import { HIDE_ALERT } from '../../types/index';
 
 const CustomersState = ({ children }: { children: ReactNode }) => {
 	const navigate = useNavigate();
@@ -142,6 +143,13 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 		}
 	}
 
+	//* Clear message
+	const hideAlert = () => {
+		dispatch({
+			type: HIDE_ALERT,
+		});
+	}
+
 	return (
 		<customersContext.Provider
 			value={{
@@ -152,7 +160,8 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 				getCustomer,
 				addCustomer,
 				deleteCustomer,
-				updateCustomer
+				updateCustomer,
+				hideAlert
 			}}
 		>
 			{ children }

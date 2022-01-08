@@ -15,7 +15,7 @@ const EditCustomer = (): JSX.Element => {
 	const params = useParams();
 
 	const CustomerContext = useContext(customersContext);
-	const { customer, message, getCustomer, updateCustomer } = CustomerContext;
+	const { customer, message, getCustomer, hideAlert, updateCustomer } = CustomerContext;
 
 	const initialValues = {
 		firstName: '',
@@ -43,9 +43,13 @@ const EditCustomer = (): JSX.Element => {
 			<Header />
 
 			<main className='w-full md:w-10/12 mx-auto mb-4'>
-				<h1 className='text-xl md:text-2xl text-center'>
-					Edit Customer: { `${ customer?.firstName  } ${ customer?.lastName }` }
-				</h1>
+				{
+					customer && (
+						<h1 className='text-xl md:text-2xl text-center'>
+							Edit Customer: { `${ customer?.firstName  } ${ customer?.lastName }` }
+						</h1>
+					)
+				}
 
 				{
 					message && (
@@ -54,6 +58,7 @@ const EditCustomer = (): JSX.Element => {
 								type={ message.type }
 								message={ message.msg }
 								icon='fa-exclamation-triangle'
+								hideAlert={ hideAlert }
 							/>
 						</section>
 					)
@@ -77,155 +82,157 @@ const EditCustomer = (): JSX.Element => {
 								}
 							}, [customer]);
 
-							return (
-								<Form className='grid gap-4 grid-cols-12 mx-4 mt-4 md:mt-6'>
-									<div className='col-span-12 md:col-span-6'>
-										<label className='block text-gray-700 mb-2' htmlFor='firstName'>
-											First Name:
-										</label>
+							if (customer) {
+								return (
+									<Form className='grid gap-4 grid-cols-12 mx-4 mt-4 md:mt-6'>
+										<div className='col-span-12 md:col-span-6'>
+											<label className='block text-gray-700 mb-2' htmlFor='firstName'>
+												First Name:
+											</label>
 
-										<Field
-											type='text'
-											name='firstName'
-											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
-											autoComplete='off'
-											placeholder='First Name'
-										/>
-										{
-											touched.firstName && errors.firstName ? (
-												<div className='w-full my-2'>
-													<Alert
-														type='error'
-														icon='fa-exclamation-triangle'
-														message={ errors.firstName }
-													/>
-												</div>
-											) : null
-										}
-									</div>
+											<Field
+												type='text'
+												name='firstName'
+												className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
+												autoComplete='off'
+												placeholder='First Name'
+											/>
+											{
+												touched.firstName && errors.firstName ? (
+													<div className='w-full my-2'>
+														<Alert
+															type='error'
+															icon='fa-exclamation-triangle'
+															message={ errors.firstName }
+														/>
+													</div>
+												) : null
+											}
+										</div>
 
-									<div className='col-span-12 md:col-span-6'>
-										<label className='block text-gray-700 mb-2' htmlFor='lastName'>
-											Last Name:
-										</label>
+										<div className='col-span-12 md:col-span-6'>
+											<label className='block text-gray-700 mb-2' htmlFor='lastName'>
+												Last Name:
+											</label>
 
-										<Field
-											type='text'
-											name='lastName'
-											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
-											autoComplete='off'
-											placeholder='Last Name'
-										/>
-										{
-											touched.lastName && errors.lastName ? (
-												<div className='w-full my-2'>
-													<Alert
-														type='error'
-														icon='fa-exclamation-triangle'
-														message={ errors.lastName }
-													/>
-												</div>
-											) : null
-										}
-									</div>
+											<Field
+												type='text'
+												name='lastName'
+												className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
+												autoComplete='off'
+												placeholder='Last Name'
+											/>
+											{
+												touched.lastName && errors.lastName ? (
+													<div className='w-full my-2'>
+														<Alert
+															type='error'
+															icon='fa-exclamation-triangle'
+															message={ errors.lastName }
+														/>
+													</div>
+												) : null
+											}
+										</div>
 
-									<div className='col-span-12'>
-										<label className='block text-gray-700 mb-2' htmlFor='company'>
-											Company:
-										</label>
+										<div className='col-span-12'>
+											<label className='block text-gray-700 mb-2' htmlFor='company'>
+												Company:
+											</label>
 
-										<Field
-											type='text'
-											name='company'
-											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
-											autoComplete='off'
-											placeholder='Company'
-										/>
-										{
-											touched.company && errors.company ? (
-												<div className='w-full my-2'>
-													<Alert
-														type='error'
-														icon='fa-exclamation-triangle'
-														message={ errors.company }
-													/>
-												</div>
-											) : null
-										}
-									</div>
+											<Field
+												type='text'
+												name='company'
+												className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
+												autoComplete='off'
+												placeholder='Company'
+											/>
+											{
+												touched.company && errors.company ? (
+													<div className='w-full my-2'>
+														<Alert
+															type='error'
+															icon='fa-exclamation-triangle'
+															message={ errors.company }
+														/>
+													</div>
+												) : null
+											}
+										</div>
 
-									<div className='col-span-12'>
-										<label className='block text-gray-700 mb-2' htmlFor='email'>
-											Email Address:
-										</label>
+										<div className='col-span-12'>
+											<label className='block text-gray-700 mb-2' htmlFor='email'>
+												Email Address:
+											</label>
 
-										<Field
-											type='email'
-											name='email'
-											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
-											autoComplete='off'
-											placeholder='Email Address'
-										/>
-										{
-											touched.email && errors.email ? (
-												<div className='w-full my-2'>
-													<Alert
-														type='error'
-														icon='fa-exclamation-triangle'
-														message={ errors.email }
-													/>
-												</div>
-											) : null
-										}
-									</div>
+											<Field
+												type='email'
+												name='email'
+												className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
+												autoComplete='off'
+												placeholder='Email Address'
+											/>
+											{
+												touched.email && errors.email ? (
+													<div className='w-full my-2'>
+														<Alert
+															type='error'
+															icon='fa-exclamation-triangle'
+															message={ errors.email }
+														/>
+													</div>
+												) : null
+											}
+										</div>
 
-									<div className='col-span-12'>
-										<label className='block text-gray-700 mb-2' htmlFor='address'>
-											Address:
-										</label>
+										<div className='col-span-12'>
+											<label className='block text-gray-700 mb-2' htmlFor='address'>
+												Address:
+											</label>
 
-										<Field
-											type='text'
-											name='address'
-											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
-											autoComplete='off'
-											placeholder='Address'
-										/>
-									</div>
+											<Field
+												type='text'
+												name='address'
+												className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
+												autoComplete='off'
+												placeholder='Address'
+											/>
+										</div>
 
-									<div className='col-span-12'>
-										<label className='block text-gray-700 mb-2' htmlFor='phone'>
-											Phone Number:
-										</label>
+										<div className='col-span-12'>
+											<label className='block text-gray-700 mb-2' htmlFor='phone'>
+												Phone Number:
+											</label>
 
-										<Field
-											type='text'
-											name='phone'
-											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
-											autoComplete='off'
-											placeholder='Phone Number'
-										/>
-									</div>
+											<Field
+												type='text'
+												name='phone'
+												className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
+												autoComplete='off'
+												placeholder='Phone Number'
+											/>
+										</div>
 
-									<div className='mt-4 col-span-12 flex flex-wrap gap-2 justify-end'>
-										<LinkRouter
-											isButton
-											linkText='Cancel'
-											linkTo='/customers'
-											size='normal'
-											variant='danger'
-										/>
+										<div className='mt-4 col-span-12 flex flex-wrap gap-2 justify-end'>
+											<LinkRouter
+												isButton
+												linkText='Cancel'
+												linkTo='/customers'
+												size='normal'
+												variant='danger'
+											/>
 
-										<Button
-											variant='primary'
-											size='normal'
-											label='Edit Customer'
-											type='submit'
-											icon='fa-edit'
-										/>
-									</div>
-								</Form>
-							);
+											<Button
+												variant='primary'
+												size='normal'
+												label='Edit Customer'
+												type='submit'
+												icon='fa-edit'
+											/>
+										</div>
+									</Form>
+								);
+							}
 						}
 					}
 				</Formik>
