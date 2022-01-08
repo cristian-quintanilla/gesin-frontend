@@ -42,6 +42,7 @@ const customersReducer = (state: CustomerInterface, action: ActionType) => {
 			return {
 				...state,
 				customers: state.customers.map(customer => customer._id === payload._id ? payload : customer),
+				customer: null,
 				message: null,
 			}
 		case CUSTOMERS_ERROR:

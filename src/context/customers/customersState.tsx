@@ -77,10 +77,10 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 
 			dispatch({
 				type: ADD_CUSTOMER,
-				payload: customer
+				payload: data.customer
 			});
 
-			toast.success(data.msg, { duration: 3000 });
+			toast.success(data.msg, { duration: 5000 });
 			navigate('/customers');
 		} catch (error) {
 			const err = error as AxiosError;
@@ -104,7 +104,7 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 				payload: _id
 			});
 
-			toast.success(data.msg, { duration: 3000 });
+			toast.success(data.msg, { duration: 5000 });
 		} catch (error) {
 			const err = error as AxiosError;
 			const msg = err.response?.data.msg || 'Error deleting customer. Try again later or contact support.';
@@ -120,15 +120,15 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 	//* Update customer
 	const updateCustomer = async (customer: CustomerType) => {
 		try{
-			const { _id, ...customerObject } = customer;
-			const { data } = await clientAxios.put(`/api/v1/customers/edit/${ _id }`, customerObject);
+			const { _id, ...customerData } = customer;
+			const { data } = await clientAxios.put(`/api/v1/customers/edit/${ _id }`, customerData);
 
 			dispatch({
 				type: UPDATE_CUSTOMER,
 				payload: data.customer
 			});
 
-			toast.success(data.msg, { duration: 3000 });
+			toast.success(data.msg, { duration: 5000 });
 			navigate('/customers');
 		} catch (error) {
 			const err = error as AxiosError;
@@ -146,8 +146,8 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 		<customersContext.Provider
 			value={{
 				customers: state.customers,
-				message: state.message,
 				customer: state.customer,
+				message: state.message,
 				getCustomers,
 				getCustomer,
 				addCustomer,

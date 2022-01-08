@@ -6,7 +6,6 @@ import * as Yup from 'yup';
 import Alert from '../../components/Alert';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
-import Input from '../../components/Input';
 import LinkRouter from '../../components/LinkRouter';
 
 import customersContext from '../../context/customers/customersContext';
@@ -62,7 +61,7 @@ const EditCustomer = (): JSX.Element => {
 
 				<Formik initialValues={ initialValues } validationSchema={ validationSchema } onSubmit={ onSubmit }>
 					{
-						({ errors, touched, isSubmitting, setFieldValue }) => {
+						({ errors, touched, setFieldValue }) => {
 							useEffect(() => {
 								getCustomer(params.id as string);
 							}, []);
@@ -90,6 +89,7 @@ const EditCustomer = (): JSX.Element => {
 											name='firstName'
 											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
 											autoComplete='off'
+											placeholder='First Name'
 										/>
 										{
 											touched.firstName && errors.firstName ? (
@@ -114,6 +114,7 @@ const EditCustomer = (): JSX.Element => {
 											name='lastName'
 											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
 											autoComplete='off'
+											placeholder='Last Name'
 										/>
 										{
 											touched.lastName && errors.lastName ? (
@@ -138,6 +139,7 @@ const EditCustomer = (): JSX.Element => {
 											name='company'
 											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
 											autoComplete='off'
+											placeholder='Company'
 										/>
 										{
 											touched.company && errors.company ? (
@@ -162,6 +164,7 @@ const EditCustomer = (): JSX.Element => {
 											name='email'
 											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
 											autoComplete='off'
+											placeholder='Email Address'
 										/>
 										{
 											touched.email && errors.email ? (
@@ -186,6 +189,7 @@ const EditCustomer = (): JSX.Element => {
 											name='address'
 											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
 											autoComplete='off'
+											placeholder='Address'
 										/>
 									</div>
 
@@ -199,6 +203,7 @@ const EditCustomer = (): JSX.Element => {
 											name='phone'
 											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
 											autoComplete='off'
+											placeholder='Phone Number'
 										/>
 									</div>
 

@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useCallback, useContext, useState, useEffect } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
 import Alert from '../../components/Alert';
 import Button from '../../components/Button';
@@ -9,8 +9,8 @@ import Modal from '../../components/Modal';
 import Pagination from '../../components/Pagination';
 import TableRecords from '../../components/TableRecords';
 
-import { CustomerType } from '../../types';
 import customersContext from '../../context/customers/customersContext';
+import { CustomerType } from '../../types';
 
 const renderCustomers = (
 	customers: CustomerType[],
@@ -105,17 +105,7 @@ const Customers = (): JSX.Element => {
 	const indexOfFirstPost = indexOfLastPost - CUSTOMERS_PER_PAGE;
 	const currentCustomers = customers.slice(indexOfFirstPost, indexOfLastPost);
 
-	if ( message ) {
-		return (
-			<main className='w-full md:w-10/12 mx-auto mb-4 p-6 md:px-0'>
-				<Alert
-					type={ message.type }
-					message={ message.msg }
-					icon='fa-exclamation-triangle'
-				/>
-			</main>
-		);
-	} else if ( customers.length === 0 ) {
+	if ( customers.length === 0 ) {
 		return (
 			<>
 				<Header />
@@ -141,6 +131,16 @@ const Customers = (): JSX.Element => {
 			<Header />
 
 			<main className='w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
+				{
+					message && (
+						<Alert
+							type={ message.type }
+							message={ message.msg }
+							icon='fa-exclamation-triangle'
+						/>
+					)
+				}
+
 				<section className='flex items-center justify-between px-5 py-4'>
 					<h2 className='text-lg md:text-2xl text-gray-800'>Customers</h2>
 					<LinkRouter

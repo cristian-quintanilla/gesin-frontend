@@ -13,7 +13,9 @@ import productsContext from '../../context/products/productsContext';
 import { ProductType } from '../../types';
 
 const renderProducts = (
-	products: ProductType[], setShowModal: Dispatch<SetStateAction<boolean>>, setIdProduct: Dispatch<SetStateAction<string>>
+	products: ProductType[],
+	setShowModal: Dispatch<SetStateAction<boolean>>,
+	setIdProduct: Dispatch<SetStateAction<string>>
 ): object => products.map(
 	({ _id, name, stock, price }) => (
 		<tr key={ _id }>
@@ -68,8 +70,9 @@ const Products = (): JSX.Element => {
 
 	//* Delete Product
 	const onDeleteProduct = useCallback((_id: string): void => {
-		toast.success(_id);
+		deleteProduct(_id);
 		setShowModal(false);
+		setCurrentPage(1);
 	}, []);
 
 	//* Pagination
@@ -80,17 +83,7 @@ const Products = (): JSX.Element => {
 	const indexOfFirstPost = indexOfLastPost - PRODUCTS_PER_PAGE;
 	const currentProducts = products.slice(indexOfFirstPost, indexOfLastPost);
 
-	if ( message ) {
-		return (
-			<main className='w-full md:w-10/12 mx-auto mb-4 p-6 md:px-0'>
-				<Alert
-					type={ message.type }
-					message={ message.msg }
-					icon='fa-exclamation-triangle'
-				/>
-			</main>
-		);
-	} else if ( products.length === 0 ) {
+	if ( products.length === 0 ) {
 		return (
 			<>
 				<Header />
@@ -118,6 +111,16 @@ const Products = (): JSX.Element => {
 			<Header />
 
 			<main className='w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
+				{
+					message && (
+						<Alert
+							type={ message.type }
+							message={ message.msg }
+							icon='fa-exclamation-triangle'
+						/>
+					)
+				}
+
 				<section className='flex items-center justify-between px-5 py-4'>
 					<h2 className='text-lg md:text-2xl text-gray-800'>Products</h2>
 					<LinkRouter

@@ -1,6 +1,7 @@
 import {
 	ActionType,
 	GET_PRODUCTS,
+	GET_PRODUCT,
 	ADD_PRODUCT,
 	DELETE_PRODUCT,
 	UPDATE_PRODUCT,
@@ -19,24 +20,31 @@ const productsReducer = (state: ProductInterface, action: ActionType) => {
 				products: payload,
 				message: null,
 			};
-		// case ADD_PRODUCT:
-		//   return {
-		//     ...state,
-		//     products: [ ...state.products, payload ],
-		//     message: null,
-		//   }
-		// case DELETE_PRODUCT:
-		//   return {
-		//     ...state,
-		//     products: state.products.filter(product => product._id !== payload),
-		//     message: null,
-		//   }
-		// case UPDATE_PRODUCT:
-		//   return {
-		//     ...state,
-		//     products: state.products.map(product => product._id === payload._id ? payload : product),
-		//     message: null,
-		//   }
+		case GET_PRODUCT:
+			return {
+				...state,
+				product: payload,
+				message: null,
+			}
+		case ADD_PRODUCT:
+		  return {
+		    ...state,
+		    products: [ ...state.products, payload ],
+		    message: null,
+		  }
+		case DELETE_PRODUCT:
+		  return {
+		    ...state,
+		    products: state.products.filter(product => product._id !== payload),
+		    message: null,
+		  }
+		case UPDATE_PRODUCT:
+		  return {
+		    ...state,
+		    products: state.products.map(product => product._id === payload._id ? payload : product),
+		    message: null,
+				product: null,
+		  }
 		case PRODUCTS_ERROR:
 			return {
 				...state,

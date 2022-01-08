@@ -26,12 +26,12 @@ const AddProduct = (): JSX.Element => {
 			stock: Yup.number()
 				.required('Product Stock is required.')
 				.typeError('You must specify a number.')
-				.min(0, 'Min value for price is 0.')
+				.min(1, 'Min value for stock is 1.')
 				.integer('Stock must be an integer.'),
 			price: Yup.number()
 				.required('Product Price is required.')
 				.typeError('You must specify a number.')
-				.min(0, 'Min value for price is 0.')
+				.min(1, 'Min value for price is 1.')
 		}),
 		onSubmit: async values => {
 			const product = {
