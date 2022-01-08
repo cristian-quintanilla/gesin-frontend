@@ -73,7 +73,7 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 
 	//* Delete customer
 	const deleteCustomer = async (_id: string) => {
-		try{
+		try {
 			const { data } = await clientAxios.delete(`/api/v1/customers/delete/${ _id }`);
 
 			dispatch({
@@ -97,16 +97,17 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 	//* Update customer
 	const updateCustomer = async (customer: CustomerType) => {
 		try{
-			const { _id, ...customerObject } = customer;
-			const { data } = await clientAxios.put(`/api/v1/customers/edit/${ _id }`, customerObject);
+			console.log(customer);
+			// const { id, ...customerObject } = customer;
+			// const { data } = await clientAxios.put(`/api/v1/customers/edit/${ _id }`, customerObject);
 
-			dispatch({
-				type: UPDATE_CUSTOMER,
-				payload: customer
-			});
+			// dispatch({
+			// 	type: UPDATE_CUSTOMER,
+			// 	payload: data.customer
+			// });
 
-			toast.success(data.msg, { duration: 3000 });
-			navigate('/customers');
+			// toast.success(data.msg, { duration: 3000 });
+			// navigate('/customers');
 		} catch (error) {
 			const err = error as AxiosError;
 			const msg = err.response?.data.msg || 'Error updating customer. Try again later or contact support.';

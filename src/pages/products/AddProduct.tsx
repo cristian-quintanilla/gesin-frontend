@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -7,7 +8,12 @@ import Header from '../../components/Header';
 import Input from '../../components/Input';
 import LinkRouter from '../../components/LinkRouter';
 
+import productsContext from '../../context/products/productsContext';
+
 const AddProduct = (): JSX.Element => {
+	const ProductsContext = useContext(productsContext);
+	const { message, addProduct } = ProductsContext;
+
 	//* Formik and Yup Validation
 	const formik = useFormik({
 		initialValues: {
@@ -27,9 +33,14 @@ const AddProduct = (): JSX.Element => {
 				.typeError('You must specify a number.')
 				.min(0, 'Min value for price is 0.')
 		}),
-		onSubmit: values => {
-			const { stock } = values;
-			console.log(Number(stock));
+		onSubmit: async values => {
+			const product = {
+				name: values.name,
+				stock: Number(values.stock),
+				price: Number(values.price),
+			}
+
+			addProduct(product);
 		}
 	});
 
@@ -41,6 +52,18 @@ const AddProduct = (): JSX.Element => {
 				<h1 className='text-xl md:text-2xl text-center'>
 					Add Product
 				</h1>
+
+				{
+					message && (
+						<div className='w-full my-2'>
+							<Alert
+								type={ message.type }
+								icon='fa-exclamation-triangle'
+								message={ message.msg }
+							/>
+						</div>
+					)
+				}
 
 				<form
 					onSubmit={ formik.handleSubmit }

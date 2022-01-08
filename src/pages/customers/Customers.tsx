@@ -87,6 +87,7 @@ const Customers = (): JSX.Element => {
 	//* Get customers
 	useEffect(() => {
 		if ( customers.length === 0 ) getCustomers();
+		// getCustomers();
 	}, []);
 
 	//* Delete Customer

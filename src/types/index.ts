@@ -47,7 +47,6 @@ export const DELETE_CUSTOMER: string = '[CUSTOMERS] DELETE_CUSTOMER';
 export const UPDATE_CUSTOMER: string = '[CUSTOMERS] UPDATE_CUSTOMER';
 export const CUSTOMERS_ERROR: string = '[CUSTOMERS] CUSTOMERS_ERROR';
 
-
 //* PRODUCTS TYPES
 export const GET_PRODUCTS: string = '[PRODUCTS] GET_PRODUCTS';
 export const ADD_PRODUCT: string = '[PRODUCTS] ADD_PRODUCT';

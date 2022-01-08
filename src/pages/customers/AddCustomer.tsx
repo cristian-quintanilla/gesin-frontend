@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -12,7 +11,6 @@ import LinkRouter from '../../components/LinkRouter';
 import customersContext from '../../context/customers/customersContext';
 
 const AddCustomer = (): JSX.Element => {
-
 	const CustomersContext = useContext(customersContext);
 	const { message, addCustomer } = CustomersContext;
 

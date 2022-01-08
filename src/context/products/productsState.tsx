@@ -48,7 +48,28 @@ const ProductsState = ({ children }: { children: ReactNode }) => {
 	}
 
 	//* Add product
-	const addProduct = async (product: ProductType) => {}
+	const addProduct = async (product: ProductType) => {
+		try {
+			const { data } = await clientAxios.post('/api/v1/products/createe', product);
+
+			dispatch({
+				type: ADD_PRODUCT,
+				payload: data.product
+			});
+
+			toast.success(data.msg, { duration: 3000 });
+			navigate('/products');
+		} catch (error) {
+			const err = error as AxiosError;
+			const msg = err.response?.data.msg || 'Error adding customer. Try again later or contact support.';
+			const message = { msg, type: 'error' };
+
+			dispatch({
+				type: PRODUCTS_ERROR,
+				payload: message
+			});
+		}
+	}
 
 	//* Delete product
 	const deleteProduct = async (id: string) => {}
