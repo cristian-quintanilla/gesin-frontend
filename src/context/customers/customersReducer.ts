@@ -1,6 +1,7 @@
 import {
 	ActionType,
 	GET_CUSTOMERS,
+	GET_CUSTOMER,
 	ADD_CUSTOMER,
 	DELETE_CUSTOMER,
 	UPDATE_CUSTOMER,
@@ -19,6 +20,12 @@ const customersReducer = (state: CustomerInterface, action: ActionType) => {
 				customers: payload,
 				message: null,
 			};
+		case GET_CUSTOMER:
+			return {
+				...state,
+				customer: payload,
+				message: null
+			}
 		case ADD_CUSTOMER:
 			return {
 				...state,

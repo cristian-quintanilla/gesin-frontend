@@ -42,6 +42,7 @@ export const GET_USER: string = '[AUTH] GET_USER';
 
 //* CUSTOMERS TYPES
 export const GET_CUSTOMERS: string = '[CUSTOMERS] GET_CUSTOMERS';
+export const GET_CUSTOMER: string = '[CUSTOMERS] GET_CUSTOMER';
 export const ADD_CUSTOMER: string = '[CUSTOMERS] ADD_CUSTOMER';
 export const DELETE_CUSTOMER: string = '[CUSTOMERS] DELETE_CUSTOMER';
 export const UPDATE_CUSTOMER: string = '[CUSTOMERS] UPDATE_CUSTOMER';
@@ -49,6 +50,7 @@ export const CUSTOMERS_ERROR: string = '[CUSTOMERS] CUSTOMERS_ERROR';
 
 //* PRODUCTS TYPES
 export const GET_PRODUCTS: string = '[PRODUCTS] GET_PRODUCTS';
+export const GET_PRODUCT: string = '[PRODUCTS] GET_PRODUCT';
 export const ADD_PRODUCT: string = '[PRODUCTS] ADD_PRODUCT';
 export const DELETE_PRODUCT: string = '[PRODUCTS] DELETE_PRODUCT';
 export const UPDATE_PRODUCT: string = '[PRODUCTS] UPDATE_PRODUCT';

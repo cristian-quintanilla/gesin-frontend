@@ -1,6 +1,6 @@
-import { useContext } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useFormik } from 'formik';
+import { useContext, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 
 import Alert from '../../components/Alert';
@@ -9,39 +9,35 @@ import Header from '../../components/Header';
 import Input from '../../components/Input';
 import LinkRouter from '../../components/LinkRouter';
 
-import { CustomerType } from '../../types';
 import customersContext from '../../context/customers/customersContext';
+import { CustomerType } from '../../types';
 
 const EditCustomer = (): JSX.Element => {
-	const location = useLocation();
+	const params = useParams();
 
 	const CustomerContext = useContext(customersContext);
-	const { message, updateCustomer } = CustomerContext;
+	const { customer, message, getCustomer, updateCustomer } = CustomerContext;
 
-	const { state } = location;
-	const { _id, firstName, lastName, company, email, address, phone } = state as CustomerType;
+	const initialValues = {
+		firstName: '',
+		lastName: '',
+		company: '',
+		email: '',
+		address: '',
+		phone: '',
+	};
 
-	//* Formik and Yup Validation
-	const formik = useFormik({
-		initialValues: {
-			firstName,
-			lastName,
-			company,
-			email,
-			address,
-			phone,
-		},
-		validationSchema: Yup.object({
-			firstName: Yup.string().required('First name is required.'),
-			lastName: Yup.string().required('Last name is required.'),
-			company: Yup.string().required('Company is required.'),
-			email: Yup.string().required('Email is required.').email('Invalid email address.'),
-		}),
-		onSubmit: values => {
-			const customer: CustomerType = { _id, ...values };
-			updateCustomer(customer);
-		}
+	const validationSchema = Yup.object().shape({
+		firstName: Yup.string().required('First name is required.'),
+		lastName: Yup.string().required('Last name is required.'),
+		company: Yup.string().required('Company is required.'),
+		email: Yup.string().required('Email is required.').email('Invalid email address.'),
 	});
+
+	const onSubmit = (fields: CustomerType) => {
+		const customer: CustomerType = { _id: params.id as string, ...fields };
+		updateCustomer(customer);
+	}
 
 	return (
 		<>
@@ -49,7 +45,7 @@ const EditCustomer = (): JSX.Element => {
 
 			<main className='w-full md:w-10/12 mx-auto mb-4'>
 				<h1 className='text-xl md:text-2xl text-center'>
-					Edit Customer: { `${ firstName  } ${ lastName }` }
+					Edit Customer: { `${ customer?.firstName  } ${ customer?.lastName }` }
 				</h1>
 
 				{
@@ -64,161 +60,170 @@ const EditCustomer = (): JSX.Element => {
 					)
 				}
 
-				<form
-					onSubmit={ formik.handleSubmit }
-					className='grid gap-4 grid-cols-12 mx-4 mt-4 md:mt-6'
-				>
-					<div className='col-span-12 md:col-span-6'>
-						<label className='block text-gray-700 mb-2' htmlFor='firstName'>
-							First Name:
-						</label>
-						<Input
-							type='text'
-							id='firstName'
-							name='firstName'
-							placeholder='First Name'
-							value={ formik.values.firstName }
-							onChange={ formik.handleChange }
-							onBlur={ formik.handleBlur }
-						/>
-						{
-							formik.touched.firstName && formik.errors.firstName ? (
-								<div className='w-full my-2'>
-									<Alert
-										type='error'
-										icon='fa-exclamation-triangle'
-										message={ formik.errors.firstName }
-									/>
-								</div>
-							) : null
+				<Formik initialValues={ initialValues } validationSchema={ validationSchema } onSubmit={ onSubmit }>
+					{
+						({ errors, touched, isSubmitting, setFieldValue }) => {
+							useEffect(() => {
+								getCustomer(params.id as string);
+							}, []);
+
+							useEffect(() => {
+								if (customer) {
+									setFieldValue('firstName', customer.firstName, false);
+									setFieldValue('lastName', customer.lastName, false);
+									setFieldValue('company', customer.company, false);
+									setFieldValue('email', customer.email, false);
+									setFieldValue('address', customer.address, false);
+									setFieldValue('phone', customer.phone, false);
+								}
+							}, [customer]);
+
+							return (
+								<Form className='grid gap-4 grid-cols-12 mx-4 mt-4 md:mt-6'>
+									<div className='col-span-12 md:col-span-6'>
+										<label className='block text-gray-700 mb-2' htmlFor='firstName'>
+											First Name:
+										</label>
+
+										<Field
+											type='text'
+											name='firstName'
+											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
+											autoComplete='off'
+										/>
+										{
+											touched.firstName && errors.firstName ? (
+												<div className='w-full my-2'>
+													<Alert
+														type='error'
+														icon='fa-exclamation-triangle'
+														message={ errors.firstName }
+													/>
+												</div>
+											) : null
+										}
+									</div>
+
+									<div className='col-span-12 md:col-span-6'>
+										<label className='block text-gray-700 mb-2' htmlFor='lastName'>
+											Last Name:
+										</label>
+
+										<Field
+											type='text'
+											name='lastName'
+											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
+											autoComplete='off'
+										/>
+										{
+											touched.lastName && errors.lastName ? (
+												<div className='w-full my-2'>
+													<Alert
+														type='error'
+														icon='fa-exclamation-triangle'
+														message={ errors.lastName }
+													/>
+												</div>
+											) : null
+										}
+									</div>
+
+									<div className='col-span-12'>
+										<label className='block text-gray-700 mb-2' htmlFor='company'>
+											Company:
+										</label>
+
+										<Field
+											type='text'
+											name='company'
+											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
+											autoComplete='off'
+										/>
+										{
+											touched.company && errors.company ? (
+												<div className='w-full my-2'>
+													<Alert
+														type='error'
+														icon='fa-exclamation-triangle'
+														message={ errors.company }
+													/>
+												</div>
+											) : null
+										}
+									</div>
+
+									<div className='col-span-12'>
+										<label className='block text-gray-700 mb-2' htmlFor='email'>
+											Email Address:
+										</label>
+
+										<Field
+											type='email'
+											name='email'
+											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
+											autoComplete='off'
+										/>
+										{
+											touched.email && errors.email ? (
+												<div className='w-full my-2'>
+													<Alert
+														type='error'
+														icon='fa-exclamation-triangle'
+														message={ errors.email }
+													/>
+												</div>
+											) : null
+										}
+									</div>
+
+									<div className='col-span-12'>
+										<label className='block text-gray-700 mb-2' htmlFor='address'>
+											Address:
+										</label>
+
+										<Field
+											type='text'
+											name='address'
+											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
+											autoComplete='off'
+										/>
+									</div>
+
+									<div className='col-span-12'>
+										<label className='block text-gray-700 mb-2' htmlFor='phone'>
+											Phone Number:
+										</label>
+
+										<Field
+											type='text'
+											name='phone'
+											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
+											autoComplete='off'
+										/>
+									</div>
+
+									<div className='mt-4 col-span-12 flex flex-wrap gap-2 justify-end'>
+										<LinkRouter
+											isButton
+											linkText='Cancel'
+											linkTo='/customers'
+											size='normal'
+											variant='danger'
+										/>
+
+										<Button
+											variant='primary'
+											size='normal'
+											label='Edit Customer'
+											type='submit'
+											icon='fa-edit'
+										/>
+									</div>
+								</Form>
+							);
 						}
-					</div>
-
-					<div className='col-span-12 md:col-span-6'>
-						<label className='block text-gray-700 mb-2' htmlFor='lastName'>
-							Last Name:
-						</label>
-						<Input
-							type='text'
-							id='lastName'
-							name='lastName'
-							placeholder='Last Name'
-							value={ formik.values.lastName }
-							onChange={ formik.handleChange }
-							onBlur={ formik.handleBlur }
-						/>
-						{
-							formik.touched.lastName && formik.errors.lastName ? (
-								<div className='w-full my-2'>
-									<Alert
-										type='error'
-										icon='fa-exclamation-triangle'
-										message={ formik.errors.lastName }
-									/>
-								</div>
-							) : null
-						}
-					</div>
-
-					<div className='col-span-12'>
-						<label className='block text-gray-700 mb-2' htmlFor='company'>
-							Company:
-						</label>
-						<Input
-							type='text'
-							id='company'
-							name='company'
-							placeholder='Company'
-							value={ formik.values.company }
-							onChange={ formik.handleChange }
-							onBlur={ formik.handleBlur }
-						/>
-						{
-							formik.touched.company && formik.errors.company ? (
-								<div className='w-full my-2'>
-									<Alert
-										type='error'
-										icon='fa-exclamation-triangle'
-										message={ formik.errors.company }
-									/>
-								</div>
-							) : null
-						}
-					</div>
-
-					<div className='col-span-12'>
-						<label className='block text-gray-700 mb-2' htmlFor='email'>
-							Email Address:
-						</label>
-						<Input
-							type='email'
-							id='email'
-							name='email'
-							placeholder='Email Address'
-							value={ formik.values.email }
-							onChange={ formik.handleChange }
-							onBlur={ formik.handleBlur }
-						/>
-						{
-							formik.touched.email && formik.errors.email ? (
-								<div className='w-full my-2'>
-									<Alert
-										type='error'
-										icon='fa-exclamation-triangle'
-										message={ formik.errors.email }
-									/>
-								</div>
-							) : null
-						}
-					</div>
-
-					<div className='col-span-12'>
-						<label className='block text-gray-700 mb-2' htmlFor='address'>
-							Address:
-						</label>
-						<Input
-							type='text'
-							id='address'
-							name='address'
-							placeholder='Address'
-							value={ formik.values.address }
-							onChange={ formik.handleChange }
-							onBlur={ formik.handleBlur }
-						/>
-					</div>
-
-					<div className='col-span-12'>
-						<label className='block text-gray-700 mb-2' htmlFor='phone'>
-							Phone Number:
-						</label>
-						<Input
-							type='text'
-							id='phone'
-							name='phone'
-							placeholder='Phone Number'
-							value={ formik.values.phone }
-							onChange={ formik.handleChange }
-							onBlur={ formik.handleBlur }
-						/>
-					</div>
-					<div className='mt-4 col-span-12 flex flex-wrap gap-2 justify-end'>
-						<LinkRouter
-							isButton
-							linkText='Cancel'
-							linkTo='/customers'
-							size='normal'
-							variant='danger'
-						/>
-
-						<Button
-							variant='primary'
-							size='normal'
-							label='Edit Customer'
-							type='submit'
-							icon='fa-edit'
-						/>
-					</div>
-				</form>
+					}
+				</Formik>
 			</main>
 		</>
 	);

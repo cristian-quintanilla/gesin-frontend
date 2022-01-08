@@ -5,6 +5,7 @@ import  { AxiosError } from 'axios';
 
 import {
 	GET_CUSTOMERS,
+	GET_CUSTOMER,
 	ADD_CUSTOMER,
 	DELETE_CUSTOMER,
 	UPDATE_CUSTOMER,
@@ -21,6 +22,7 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 
 	const initialState = {
 		customers: [],
+		customer: null,
 		message: null,
 	}
 
@@ -38,6 +40,27 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 		} catch (error) {
 			const err = error as AxiosError;
 			const msg = err.response?.data.msg || 'Error getting customers. Try again later or contact support.';
+			const message = { msg, type: 'error' };
+
+			dispatch({
+				type: CUSTOMERS_ERROR,
+				payload: message
+			});
+		}
+	}
+
+	//* Get customer
+	const getCustomer = async (_id: string) => {
+		try{
+			const { data } = await clientAxios.get(`/api/v1/customers/${ _id }`);
+
+			dispatch({
+				type: GET_CUSTOMER,
+				payload: data.customer
+			});
+		} catch (error) {
+			const err = error as AxiosError;
+			const msg = err.response?.data.msg || 'Error getting customer. Try again later or contact support.';
 			const message = { msg, type: 'error' };
 
 			dispatch({
@@ -97,17 +120,16 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 	//* Update customer
 	const updateCustomer = async (customer: CustomerType) => {
 		try{
-			console.log(customer);
-			// const { id, ...customerObject } = customer;
-			// const { data } = await clientAxios.put(`/api/v1/customers/edit/${ _id }`, customerObject);
+			const { _id, ...customerObject } = customer;
+			const { data } = await clientAxios.put(`/api/v1/customers/edit/${ _id }`, customerObject);
 
-			// dispatch({
-			// 	type: UPDATE_CUSTOMER,
-			// 	payload: data.customer
-			// });
+			dispatch({
+				type: UPDATE_CUSTOMER,
+				payload: data.customer
+			});
 
-			// toast.success(data.msg, { duration: 3000 });
-			// navigate('/customers');
+			toast.success(data.msg, { duration: 3000 });
+			navigate('/customers');
 		} catch (error) {
 			const err = error as AxiosError;
 			const msg = err.response?.data.msg || 'Error updating customer. Try again later or contact support.';
@@ -125,7 +147,9 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 			value={{
 				customers: state.customers,
 				message: state.message,
+				customer: state.customer,
 				getCustomers,
+				getCustomer,
 				addCustomer,
 				deleteCustomer,
 				updateCustomer
