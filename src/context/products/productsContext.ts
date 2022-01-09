@@ -17,6 +17,7 @@ type ContextType = {
 	addProduct: (product: ProductType) => void;
 	deleteProduct: (_id: string) => void;
 	updateProduct: (product: ProductType) => void;
+	hideAlert: () => void;
 }
 
 const productsContext = createContext({} as ContextType);

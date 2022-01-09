@@ -15,7 +15,7 @@ const EditProduct = (): JSX.Element => {
 	const params = useParams();
 
 	const ProductContext = useContext(productsContext);
-	const { message, product, getProduct, updateProduct } = ProductContext;
+	const { message, product, getProduct, hideAlert, updateProduct } = ProductContext;
 
 	const initialValues = {
 		name: '',
@@ -50,9 +50,13 @@ const EditProduct = (): JSX.Element => {
 			<Header />
 
 			<main className='w-full md:w-10/12 mx-auto mb-4'>
-				<h1 className='text-xl md:text-2xl text-center'>
-					Edit Product: { product?.name }
-				</h1>
+				{
+					product && (
+						<h1 className='text-xl md:text-2xl text-center'>
+							Edit Product: { product?.name }
+						</h1>
+					)
+				}
 
 				{
 					message && (
@@ -61,6 +65,7 @@ const EditProduct = (): JSX.Element => {
 								type={ message.type }
 								message={ message.msg }
 								icon='fa-exclamation-triangle'
+								hideAlert={ hideAlert }
 							/>
 						</section>
 					)
@@ -81,102 +86,104 @@ const EditProduct = (): JSX.Element => {
 								}
 							}, [product]);
 
-							return (
-								<Form className='grid gap-4 grid-cols-12 mx-4 mt-4 md:mt-6'>
-									<div className='col-span-12'>
-										<label className='block text-gray-700 mb-2' htmlFor='name'>
-											Product Name:
-										</label>
+							if (product) {
+								return (
+									<Form className='grid gap-4 grid-cols-12 mx-4 mt-4 md:mt-6'>
+										<div className='col-span-12'>
+											<label className='block text-gray-700 mb-2' htmlFor='name'>
+												Product Name:
+											</label>
 
-										<Field
-											type='text'
-											name='name'
-											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
-											autoComplete='off'
-											placeholder='Name'
-										/>
-										{
-											touched.name && errors.name ? (
-												<div className='w-full my-2'>
-													<Alert
-														type='error'
-														icon='fa-exclamation-triangle'
-														message={ errors.name }
-													/>
-												</div>
-											) : null
-										}
-									</div>
+											<Field
+												type='text'
+												name='name'
+												className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
+												autoComplete='off'
+												placeholder='Name'
+											/>
+											{
+												touched.name && errors.name ? (
+													<div className='w-full my-2'>
+														<Alert
+															type='error'
+															icon='fa-exclamation-triangle'
+															message={ errors.name }
+														/>
+													</div>
+												) : null
+											}
+										</div>
 
-									<div className='col-span-12'>
-										<label className='block text-gray-700 mb-2' htmlFor='stock'>
-											Product Stock:
-										</label>
+										<div className='col-span-12'>
+											<label className='block text-gray-700 mb-2' htmlFor='stock'>
+												Product Stock:
+											</label>
 
-										<Field
-											type='text'
-											name='stock'
-											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
-											autoComplete='off'
-											placeholder='Product Stock'
-										/>
-										{
-											touched.stock && errors.stock ? (
-												<div className='w-full my-2'>
-													<Alert
-														type='error'
-														icon='fa-exclamation-triangle'
-														message={ errors.stock }
-													/>
-												</div>
-											) : null
-										}
-									</div>
+											<Field
+												type='text'
+												name='stock'
+												className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
+												autoComplete='off'
+												placeholder='Product Stock'
+											/>
+											{
+												touched.stock && errors.stock ? (
+													<div className='w-full my-2'>
+														<Alert
+															type='error'
+															icon='fa-exclamation-triangle'
+															message={ errors.stock }
+														/>
+													</div>
+												) : null
+											}
+										</div>
 
-									<div className='col-span-12'>
-										<label className='block text-gray-700 mb-2' htmlFor='price'>
-											Product Price:
-										</label>
+										<div className='col-span-12'>
+											<label className='block text-gray-700 mb-2' htmlFor='price'>
+												Product Price:
+											</label>
 
-										<Field
-											type='text'
-											name='price'
-											className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
-											autoComplete='off'
-											placeholder='Product Price'
-										/>
-										{
-											touched.price && errors.price ? (
-												<div className='w-full my-2'>
-													<Alert
-														type='error'
-														icon='fa-exclamation-triangle'
-														message={ errors.price }
-													/>
-												</div>
-											) : null
-										}
-									</div>
+											<Field
+												type='text'
+												name='price'
+												className='w-full rounded border-2 border-gray-300 focus:border-blue-600 outline-none text-gray-700 py-2 px-3 duration-200 ease-in-out'
+												autoComplete='off'
+												placeholder='Product Price'
+											/>
+											{
+												touched.price && errors.price ? (
+													<div className='w-full my-2'>
+														<Alert
+															type='error'
+															icon='fa-exclamation-triangle'
+															message={ errors.price }
+														/>
+													</div>
+												) : null
+											}
+										</div>
 
-									<div className='mt-4 col-span-12 flex flex-wrap gap-2 justify-end'>
-										<LinkRouter
-											isButton
-											linkText='Cancel'
-											linkTo='/products'
-											size='normal'
-											variant='danger'
-										/>
+										<div className='mt-4 col-span-12 flex flex-wrap gap-2 justify-end'>
+											<LinkRouter
+												isButton
+												linkText='Cancel'
+												linkTo='/products'
+												size='normal'
+												variant='danger'
+											/>
 
-										<Button
-											variant='primary'
-											size='normal'
-											label='Edit Product'
-											type='submit'
-											icon='fa-edit'
-										/>
-									</div>
-								</Form>
-							);
+											<Button
+												variant='primary'
+												size='normal'
+												label='Edit Product'
+												type='submit'
+												icon='fa-edit'
+											/>
+										</div>
+									</Form>
+								);
+							}
 						}
 					}
 				</Formik>

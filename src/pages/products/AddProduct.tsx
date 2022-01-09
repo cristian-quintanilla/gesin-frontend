@@ -12,7 +12,7 @@ import productsContext from '../../context/products/productsContext';
 
 const AddProduct = (): JSX.Element => {
 	const ProductsContext = useContext(productsContext);
-	const { message, addProduct } = ProductsContext;
+	const { message, addProduct, hideAlert } = ProductsContext;
 
 	//* Formik and Yup Validation
 	const formik = useFormik({
@@ -60,6 +60,7 @@ const AddProduct = (): JSX.Element => {
 								type={ message.type }
 								icon='fa-exclamation-triangle'
 								message={ message.msg }
+								hideAlert={ hideAlert }
 							/>
 						</div>
 					)

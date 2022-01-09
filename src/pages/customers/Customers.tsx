@@ -104,7 +104,7 @@ const Customers = (): JSX.Element => {
 					{
 						customers.length === 0 ? (
 							<>
-								<h2 className='text-lg md:text-2xl text-gray-800'>No Customers.</h2>
+								<h2 className='text-lg md:text-2xl text-gray-800'>No Customers</h2>
 								<LinkRouter
 									isButton
 									linkText='Add Customer'

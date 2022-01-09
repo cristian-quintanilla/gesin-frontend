@@ -56,7 +56,7 @@ const renderProducts = (
 
 const Products = (): JSX.Element => {
 	const ProductsContext = useContext(productsContext);
-	const { message, products, getProducts, deleteProduct } = ProductsContext;
+	const { message, products, deleteProduct, getProducts, hideAlert } = ProductsContext;
 
 	const PRODUCTS_PER_PAGE = 2;
 	const [ showModal, setShowModal ] = useState(false);
@@ -83,69 +83,73 @@ const Products = (): JSX.Element => {
 	const indexOfFirstPost = indexOfLastPost - PRODUCTS_PER_PAGE;
 	const currentProducts = products.slice(indexOfFirstPost, indexOfLastPost);
 
-	if ( products.length === 0 ) {
-		return (
-			<>
-				<Header />
-
-				<main className='w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
-					<section className='flex items-center justify-between px-5 py-4'>
-						<h2 className='text-lg md:text-2xl text-gray-800'>
-							No Products.
-						</h2>
-						<LinkRouter
-							isButton
-							linkText='Add Product'
-							linkTo='/products/new'
-							size='normal'
-							variant='primary'
-						/>
-					</section>
-				</main>
-			</>
-		);
-	}
-
 	return (
 		<>
 			<Header />
 
 			<main className='w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
+				<section className='flex items-center justify-between px-5 py-4'>
+					{
+						products.length === 0 ? (
+							<>
+								<h2 className='text-lg md:text-2xl text-gray-800'>No Products</h2>
+								<LinkRouter
+									isButton
+									linkText='Add Product'
+									linkTo='/products/new'
+									size='normal'
+									variant='primary'
+								/>
+							</>
+						) : null
+					}
+					{
+						products.length > 0 ? (
+							<>
+								<h2 className='text-lg md:text-2xl text-gray-800'>Products</h2>
+								<LinkRouter
+									isButton
+									linkText='Add Product'
+									linkTo='/products/new'
+									size='normal'
+									variant='primary'
+								/>
+							</>
+						) : null
+					}
+				</section>
+
 				{
 					message && (
 						<Alert
 							type={ message.type }
 							message={ message.msg }
 							icon='fa-exclamation-triangle'
+							hideAlert={ hideAlert }
 						/>
 					)
 				}
 
-				<section className='flex items-center justify-between px-5 py-4'>
-					<h2 className='text-lg md:text-2xl text-gray-800'>Products</h2>
-					<LinkRouter
-						isButton
-						linkText='Add Product'
-						linkTo='/products/new'
-						size='normal'
-						variant='primary'
-					/>
-				</section>
+				{
+					products.length > 0 && (
+						<>
+							<section className='mt-4'>
+								<TableRecords
+									headings={[ 'Name', 'Stock', 'Price', 'Options' ]}
+									content={ renderProducts(currentProducts, setShowModal, setIdProduct) }
+								/>
+							</section>
 
-				<section className='mt-4'>
-					<TableRecords
-						headings={[ 'Name', 'Stock', 'Price', 'Options' ]}
-						content={ renderProducts(currentProducts, setShowModal, setIdProduct) }
-					/>
-				</section>
-
-				<section className='flex justify-end mt-4'>
-					<Pagination
-						page={ currentPage }
-						totalRecords={ Math.ceil(products.length / PRODUCTS_PER_PAGE) }
-						paginate={ paginate }
-					/>
-				</section>
+							<section className='flex justify-end mt-4'>
+								<Pagination
+									page={ currentPage }
+									totalRecords={ Math.ceil(products.length / PRODUCTS_PER_PAGE) }
+									paginate={ paginate }
+								/>
+							</section>
+						</>
+					)
+				}
 			</main>
 
 			{/* Modal for delete confirmation */}

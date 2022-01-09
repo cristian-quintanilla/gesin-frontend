@@ -143,7 +143,7 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 		}
 	}
 
-	//* Clear message
+	//* Hide alert
 	const hideAlert = () => {
 		dispatch({
 			type: HIDE_ALERT,

@@ -11,6 +11,7 @@ import {
 	DELETE_PRODUCT,
 	UPDATE_PRODUCT,
 	PRODUCTS_ERROR,
+	HIDE_ALERT
 } from '../../types';
 
 import clientAxios from '../../config/axios';
@@ -84,7 +85,7 @@ const ProductsState = ({ children }: { children: ReactNode }) => {
 			navigate('/products');
 		} catch (error) {
 			const err = error as AxiosError;
-			const msg = err.response?.data.msg || 'Error adding customer. Try again later or contact support.';
+			const msg = err.response?.data.msg || 'Error adding product. Try again later or contact support.';
 			const message = { msg, type: 'error' };
 
 			dispatch({
@@ -107,7 +108,7 @@ const ProductsState = ({ children }: { children: ReactNode }) => {
 			toast.success(data.msg, { duration: 5000 });
 		} catch (error) {
 			const err = error as AxiosError;
-			const msg = err.response?.data.msg || 'Error deleting customer. Try again later or contact support.';
+			const msg = err.response?.data.msg || 'Error deleting product. Try again later or contact support.';
 			const message = { msg, type: 'error' };
 
 			dispatch({
@@ -142,6 +143,13 @@ const ProductsState = ({ children }: { children: ReactNode }) => {
 		}
 	}
 
+	//* Hide alert
+	const hideAlert = () => {
+		dispatch({
+			type: HIDE_ALERT,
+		});
+	}
+
 	return (
 		<productsContext.Provider
 			value={{
@@ -153,6 +161,7 @@ const ProductsState = ({ children }: { children: ReactNode }) => {
 				addProduct,
 				deleteProduct,
 				updateProduct,
+				hideAlert,
 			}}
 		>
 			{ children }
