@@ -1,8 +1,10 @@
 //* State
 import tokenUser from './config/tokenUser';
+
 import AlertState from './context/alert/alertState';
 import AuthState from './context/auth/authState';
 import CustomersState from './context/customers/customersState';
+import OrdersState from './context/orders/ordersState';
 import ProductsState from './context/products/productsState';
 
 //* Router
@@ -17,7 +19,9 @@ function App() {
 			<AlertState>
 				<CustomersState>
 					<ProductsState>
-						<Router />
+						<OrdersState>
+							<Router />
+						</OrdersState>
 					</ProductsState>
 				</CustomersState>
 			</AlertState>

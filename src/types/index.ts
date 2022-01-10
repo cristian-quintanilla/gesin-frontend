@@ -12,6 +12,7 @@ export type CustomerType = {
 	address?: string;
 	status?: boolean;
 	phone?: string;
+	__v?: number;
 }
 
 export type ProductType = {
@@ -32,6 +33,24 @@ export type UserType = {
 	name: string;
 	email: string;
 	__v: string | number;
+}
+
+export type Details = {
+	_id: string;
+	product: {
+		_id: string;
+		name: string;
+		price: number;
+	};
+	quantity: number;
+}
+
+export type OrderType = {
+	_id: string;
+	client: CustomerType;
+	details: Details[];
+	total: number;
+	delivered: boolean;
 }
 
 //* AUTH TYPES
@@ -55,6 +74,9 @@ export const ADD_PRODUCT: string = '[PRODUCTS] ADD_PRODUCT';
 export const DELETE_PRODUCT: string = '[PRODUCTS] DELETE_PRODUCT';
 export const UPDATE_PRODUCT: string = '[PRODUCTS] UPDATE_PRODUCT';
 export const PRODUCTS_ERROR: string = '[PRODUCTS] PRODUCTS_ERROR';
+
+//* ORDERS TYPES
+export const GET_ORDERS: string = '[ORDERS] GET_ORDERS';
 
 //* ALERT TYPES
 export const SHOW_ALERT: string = '[ALERT] SHOW_ALERT';
