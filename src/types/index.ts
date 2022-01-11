@@ -77,6 +77,7 @@ export const PRODUCTS_ERROR: string = '[PRODUCTS] PRODUCTS_ERROR';
 
 //* ORDERS TYPES
 export const GET_ORDERS: string = '[ORDERS] GET_ORDERS';
+export const ORDERS_ERROR: string = '[ORDERS] ORDERS_ERROR';
 
 //* ALERT TYPES
 export const SHOW_ALERT: string = '[ALERT] SHOW_ALERT';

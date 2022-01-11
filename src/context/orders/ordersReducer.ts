@@ -1,4 +1,9 @@
-import { ActionType, GET_ORDERS, HIDE_ALERT } from '../../types';
+import {
+  ActionType,
+  GET_ORDERS,
+  ORDERS_ERROR,
+  HIDE_ALERT
+} from '../../types';
 
 import { OrderInterface } from './ordersContext';
 
@@ -9,7 +14,8 @@ const ordersReducer = (state: OrderInterface, action: ActionType) => {
     case GET_ORDERS:
       return {
         ...state,
-        orders: payload,
+        orders: payload.orders,
+        totalPages: payload.totalPages,
         message: null,
       }
     case HIDE_ALERT:
@@ -17,6 +23,11 @@ const ordersReducer = (state: OrderInterface, action: ActionType) => {
         ...state,
         message: null,
       }
+    case ORDERS_ERROR:
+      return {
+				...state,
+				message: payload,
+			}
     default:
       return state;
   }

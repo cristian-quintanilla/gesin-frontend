@@ -3,36 +3,10 @@ import toast, { Toaster } from 'react-hot-toast';
 
 import Button from './Button';
 import ModalOrder from './ModalOrder';
-
-type Details = {
-	_id: string;
-	product: {
-		name: string;
-		price: number;
-	};
-	quantity: number;
-}
-
-type Client = {
-	_id: string;
-	firstName: string;
-	lastName: string;
-	company: string;
-	email: string;
-	address?: string;
-	phone?: string;
-	status: boolean;
-	__v?: number;
-}
+import { OrderType } from '../types/index';
 
 interface Props {
-	order: {
-		_id: string;
-		client: Client;
-		details: Details[];
-		total: number;
-		delivered: boolean;
-	}
+	order: OrderType
 }
 
 const Order = ({ order }: Props): JSX.Element => {
@@ -55,7 +29,7 @@ const Order = ({ order }: Props): JSX.Element => {
 
 	return (
 		<>
-			<div className={ `grid gap-4 grid-cols-12 py-2 px-2 md:px-4 ${ borderStyles }` }>
+			<div className={ `grid gap-4 grid-cols-12 py-2 px-3 md:px-4 ${ borderStyles }` }>
 				<div className='py-2 px-1 md:px-3 col-span-12 md:col-span-5'>
 					<h1 className='mb-2 text-lg md:text-xl text-yellow-600 font-medium tracking-wide'>
 						Customer: { `${ client.firstName } ${ client.lastName }` }

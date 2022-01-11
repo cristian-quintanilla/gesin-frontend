@@ -3,7 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
 
-import { ActionType, GET_ORDERS, HIDE_ALERT } from '../../types';
+import {
+  ActionType,
+  GET_ORDERS,
+  ORDERS_ERROR,
+  HIDE_ALERT
+} from '../../types';
 
 import clientAxios from '../../config/axios';
 import ordersContext from './ordersContext';
@@ -14,21 +19,51 @@ const OrdersState = ({ children }: { children: ReactNode }) => {
 
 	const initialState = {
 		orders: [],
+    totalPages: 0,
 		message: null,
 	}
 
 	const [ state, dispatch ] = useReducer(ordersReducer, initialState);
 
+  //* Get orders
   const getOrders = async (pagination: string) => {
-    console.log('getOrders', pagination);
+    try {
+      const { data } = await clientAxios.get(`/api/v1/orders${ pagination }`);
+
+      dispatch({
+        type: GET_ORDERS,
+        payload: {
+          orders: data.orders,
+          totalPages: data.totalPages
+        }
+      });
+    } catch (error) {
+			const err = error as AxiosError;
+			const msg = err.response?.data.msg || 'Error getting orders. Try again later or contact support.';
+			const message = { msg, type: 'error' };
+
+			dispatch({
+				type: ORDERS_ERROR,
+				payload: message
+			});
+		}
   }
+
+  //* Hide alert
+	const hideAlert = () => {
+		dispatch({
+			type: HIDE_ALERT,
+		});
+	}
 
   return (
     <ordersContext.Provider
       value={{
         orders: state.orders,
         message: state.message,
+        totalPages: state.totalPages,
         getOrders,
+        hideAlert
       }}
     >
       { children }

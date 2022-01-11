@@ -101,10 +101,7 @@ const Products = (): JSX.Element => {
 									variant='primary'
 								/>
 							</>
-						) : null
-					}
-					{
-						products.length > 0 ? (
+						) : (
 							<>
 								<h2 className='text-lg md:text-2xl text-gray-800'>Products</h2>
 								<LinkRouter
@@ -115,7 +112,7 @@ const Products = (): JSX.Element => {
 									variant='primary'
 								/>
 							</>
-						) : null
+						)
 					}
 				</section>
 
