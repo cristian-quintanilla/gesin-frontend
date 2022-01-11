@@ -9,7 +9,7 @@ import Customers from '../pages/customers/Customers';
 import EditCustomer from '../pages/customers/EditCustomer';
 import EditProduct from '../pages/products/EditProduct';
 import LoginPage from '../pages/auth/Login';
-import NotFound from '../pages/auth/NotFound';
+import NotFound from '../pages/NotFound';
 import Orders from '../pages/orders/Orders';
 import Products from '../pages/products/Products';
 

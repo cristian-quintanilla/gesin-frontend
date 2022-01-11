@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import Select, { OnChangeValue } from 'react-select';
 
 type SelectedOption = {
@@ -13,15 +12,6 @@ interface Props {
 }
 
 const MultiSelect = ({ name, options, onChange }: Props): JSX.Element => {
-	// const [ selectedOptions, setSelectedOptions ] = useState<SelectedOption[]>([]);
-
-	// const onChange = (values: OnChangeValue<SelectedOption, true>) => {
-	// 	if (values)
-	// 		setSelectedOptions(values as SelectedOption[]);
-	// }
-
-	// console.log(selectedOptions);
-
 	return (
 		<Select
 			isMulti

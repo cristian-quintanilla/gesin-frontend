@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useContext, useState, useEffect } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
-import Alert from '../../components/Alert';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
@@ -56,7 +55,7 @@ const renderProducts = (
 
 const Products = (): JSX.Element => {
 	const ProductsContext = useContext(productsContext);
-	const { message, products, deleteProduct, getProducts, hideAlert } = ProductsContext;
+	const { products, deleteProduct, getProducts } = ProductsContext;
 
 	const PRODUCTS_PER_PAGE = 2;
 	const [ showModal, setShowModal ] = useState(false);
@@ -65,7 +64,7 @@ const Products = (): JSX.Element => {
 
 	//* Get products
 	useEffect(() => {
-		if ( products.length === 0 ) getProducts();
+		getProducts();
 	}, []);
 
 	//* Delete Product
@@ -87,7 +86,7 @@ const Products = (): JSX.Element => {
 		<>
 			<Header />
 
-			<main className='w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
+			<main className='animate__animated animate__fadeIn w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
 				<section className='flex items-center justify-between px-5 py-4'>
 					{
 						products.length === 0 ? (
@@ -115,17 +114,6 @@ const Products = (): JSX.Element => {
 						)
 					}
 				</section>
-
-				{
-					message && (
-						<Alert
-							type={ message.type }
-							message={ message.msg }
-							icon='fa-exclamation-triangle'
-							hideAlert={ hideAlert }
-						/>
-					)
-				}
 
 				{
 					products.length > 0 && (

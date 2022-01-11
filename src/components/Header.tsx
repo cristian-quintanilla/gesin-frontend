@@ -1,8 +1,8 @@
-import { useContext, useEffect, memo } from 'react';
+import { useContext, useEffect } from 'react';
 
 import authContext from '../context/auth/authContext';
 
-const Header = memo((): JSX.Element => {
+const Header = (): JSX.Element => {
 	const AuthContext = useContext(authContext);
 	const { user, userAuthenticated } = AuthContext;
 
@@ -17,6 +17,6 @@ const Header = memo((): JSX.Element => {
 			</h1>
 		</header>
 	);
-})
+}
 
 export default Header;

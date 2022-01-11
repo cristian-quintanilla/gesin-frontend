@@ -5,7 +5,7 @@ import { AlertInterface } from './alertContext';
 const alertReducer = (state: AlertInterface, action: ActionType) => {
 	const { type, payload } = action;
 
-	switch (type){
+	switch (type) {
 		case SHOW_ALERT:
 			return {
 				msg: payload.msg,
@@ -13,8 +13,8 @@ const alertReducer = (state: AlertInterface, action: ActionType) => {
 			}
 		case HIDE_ALERT:
 			return {
-				msg: '',
-				type: ''
+				msg: null,
+				type: null
 			}
 		default:
 			return state;

@@ -3,6 +3,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 import Button from './Button';
 import ModalOrder from './ModalOrder';
+
 import { OrderType } from '../types/index';
 
 interface Props {

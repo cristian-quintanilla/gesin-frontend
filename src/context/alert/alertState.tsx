@@ -24,7 +24,7 @@ const AlertState = ({ children }: { children: ReactNode }) => {
 			dispatch({
 				type: HIDE_ALERT
 			});
-		}, 5000);
+		}, 4000);
 	}
 
 	return (

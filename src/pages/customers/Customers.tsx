@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useContext, useState, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 
-import Alert from '../../components/Alert';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
@@ -68,7 +67,7 @@ const renderCustomers = (
 
 const Customers = (): JSX.Element => {
 	const CustomersContext = useContext(customersContext);
-	const { customers, message, deleteCustomer, getCustomers, hideAlert } = CustomersContext;
+	const { customers, deleteCustomer, getCustomers } = CustomersContext;
 
 	const CUSTOMERS_PER_PAGE = 2;
 	const [ showModal, setShowModal ] = useState(false);
@@ -77,7 +76,7 @@ const Customers = (): JSX.Element => {
 
 	//* Get customers
 	useEffect(() => {
-		if ( customers.length === 0 ) getCustomers();
+		getCustomers();
 	}, []);
 
 	//* Delete Customer
@@ -95,11 +94,13 @@ const Customers = (): JSX.Element => {
 	const indexOfFirstPost = indexOfLastPost - CUSTOMERS_PER_PAGE;
 	const currentCustomers = customers.slice(indexOfFirstPost, indexOfLastPost);
 
+	console.log(customers);
+
 	return (
 		<>
 			<Header />
 
-			<main className='w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
+			<main className='animate__animated animate__fadeIn w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
 				<section className='flex items-center justify-between px-5 py-4'>
 					{
 						customers.length === 0 ? (
@@ -127,17 +128,6 @@ const Customers = (): JSX.Element => {
 						)
 					}
 				</section>
-
-				{
-					message && (
-						<Alert
-							type={ message.type }
-							message={ message.msg }
-							icon='fa-exclamation-triangle'
-							hideAlert={ hideAlert }
-						/>
-					)
-				}
 
 				{
 					customers.length > 0 && (

@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -12,7 +13,7 @@ import customersContext from '../../context/customers/customersContext';
 
 const AddCustomer = (): JSX.Element => {
 	const CustomersContext = useContext(customersContext);
-	const { message, addCustomer, hideAlert } = CustomersContext;
+	const { addCustomer } = CustomersContext;
 
 	//* Formik and Yup Validation
 	const formik = useFormik({
@@ -30,8 +31,8 @@ const AddCustomer = (): JSX.Element => {
 			company: Yup.string().required('Company is required.'),
 			email: Yup.string().required('Email is required.').email('Invalid email address.'),
 		}),
-		onSubmit: async values => {
-			await addCustomer(values);
+		onSubmit: values => {
+			addCustomer(values);
 		}
 	});
 
@@ -39,23 +40,10 @@ const AddCustomer = (): JSX.Element => {
 		<>
 			<Header />
 
-			<main className='w-full md:w-10/12 mx-auto mb-4'>
+			<main className='animate__animated animate__fadeIn w-full md:w-10/12 mx-auto mb-4'>
 				<h1 className='text-xl md:text-2xl text-center'>
 					Add Customer
 				</h1>
-
-				{
-					message && (
-						<div className='w-full my-2'>
-							<Alert
-								type={ message.type }
-								icon='fa-exclamation-triangle'
-								message={ message.msg }
-								hideAlert={ hideAlert }
-							/>
-						</div>
-					)
-				}
 
 				<form
 					onSubmit={ formik.handleSubmit }
@@ -214,6 +202,12 @@ const AddCustomer = (): JSX.Element => {
 					</div>
 				</form>
 			</main>
+
+			{/* Toast */}
+			<Toaster
+				position='top-right'
+				reverseOrder={false}
+			/>
 		</>
 	);
 }

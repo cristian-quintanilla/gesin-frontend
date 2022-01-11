@@ -5,8 +5,6 @@ import {
 	ADD_PRODUCT,
 	DELETE_PRODUCT,
 	UPDATE_PRODUCT,
-	PRODUCTS_ERROR,
-	HIDE_ALERT,
 } from '../../types';
 
 import { ProductInterface } from './productsContext';
@@ -46,16 +44,6 @@ const productsReducer = (state: ProductInterface, action: ActionType) => {
 		    message: null,
 				product: null,
 		  }
-		case PRODUCTS_ERROR:
-			return {
-				...state,
-				message: payload,
-			}
-		case HIDE_ALERT:
-			return {
-				...state,
-				message: null,
-			}
 		default:
 			return state;
 	}

@@ -10,8 +10,6 @@ import {
 	ADD_PRODUCT,
 	DELETE_PRODUCT,
 	UPDATE_PRODUCT,
-	PRODUCTS_ERROR,
-	HIDE_ALERT
 } from '../../types';
 
 import clientAxios from '../../config/axios';
@@ -24,7 +22,6 @@ const ProductsState = ({ children }: { children: ReactNode }) => {
 	const initialState = {
 		products: [],
 		product: null,
-		message: null,
 	}
 
 	const [ state, dispatch ] = useReducer(productsReducer, initialState);
@@ -41,12 +38,8 @@ const ProductsState = ({ children }: { children: ReactNode }) => {
 		} catch (error) {
 			const err = error as AxiosError;
 			const msg = err.response?.data.msg || 'Error getting products. Try again later or contact support.';
-			const message = { msg, type: 'error' };
 
-			dispatch({
-				type: PRODUCTS_ERROR,
-				payload: message
-			});
+			toast.error(msg, { duration: 5000 });
 		}
 	}
 
@@ -62,19 +55,15 @@ const ProductsState = ({ children }: { children: ReactNode }) => {
 		} catch (error) {
 			const err = error as AxiosError;
 			const msg = err.response?.data.msg || 'Error getting product. Try again later or contact support.';
-			const message = { msg, type: 'error' };
 
-			dispatch({
-				type: PRODUCTS_ERROR,
-				payload: message
-			});
+			toast.error(msg, { duration: 5000 });
 		}
 	}
 
 	//* Add product
 	const addProduct = async (product: ProductType) => {
 		try {
-			const { data } = await clientAxios.post('/api/v1/products/create', product);
+			const { data } = await clientAxios.post('/api/v1/products/createee', product);
 
 			dispatch({
 				type: ADD_PRODUCT,
@@ -86,12 +75,8 @@ const ProductsState = ({ children }: { children: ReactNode }) => {
 		} catch (error) {
 			const err = error as AxiosError;
 			const msg = err.response?.data.msg || 'Error adding product. Try again later or contact support.';
-			const message = { msg, type: 'error' };
 
-			dispatch({
-				type: PRODUCTS_ERROR,
-				payload: message
-			});
+			toast.error(msg, { duration: 5000 });
 		}
 	}
 
@@ -109,12 +94,8 @@ const ProductsState = ({ children }: { children: ReactNode }) => {
 		} catch (error) {
 			const err = error as AxiosError;
 			const msg = err.response?.data.msg || 'Error deleting product. Try again later or contact support.';
-			const message = { msg, type: 'error' };
 
-			dispatch({
-				type: PRODUCTS_ERROR,
-				payload: message
-			});
+			toast.error(msg, { duration: 5000 });
 		}
 	}
 
@@ -134,20 +115,9 @@ const ProductsState = ({ children }: { children: ReactNode }) => {
 		} catch (error) {
 			const err = error as AxiosError;
 			const msg = err.response?.data.msg || 'Error updating product. Try again later or contact support.';
-			const message = { msg, type: 'error' };
 
-			dispatch({
-				type: PRODUCTS_ERROR,
-				payload: message
-			});
+			toast.error(msg, { duration: 5000 });
 		}
-	}
-
-	//* Hide alert
-	const hideAlert = () => {
-		dispatch({
-			type: HIDE_ALERT,
-		});
 	}
 
 	return (
@@ -155,13 +125,11 @@ const ProductsState = ({ children }: { children: ReactNode }) => {
 			value={{
 				products: state.products,
 				product: state.product,
-				message: state.message,
 				getProducts,
 				getProduct,
 				addProduct,
 				deleteProduct,
 				updateProduct,
-				hideAlert,
 			}}
 		>
 			{ children }

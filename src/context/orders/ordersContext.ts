@@ -13,6 +13,8 @@ type ContextType = {
 	totalPages: number;
 	message: MessageType | null;
 	getOrders: (pagination: string) => void;
+	cancelOrder: (id: string) => void;
+	deliverOrder: (id: string) => void;
 	hideAlert: () => void;
 }
 

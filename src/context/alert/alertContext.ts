@@ -1,13 +1,13 @@
 import { createContext } from 'react';
 
 export interface AlertInterface {
-	msg?: string;
-	type?: 'success' | 'error' | 'default';
+	msg?: string | null;
+	type?: 'success' | 'error' | 'default' | null;
 };
 
 type ContextType = {
-	msg?: string;
-	type?: 'success' | 'error' | 'default';
+	msg?: string | null;
+	type?: 'success' | 'error' | 'default' | null;
 	showAlert: (msg: string, type: string) => void;
 };
 

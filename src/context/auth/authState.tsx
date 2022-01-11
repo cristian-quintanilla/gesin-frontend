@@ -1,7 +1,12 @@
 import { ReactNode, useReducer } from 'react';
-import  { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 
-import { GET_USER, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT } from '../../types';
+import {
+	GET_USER,
+	LOGIN_SUCCESS,
+	LOGIN_ERROR,
+	LOGOUT
+} from '../../types';
 
 import authContext from './authContext';
 import authReducer from './authReducer';

@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 
@@ -15,7 +16,7 @@ const EditCustomer = (): JSX.Element => {
 	const params = useParams();
 
 	const CustomerContext = useContext(customersContext);
-	const { customer, message, getCustomer, hideAlert, updateCustomer } = CustomerContext;
+	const { customer, getCustomer, updateCustomer } = CustomerContext;
 
 	const initialValues = {
 		firstName: '',
@@ -42,7 +43,7 @@ const EditCustomer = (): JSX.Element => {
 		<>
 			<Header />
 
-			<main className='w-full md:w-10/12 mx-auto mb-4'>
+			<main className='animate__animated animate__fadeIn w-full md:w-10/12 mx-auto mb-4'>
 				{
 					customer && (
 						<h1 className='text-xl md:text-2xl text-center'>
@@ -51,20 +52,11 @@ const EditCustomer = (): JSX.Element => {
 					)
 				}
 
-				{
-					message && (
-						<section className='w-full md:w-10/12 mx-auto p-4 md:px-0'>
-							<Alert
-								type={ message.type }
-								message={ message.msg }
-								icon='fa-exclamation-triangle'
-								hideAlert={ hideAlert }
-							/>
-						</section>
-					)
-				}
-
-				<Formik initialValues={ initialValues } validationSchema={ validationSchema } onSubmit={ onSubmit }>
+				<Formik
+					initialValues={ initialValues }
+					validationSchema={ validationSchema }
+					onSubmit={ onSubmit }
+				>
 					{
 						({ errors, touched, setFieldValue }) => {
 							useEffect(() => {
@@ -237,6 +229,12 @@ const EditCustomer = (): JSX.Element => {
 					}
 				</Formik>
 			</main>
+
+			{/* Toast */}
+			<Toaster
+				position='top-right'
+				reverseOrder={false}
+			/>
 		</>
 	);
 }

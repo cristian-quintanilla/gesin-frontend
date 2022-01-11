@@ -1,4 +1,3 @@
-import LinkRouter from './LinkRouter';
 interface Props {
   headings: string[];
   content: object;

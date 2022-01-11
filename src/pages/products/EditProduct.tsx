@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 
@@ -15,7 +16,7 @@ const EditProduct = (): JSX.Element => {
 	const params = useParams();
 
 	const ProductContext = useContext(productsContext);
-	const { message, product, getProduct, hideAlert, updateProduct } = ProductContext;
+	const { product, getProduct, updateProduct } = ProductContext;
 
 	const initialValues = {
 		name: '',
@@ -49,7 +50,7 @@ const EditProduct = (): JSX.Element => {
 		<>
 			<Header />
 
-			<main className='w-full md:w-10/12 mx-auto mb-4'>
+			<main className='animate__animated animate__fadeIn w-full md:w-10/12 mx-auto mb-4'>
 				{
 					product && (
 						<h1 className='text-xl md:text-2xl text-center'>
@@ -58,20 +59,11 @@ const EditProduct = (): JSX.Element => {
 					)
 				}
 
-				{
-					message && (
-						<section className='w-full md:w-10/12 mx-auto p-4 md:px-0'>
-							<Alert
-								type={ message.type }
-								message={ message.msg }
-								icon='fa-exclamation-triangle'
-								hideAlert={ hideAlert }
-							/>
-						</section>
-					)
-				}
-
-				<Formik initialValues={ initialValues } validationSchema={ validationSchema } onSubmit={ onSubmit }>
+				<Formik
+					initialValues={ initialValues }
+					validationSchema={ validationSchema }
+					onSubmit={ onSubmit }
+				>
 					{
 						({ errors, touched, setFieldValue }) => {
 							useEffect(() => {
@@ -188,6 +180,12 @@ const EditProduct = (): JSX.Element => {
 					}
 				</Formik>
 			</main>
+
+			{/* Toast */}
+			<Toaster
+				position='top-right'
+				reverseOrder={false}
+			/>
 		</>
 	);
 }

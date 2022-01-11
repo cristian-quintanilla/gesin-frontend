@@ -1,13 +1,10 @@
-import Button from './Button';
-
 interface Props {
 	message: string;
 	type: 'success' | 'error' | 'default';
 	icon: string;
-	hideAlert?: () => void;
 }
 
-const Alert = ({ message, type, icon, hideAlert }: Props): JSX.Element => {
+const Alert = ({ message, type, icon }: Props): JSX.Element => {
 	const classes = 'flex items-center justify-center w-12';
 	const alertVariants = {
 		alert_success: 'bg-green-500 text-white',
@@ -22,7 +19,7 @@ const Alert = ({ message, type, icon, hideAlert }: Props): JSX.Element => {
 	}
 
 	return (
-		<div className={`flex ${ hideAlert && 'justify-between' } w-full bg-white shadow-md`}>
+		<div className={`flex w-full bg-white shadow-md`}>
 			<div className={ `rounded-l-lg ${ classes } ${ alertVariants[`alert_${ type }`] }` }>
 				<i className={ `fas ${ icon } }` }></i>
 			</div>
@@ -34,20 +31,6 @@ const Alert = ({ message, type, icon, hideAlert }: Props): JSX.Element => {
 					</p>
 				</div>
 			</div>
-
-			{
-				hideAlert && (
-					<div className='px-4 py-2'>
-						<button
-							type='button'
-							className='text-gray-800 rounded text-lg px-2 py-1 inline-flex items-center'
-							onClick={ hideAlert }
-						>
-							<i className='fas fa-times'></i>
-						</button>
-					</div>
-				)
-			}
 		</div>
 	);
 }

@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -12,7 +13,7 @@ import productsContext from '../../context/products/productsContext';
 
 const AddProduct = (): JSX.Element => {
 	const ProductsContext = useContext(productsContext);
-	const { message, addProduct, hideAlert } = ProductsContext;
+	const { addProduct } = ProductsContext;
 
 	//* Formik and Yup Validation
 	const formik = useFormik({
@@ -33,7 +34,7 @@ const AddProduct = (): JSX.Element => {
 				.typeError('You must specify a number.')
 				.min(1, 'Min value for price is 1.')
 		}),
-		onSubmit: async values => {
+		onSubmit: values => {
 			const product = {
 				name: values.name,
 				stock: Number(values.stock),
@@ -48,23 +49,10 @@ const AddProduct = (): JSX.Element => {
 		<>
 			<Header />
 
-			<main className='w-full md:w-10/12 mx-auto mb-4'>
+			<main className='animate__animated animate__fadeIn w-full md:w-10/12 mx-auto mb-4'>
 				<h1 className='text-xl md:text-2xl text-center'>
 					Add Product
 				</h1>
-
-				{
-					message && (
-						<div className='w-full my-2'>
-							<Alert
-								type={ message.type }
-								icon='fa-exclamation-triangle'
-								message={ message.msg }
-								hideAlert={ hideAlert }
-							/>
-						</div>
-					)
-				}
 
 				<form
 					onSubmit={ formik.handleSubmit }
@@ -167,6 +155,12 @@ const AddProduct = (): JSX.Element => {
 					</div>
 				</form>
 			</main>
+
+			{/* Toast */}
+			<Toaster
+				position='top-right'
+				reverseOrder={false}
+			/>
 		</>
 	);
 }

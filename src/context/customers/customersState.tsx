@@ -1,22 +1,20 @@
 import { ReactNode, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import  { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 
 import {
+	CustomerType,
 	GET_CUSTOMERS,
 	GET_CUSTOMER,
 	ADD_CUSTOMER,
 	DELETE_CUSTOMER,
 	UPDATE_CUSTOMER,
-	CUSTOMERS_ERROR,
-	CustomerType,
 } from '../../types';
 
 import clientAxios from '../../config/axios';
 import customersContext from './customersContext';
 import customersReducer from './customersReducer';
-import { HIDE_ALERT } from '../../types/index';
 
 const CustomersState = ({ children }: { children: ReactNode }) => {
 	const navigate = useNavigate();
@@ -24,7 +22,6 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 	const initialState = {
 		customers: [],
 		customer: null,
-		message: null,
 	}
 
 	const [ state, dispatch ] = useReducer(customersReducer, initialState);
@@ -41,12 +38,8 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 		} catch (error) {
 			const err = error as AxiosError;
 			const msg = err.response?.data.msg || 'Error getting customers. Try again later or contact support.';
-			const message = { msg, type: 'error' };
 
-			dispatch({
-				type: CUSTOMERS_ERROR,
-				payload: message
-			});
+			toast.error(msg, { duration: 5000 });
 		}
 	}
 
@@ -62,12 +55,8 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 		} catch (error) {
 			const err = error as AxiosError;
 			const msg = err.response?.data.msg || 'Error getting customer. Try again later or contact support.';
-			const message = { msg, type: 'error' };
 
-			dispatch({
-				type: CUSTOMERS_ERROR,
-				payload: message
-			});
+			toast.error(msg, { duration: 5000 });
 		}
 	}
 
@@ -86,12 +75,8 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 		} catch (error) {
 			const err = error as AxiosError;
 			const msg = err.response?.data.msg || 'Error adding customer. Try again later or contact support.';
-			const message = { msg, type: 'error' };
 
-			dispatch({
-				type: CUSTOMERS_ERROR,
-				payload: message
-			});
+			toast.error(msg, { duration: 5000 });
 		}
 	}
 
@@ -109,12 +94,8 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 		} catch (error) {
 			const err = error as AxiosError;
 			const msg = err.response?.data.msg || 'Error deleting customer. Try again later or contact support.';
-			const message = { msg, type: 'error' };
 
-			dispatch({
-				type: CUSTOMERS_ERROR,
-				payload: message
-			});
+			toast.error(msg, { duration: 5000 });
 		}
 	}
 
@@ -134,20 +115,9 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 		} catch (error) {
 			const err = error as AxiosError;
 			const msg = err.response?.data.msg || 'Error updating customer. Try again later or contact support.';
-			const message = { msg, type: 'error' };
 
-			dispatch({
-				type: CUSTOMERS_ERROR,
-				payload: message
-			});
+			toast.error(msg, { duration: 5000 });
 		}
-	}
-
-	//* Hide alert
-	const hideAlert = () => {
-		dispatch({
-			type: HIDE_ALERT,
-		});
 	}
 
 	return (
@@ -155,13 +125,11 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 			value={{
 				customers: state.customers,
 				customer: state.customer,
-				message: state.message,
 				getCustomers,
 				getCustomer,
 				addCustomer,
 				deleteCustomer,
 				updateCustomer,
-				hideAlert
 			}}
 		>
 			{ children }

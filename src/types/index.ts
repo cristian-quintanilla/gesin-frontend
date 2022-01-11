@@ -65,7 +65,6 @@ export const GET_CUSTOMER: string = '[CUSTOMERS] GET_CUSTOMER';
 export const ADD_CUSTOMER: string = '[CUSTOMERS] ADD_CUSTOMER';
 export const DELETE_CUSTOMER: string = '[CUSTOMERS] DELETE_CUSTOMER';
 export const UPDATE_CUSTOMER: string = '[CUSTOMERS] UPDATE_CUSTOMER';
-export const CUSTOMERS_ERROR: string = '[CUSTOMERS] CUSTOMERS_ERROR';
 
 //* PRODUCTS TYPES
 export const GET_PRODUCTS: string = '[PRODUCTS] GET_PRODUCTS';
@@ -73,10 +72,11 @@ export const GET_PRODUCT: string = '[PRODUCTS] GET_PRODUCT';
 export const ADD_PRODUCT: string = '[PRODUCTS] ADD_PRODUCT';
 export const DELETE_PRODUCT: string = '[PRODUCTS] DELETE_PRODUCT';
 export const UPDATE_PRODUCT: string = '[PRODUCTS] UPDATE_PRODUCT';
-export const PRODUCTS_ERROR: string = '[PRODUCTS] PRODUCTS_ERROR';
 
 //* ORDERS TYPES
 export const GET_ORDERS: string = '[ORDERS] GET_ORDERS';
+export const CANCEL_ORDER: string = '[ORDERS] CANCEL_ORDER';
+export const DELIVER_ORDER: string = '[ORDERS] DELIVER_ORDER';
 export const ORDERS_ERROR: string = '[ORDERS] ORDERS_ERROR';
 
 //* ALERT TYPES
