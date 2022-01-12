@@ -1,7 +1,7 @@
 import { Fragment, useContext, useEffect, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import Select, { SingleValue } from 'react-select';
 
-import Alert from '../../components/Alert';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
@@ -32,12 +32,17 @@ const arrayOptions: SelectedOption[] = [
 
 const Orders = (): JSX.Element => {
 	const OrdersContext = useContext(ordersContext);
-	const { message, orders, totalPages, getOrders, hideAlert } = OrdersContext;
+	const { orders, totalPages, getOrders } = OrdersContext;
 
-	const ORDERS_PER_PAGE = 2;
+	const ORDERS_PER_PAGE = 1;
 	const [ currentPage, setCurrentPage ] = useState(1);
 	const [ delivered, setDelivered ] = useState<string | boolean>('');
 	const [ pagination, setPagination ] = useState(`?page=1&size=${ ORDERS_PER_PAGE }`);
+
+	//* Get orders
+	if (orders.length === 0) {
+		getOrders(`?page=1&size=${ ORDERS_PER_PAGE }`);
+	}
 
 	//* Get orders
 	useEffect(() => {
@@ -70,7 +75,7 @@ const Orders = (): JSX.Element => {
 		<>
 			<Header />
 
-			<main className='w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
+			<main className='animate__animated animate__fadeIn w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
 				<section className='flex items-center justify-between px-5 py-4'>
 					{
 						orders.length === 0 ? (
@@ -98,17 +103,6 @@ const Orders = (): JSX.Element => {
 						)
 					}
 				</section>
-
-				{
-					message && (
-						<Alert
-							type={ message.type }
-							message={ message.msg }
-							icon='fa-exclamation-triangle'
-							hideAlert={ hideAlert }
-						/>
-					)
-				}
 
 				{
 					orders.length > 0 && (
@@ -158,6 +152,12 @@ const Orders = (): JSX.Element => {
 					)
 				}
 			</main>
+
+			{/* Toast */}
+			<Toaster
+				position='top-right'
+				reverseOrder={ false }
+			/>
 		</>
 	);
 }

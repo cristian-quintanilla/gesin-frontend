@@ -13,11 +13,10 @@ type ContextType = {
 	totalPages: number;
 	message: MessageType | null;
 	getOrders: (pagination: string) => void;
+	addOrder: (order: OrderType) => void;
 	cancelOrder: (id: string) => void;
 	deliverOrder: (id: string) => void;
-	hideAlert: () => void;
 }
 
-const productsContext = createContext({} as ContextType);
-export default productsContext;
-
+const ordersContext = createContext({} as ContextType);
+export default ordersContext;

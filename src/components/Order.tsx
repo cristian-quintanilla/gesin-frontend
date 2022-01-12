@@ -1,27 +1,30 @@
-import { useCallback, useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import { useCallback, useContext, useState } from 'react';
 
 import Button from './Button';
 import ModalOrder from './ModalOrder';
 
 import { OrderType } from '../types/index';
+import ordersContext from '../context/orders/ordersContext';
 
 interface Props {
 	order: OrderType
 }
 
 const Order = ({ order }: Props): JSX.Element => {
+	const OrdersContext = useContext(ordersContext);
+	const { cancelOrder, deliverOrder } = OrdersContext;
+
 	const [ showModalCancel, setShowModalCancel ] = useState(false);
 	const [ showModalDeliver, setShowModalDeliver ] = useState(false);
 	const [ idOrder, setIdOrder ] = useState('');
 
 	const onCancelOrder = useCallback((_id: string): void => {
-		toast.success(`Canceling order ${_id}`);
+		cancelOrder(_id);
 		setShowModalCancel(false);
 	}, []);
 
 	const onDeliverOrder = useCallback((_id: string): void => {
-		toast.success(`Delivering order ${_id}`);
+		deliverOrder(_id);
 		setShowModalDeliver(false);
 	}, []);
 
@@ -30,14 +33,14 @@ const Order = ({ order }: Props): JSX.Element => {
 
 	return (
 		<>
-			<div className={ `grid gap-4 grid-cols-12 py-2 px-3 md:px-4 ${ borderStyles }` }>
+			<div className={ `animate__animated animate__fadeIn grid gap-4 grid-cols-12 py-2 px-3 md:px-4 ${ borderStyles }` }>
 				<div className='py-2 px-1 md:px-3 col-span-12 md:col-span-5'>
 					<h1 className='mb-2 text-lg md:text-xl text-yellow-600 font-medium tracking-wide'>
 						Customer: { `${ client.firstName } ${ client.lastName }` }
 					</h1>
 					<p className='mb-2 font-light'>E-mail: { client.email }</p>
 					<p className='mb-2 font-light'>Phone: { client.phone ? client.phone : 'No phone' }</p>
-					<p className='font-light'>Address: { client.address }</p>
+					<p className='font-light'>Address: { client.address ? client.address : 'No address' }</p>
 				</div>
 
 				<div className='py-2 px-1 md:px-3 col-span-12 md:col-span-7'>
@@ -47,19 +50,21 @@ const Order = ({ order }: Props): JSX.Element => {
 
 					{
 						details.map(detail => (
-							<p key={ detail._id } className='font-light mb-1'>
-								Product - { detail.product.name } - Quantity: { detail.quantity } - Price: { detail.product.price }
-							</p>
+							<article key={ detail._id } className='flex flex-col gap-1 font-light mb-2 border border-gray-500 rounded p-2 px-3'>
+								<p><strong>Product: </strong>{ detail.product.name }</p>
+								<p><strong>Quantity: </strong>{ detail.quantity }</p>
+								<p><strong>Price: </strong>{ detail.product.price }</p>
+							</article>
 						))
 					}
 
-					<p className='mt-2 text-green-600 text-lg font-semibold'>Total: ${ total }</p>
+					<p className='mt-4 text-green-800 text-lg md:text-2xl font-medium'>Total: ${ total }</p>
 				</div>
 
 				<div className='px-1 md:px-3 mb-0 md:mb-1 col-span-12'>
 					{
 						delivered
-						? <h1 className='uppercase text-green-600 text-lg md:text-xl'>Order Delivered</h1>
+						? <h1 className='uppercase text-green-700 text-lg md:text-2xl'>Order Delivered</h1>
 						: (
 							<div className='flex gap-2'>
 								<div>
@@ -115,12 +120,6 @@ const Order = ({ order }: Props): JSX.Element => {
 					setShowModal={ setShowModalDeliver }
 				/>
       ) : null }
-
-			{/* Toast */}
-			<Toaster
-				position='top-right'
-				reverseOrder={false}
-			/>
 		</>
 	);
 }

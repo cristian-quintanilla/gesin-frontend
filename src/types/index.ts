@@ -75,6 +75,7 @@ export const UPDATE_PRODUCT: string = '[PRODUCTS] UPDATE_PRODUCT';
 
 //* ORDERS TYPES
 export const GET_ORDERS: string = '[ORDERS] GET_ORDERS';
+export const ADD_ORDER: string = '[ORDERS] ADD_ORDER';
 export const CANCEL_ORDER: string = '[ORDERS] CANCEL_ORDER';
 export const DELIVER_ORDER: string = '[ORDERS] DELIVER_ORDER';
 export const ORDERS_ERROR: string = '[ORDERS] ORDERS_ERROR';

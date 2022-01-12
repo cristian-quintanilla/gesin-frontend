@@ -33,8 +33,8 @@ const LoginPage = (): JSX.Element => {
 	//* Formik and Yup Validation
 	const formik = useFormik({
 		initialValues: {
-			email: '',
-			password: ''
+			email: 'cristiancbtis130@gmail.com',
+			password: '12345678'
 		},
 		validationSchema: Yup.object({
 			email: Yup.string().required('Email is required.').email('Email is invalid.'),
