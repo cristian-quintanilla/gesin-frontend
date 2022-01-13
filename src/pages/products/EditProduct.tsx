@@ -13,10 +13,8 @@ import productsContext from '../../context/products/productsContext';
 import { ProductType } from '../../types/index';
 
 const EditProduct = (): JSX.Element => {
+	const { product, getProduct, updateProduct } = useContext(productsContext);
 	const params = useParams();
-
-	const ProductContext = useContext(productsContext);
-	const { product, getProduct, updateProduct } = ProductContext;
 
 	const initialValues = {
 		name: '',

@@ -18,22 +18,22 @@ type SelectedOption = {
 	price?: number;
 }
 
+type Details = {
+	product: string;
+	label: string;
+	quantity: number;
+	price: number;
+}
+
 const AddOrder = (): JSX.Element => {
 	const { customers, getCustomers } = useContext(customersContext);
 	const { addOrder } = useContext(ordersContext);
 	const { products, getProducts } = useContext(productsContext);
 
 	const [ customersList, setCustomersList ] = useState<SelectedOption[]>([]);
-	const [ productsList, setProductsList ] = useState<SelectedOption[]>([]);
-
-	const [ details, setDetails ] = useState<{
-		product: string;
-		label: string;
-		quantity: number;
-		price: number;
-	}[]>([]);
-
 	const [ client, setClient ] = useState<string>('');
+	const [ details, setDetails ] = useState<Details[]>([]);
+	const [ productsList, setProductsList ] = useState<SelectedOption[]>([]);
 	const [ total, setTotal ] = useState<number>(0);
 
 	//* Get customers and products

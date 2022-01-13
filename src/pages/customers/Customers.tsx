@@ -6,6 +6,7 @@ import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
 import Modal from '../../components/Modal';
 import Pagination from '../../components/Pagination';
+import Spinner from '../../components/Spinner';
 import TableRecords from '../../components/TableRecords';
 
 import customersContext from '../../context/customers/customersContext';
@@ -66,17 +67,18 @@ const renderCustomers = (
 );
 
 const Customers = (): JSX.Element => {
-	const CustomersContext = useContext(customersContext);
-	const { customers, deleteCustomer, getCustomers } = CustomersContext;
+	const { customers, deleteCustomer, getCustomers } = useContext(customersContext);
 
 	const CUSTOMERS_PER_PAGE = 2;
-	const [ showModal, setShowModal ] = useState(false);
-	const [ idCustomer, setIdCustomer ] = useState('');
-	const [ currentPage, setCurrentPage ] = useState(1);
+	const [ currentPage, setCurrentPage ] = useState<number>(1);
+	const [ idCustomer, setIdCustomer ] = useState<string>('');
+	const [ isLoading, setIsLoading ] = useState<boolean>(true);
+	const [ showModal, setShowModal ] = useState<boolean>(false);
 
 	//* Get customers
 	useEffect(() => {
 		getCustomers();
+		setIsLoading(false);
 	}, []);
 
 	//* Delete Customer
@@ -94,6 +96,9 @@ const Customers = (): JSX.Element => {
 	const indexOfFirstPost = indexOfLastPost - CUSTOMERS_PER_PAGE;
 	const currentCustomers = customers.slice(indexOfFirstPost, indexOfLastPost);
 
+	//* Loading
+	if (isLoading) return <Spinner />;
+
 	return (
 		<>
 			<Header />
@@ -101,7 +106,7 @@ const Customers = (): JSX.Element => {
 			<main className='animate__animated animate__fadeIn w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
 				<section className='flex items-center justify-between px-5 py-4'>
 					{
-						customers.length === 0 ? (
+						(customers.length === 0 && !isLoading) ? (
 							<>
 								<h2 className='text-lg md:text-2xl text-gray-800'>No Customers</h2>
 								<LinkRouter

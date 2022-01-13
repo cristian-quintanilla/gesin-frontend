@@ -12,8 +12,7 @@ import LinkRouter from '../../components/LinkRouter';
 import productsContext from '../../context/products/productsContext';
 
 const AddProduct = (): JSX.Element => {
-	const ProductsContext = useContext(productsContext);
-	const { addProduct } = ProductsContext;
+	const { addProduct } = useContext(productsContext);
 
 	//* Formik and Yup Validation
 	const formik = useFormik({

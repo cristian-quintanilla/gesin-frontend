@@ -12,8 +12,7 @@ import LinkRouter from '../../components/LinkRouter';
 import customersContext from '../../context/customers/customersContext';
 
 const AddCustomer = (): JSX.Element => {
-	const CustomersContext = useContext(customersContext);
-	const { addCustomer } = CustomersContext;
+	const { addCustomer } = useContext(customersContext);
 
 	//* Formik and Yup Validation
 	const formik = useFormik({

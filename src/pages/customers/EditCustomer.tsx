@@ -13,10 +13,8 @@ import customersContext from '../../context/customers/customersContext';
 import { CustomerType } from '../../types';
 
 const EditCustomer = (): JSX.Element => {
+	const { customer, getCustomer, updateCustomer } = useContext(customersContext);
 	const params = useParams();
-
-	const CustomerContext = useContext(customersContext);
-	const { customer, getCustomer, updateCustomer } = CustomerContext;
 
 	const initialValues = {
 		firstName: '',

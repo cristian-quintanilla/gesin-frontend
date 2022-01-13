@@ -7,6 +7,7 @@ import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
 import Order from '../../components/Order';
 import Pagination from '../../components/Pagination';
+import Spinner from '../../components/Spinner';
 
 import ordersContext from '../../context/orders/ordersContext';
 
@@ -31,13 +32,13 @@ const arrayOptions: SelectedOption[] = [
 ];
 
 const Orders = (): JSX.Element => {
-	const OrdersContext = useContext(ordersContext);
-	const { orders, totalPages, getOrders } = OrdersContext;
+	const { orders, totalPages, getOrders } = useContext(ordersContext);
 
 	const ORDERS_PER_PAGE = 2;
-	const [ currentPage, setCurrentPage ] = useState(1);
+	const [ currentPage, setCurrentPage ] = useState<number>(1);
 	const [ delivered, setDelivered ] = useState<string | boolean>('');
-	const [ pagination, setPagination ] = useState(`?page=1&size=${ ORDERS_PER_PAGE }`);
+	const [ isLoading, setIsLoading ] = useState<boolean>(true);
+	const [ pagination, setPagination ] = useState<string>(`?page=1&size=${ ORDERS_PER_PAGE }`);
 
 	//* Get orders
 	if (orders.length === 0) {
@@ -47,6 +48,7 @@ const Orders = (): JSX.Element => {
 	//* Get orders
 	useEffect(() => {
 		getOrders(pagination);
+		setIsLoading(false);
 	}, [pagination]);
 
 	//* Pagination
@@ -70,6 +72,9 @@ const Orders = (): JSX.Element => {
 			setPagination(`?page=1&size=${ ORDERS_PER_PAGE }`);
 		}
 	}
+
+	//* Loading
+	if (isLoading) return <Spinner />;
 
 	return (
 		<>

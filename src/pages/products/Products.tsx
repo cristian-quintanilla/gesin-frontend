@@ -6,6 +6,7 @@ import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
 import Modal from '../../components/Modal';
 import Pagination from '../../components/Pagination';
+import Spinner from '../../components/Spinner';
 import TableRecords from '../../components/TableRecords';
 
 import productsContext from '../../context/products/productsContext';
@@ -54,17 +55,18 @@ const renderProducts = (
 );
 
 const Products = (): JSX.Element => {
-	const ProductsContext = useContext(productsContext);
-	const { products, deleteProduct, getProducts } = ProductsContext;
+	const { products, deleteProduct, getProducts } = useContext(productsContext);
 
 	const PRODUCTS_PER_PAGE = 2;
-	const [ showModal, setShowModal ] = useState(false);
-	const [ idProduct, setIdProduct ] = useState('');
-	const [ currentPage, setCurrentPage ] = useState(1);
+	const [ currentPage, setCurrentPage ] = useState<number>(1);
+	const [ idProduct, setIdProduct ] = useState<string>('');
+	const [ isLoading, setIsLoading ] = useState<boolean>(true);
+	const [ showModal, setShowModal ] = useState<boolean>(false);
 
 	//* Get products
 	useEffect(() => {
 		getProducts();
+		setIsLoading(false);
 	}, []);
 
 	//* Delete Product
@@ -81,6 +83,9 @@ const Products = (): JSX.Element => {
 	const indexOfLastPost = currentPage * PRODUCTS_PER_PAGE;
 	const indexOfFirstPost = indexOfLastPost - PRODUCTS_PER_PAGE;
 	const currentProducts = products.slice(indexOfFirstPost, indexOfLastPost);
+
+	//* Loading
+	if (isLoading) return <Spinner />;
 
 	return (
 		<>
