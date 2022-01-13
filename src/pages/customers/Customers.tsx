@@ -94,8 +94,6 @@ const Customers = (): JSX.Element => {
 	const indexOfFirstPost = indexOfLastPost - CUSTOMERS_PER_PAGE;
 	const currentCustomers = customers.slice(indexOfFirstPost, indexOfLastPost);
 
-	console.log(customers);
-
 	return (
 		<>
 			<Header />

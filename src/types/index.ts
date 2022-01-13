@@ -53,6 +53,14 @@ export type OrderType = {
 	delivered: boolean;
 }
 
+export type NewOrderType = {
+	client: string;
+	details: {
+		product: string;
+		quantity: number;
+	}[];
+}
+
 //* AUTH TYPES
 export const LOGIN_SUCCESS: string = '[AUTH] ADMIN_LOGIN_SUCCESS';
 export const LOGIN_ERROR: string = '[AUTH] ADMIN_LOGIN_ERROR';
@@ -75,10 +83,8 @@ export const UPDATE_PRODUCT: string = '[PRODUCTS] UPDATE_PRODUCT';
 
 //* ORDERS TYPES
 export const GET_ORDERS: string = '[ORDERS] GET_ORDERS';
-export const ADD_ORDER: string = '[ORDERS] ADD_ORDER';
 export const CANCEL_ORDER: string = '[ORDERS] CANCEL_ORDER';
 export const DELIVER_ORDER: string = '[ORDERS] DELIVER_ORDER';
-export const ORDERS_ERROR: string = '[ORDERS] ORDERS_ERROR';
 
 //* ALERT TYPES
 export const SHOW_ALERT: string = '[ALERT] SHOW_ALERT';

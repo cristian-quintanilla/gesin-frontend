@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import Select, { OnChangeValue, SingleValue } from 'react-select';
 
 import Button from '../../components/Button';
@@ -7,55 +8,24 @@ import LinkRouter from '../../components/LinkRouter';
 import MultiSelect from '../../components/MultiSelect';
 import Number from '../../components/Number';
 
+import customersContext from '../../context/customers/customersContext';
+import ordersContext from '../../context/orders/ordersContext';
+import productsContext from '../../context/products/productsContext';
+
 type SelectedOption = {
 	value: string;
 	label: string;
 	price?: number;
 }
 
-const arrayCustomers: SelectedOption[] = [
-	{
-		value: 'customer1',
-		label: 'Juan Perez',
-	},
-	{
-		value: 'customer2',
-		label: 'Pedro Martínez',
-	},
-	{
-		value: 'customer3',
-		label: 'María Rodríguez',
-	},
-	{
-		value: 'customer4',
-		label: 'Elon Musk',
-	}
-];
-
-const arrayProducts: SelectedOption[] = [
-	{
-		value: 'product1',
-		label: 'Mochila',
-		price: 100,
-	},
-	{
-		value: 'product2',
-		label: 'Celular',
-		price: 200,
-	},
-	{
-		value: 'product3',
-		label: 'Cámara',
-		price: 300,
-	},
-	{
-		value: 'product4',
-		label: 'Laptop HP 15',
-		price: 1500,
-	}
-];
-
 const AddOrder = (): JSX.Element => {
+	const { customers, getCustomers } = useContext(customersContext);
+	const { addOrder } = useContext(ordersContext);
+	const { products, getProducts } = useContext(productsContext);
+
+	const [ customersList, setCustomersList ] = useState<SelectedOption[]>([]);
+	const [ productsList, setProductsList ] = useState<SelectedOption[]>([]);
+
 	const [ details, setDetails ] = useState<{
 		product: string;
 		label: string;
@@ -66,6 +36,30 @@ const AddOrder = (): JSX.Element => {
 	const [ client, setClient ] = useState<string>('');
 	const [ total, setTotal ] = useState<number>(0);
 
+	//* Get customers and products
+	useEffect(() => {
+		getCustomers();
+		getProducts();
+	}, []);
+
+	//* Set customers and products arrays
+	useEffect(() => {
+		const customersArray: SelectedOption[] = customers.map(({ _id, firstName, lastName }) => ({
+			value: `${ _id }`,
+			label: `${ firstName } ${ lastName }`,
+		}));
+
+		const productsArray: SelectedOption[] = products.map(({ _id, name, stock, price }) => ({
+			value: `${ _id }`,
+			label: `${ name } ($${ price }) - ${ stock }`,
+			price,
+		}));
+
+		setCustomersList(customersArray);
+		setProductsList(productsArray);
+	}, [customers, products]);
+
+	//* Update total
 	useEffect(() => {
 		const total = details.reduce((acc, { price, quantity }) => acc + price * quantity, 0);
 		setTotal(total);
@@ -83,7 +77,7 @@ const AddOrder = (): JSX.Element => {
 				product: value,
 				quantity: 1,
 				label,
-				price: arrayProducts.find(({ value: product }) => product === value)?.price || 0
+				price: productsList.find(({ value: product }) => product === value)?.price || 0
 			})));
 		}
 	}
@@ -108,13 +102,13 @@ const AddOrder = (): JSX.Element => {
 	const onSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		//* Remove the 'label' property from the product
+		//* Remove the 'label' and 'price' properties from details
 		const detailsOrder = details.map(({ label, price, ...rest} ) => {
 			return rest;
 		});
 
 		const order = { client, details: detailsOrder }
-		console.log(order);
+		addOrder(order);
 	}
 
 	return (
@@ -128,15 +122,16 @@ const AddOrder = (): JSX.Element => {
 
 				<form onSubmit={ onSubmit } className='mt-4 px-4'>
 					<div className='w-full bg-green-700 shadow-md rounded-md px-4 py-2'>
-						<h3 className='text-gray-100'>Select Client</h3>
+						<h3 className='text-gray-100'>Select Customer</h3>
 					</div>
 
 					<Select
-						name='clients'
-						options={ arrayCustomers }
+						name='customers'
+						options={ customersList }
 						className='basic-multi-select mt-2'
 						classNamePrefix='select'
 						onChange={ onChangeCustomer }
+						placeholder='Select a customer'
 					/>
 
 					<div className='w-full bg-green-700 shadow-md rounded-md px-4 py-2 mt-8'>
@@ -146,8 +141,9 @@ const AddOrder = (): JSX.Element => {
 						<div className='col-span-12 md:col-span-6'>
 							<MultiSelect
 								name='products'
-								options={ arrayProducts }
+								options={ productsList }
 								onChange={ onChangeProducts }
+								placeholder='Select product(s)'
 							/>
 						</div>
 
@@ -172,7 +168,7 @@ const AddOrder = (): JSX.Element => {
 
 					<section className='w-full bg-gray-100 shadow-md rounded-md px-4 py-2 mt-8'>
 						<h2 className='text-lg md:text-xl font-medium text-green-700'>
-							Total: ${ total }
+							Total: ${ total.toFixed(2) }
 						</h2>
 					</section>
 
@@ -196,6 +192,12 @@ const AddOrder = (): JSX.Element => {
 					</div>
 				</form>
 			</main>
+
+			{/* Toast */}
+			<Toaster
+				position='top-right'
+				reverseOrder={ false }
+			/>
 		</>
 	);
 }

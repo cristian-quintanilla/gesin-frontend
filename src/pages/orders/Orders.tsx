@@ -34,7 +34,7 @@ const Orders = (): JSX.Element => {
 	const OrdersContext = useContext(ordersContext);
 	const { orders, totalPages, getOrders } = OrdersContext;
 
-	const ORDERS_PER_PAGE = 1;
+	const ORDERS_PER_PAGE = 2;
 	const [ currentPage, setCurrentPage ] = useState(1);
 	const [ delivered, setDelivered ] = useState<string | boolean>('');
 	const [ pagination, setPagination ] = useState(`?page=1&size=${ ORDERS_PER_PAGE }`);

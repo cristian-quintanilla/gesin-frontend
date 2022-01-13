@@ -4,9 +4,8 @@ import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
 
 import {
-	OrderType,
+	NewOrderType,
 	GET_ORDERS,
-	ADD_ORDER,
 	CANCEL_ORDER,
 	DELIVER_ORDER,
 } from '../../types';
@@ -21,7 +20,6 @@ const OrdersState = ({ children }: { children: ReactNode }) => {
 	const initialState = {
 		orders: [],
 		totalPages: 0,
-		message: null,
 	}
 
 	const [ state, dispatch ] = useReducer(ordersReducer, initialState);
@@ -85,8 +83,18 @@ const OrdersState = ({ children }: { children: ReactNode }) => {
 	}
 
 	//* Create a new order
-	const addOrder = async (order: OrderType) => {
-		console.log(order);
+	const addOrder = async (order: NewOrderType) => {
+		try {
+			const { data } = await clientAxios.post('/api/v1/orders/new', order);
+
+			toast.success(data.msg, { duration: 5000 });
+			navigate('/orders');
+		} catch (error) {
+			const err = error as AxiosError;
+			const msg = err.response?.data.msg || 'Error creating order. Try again later or contact support.';
+
+			toast.error(msg, { duration: 5000 });
+		}
 	}
 
 	return (
@@ -94,7 +102,6 @@ const OrdersState = ({ children }: { children: ReactNode }) => {
 			value={{
 				orders: state.orders,
 				totalPages: state.totalPages,
-				message: state.message,
 				getOrders,
 				addOrder,
 				cancelOrder,

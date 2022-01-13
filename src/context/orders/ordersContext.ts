@@ -1,19 +1,17 @@
 import { createContext } from 'react';
 
-import { OrderType, MessageType } from '../../types';
+import { OrderType, NewOrderType } from '../../types';
 
 export interface OrderInterface {
 	orders: OrderType[];
 	totalPages: number;
-	message: MessageType | null;
 }
 
 type ContextType = {
 	orders: OrderType[];
 	totalPages: number;
-	message: MessageType | null;
 	getOrders: (pagination: string) => void;
-	addOrder: (order: OrderType) => void;
+	addOrder: (order: NewOrderType) => void;
 	cancelOrder: (id: string) => void;
 	deliverOrder: (id: string) => void;
 }

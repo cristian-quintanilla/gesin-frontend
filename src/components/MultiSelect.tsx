@@ -8,10 +8,11 @@ type SelectedOption = {
 interface Props {
 	name: string;
 	options: SelectedOption[];
+	placeholder: string;
 	onChange: (values: OnChangeValue<SelectedOption, true>) => void;
 }
 
-const MultiSelect = ({ name, options, onChange }: Props): JSX.Element => {
+const MultiSelect = ({ name, options, placeholder, onChange }: Props): JSX.Element => {
 	return (
 		<Select
 			isMulti
@@ -19,6 +20,7 @@ const MultiSelect = ({ name, options, onChange }: Props): JSX.Element => {
 			options={ options }
 			className='basic-multi-select'
 			classNamePrefix='select'
+			placeholder={ placeholder }
 			onChange={ onChange }
 		/>
 	);

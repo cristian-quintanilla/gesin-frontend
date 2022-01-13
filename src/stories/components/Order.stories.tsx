@@ -28,6 +28,7 @@ OrderStory.args = {
       {
         _id: '61b65e814848e3470a90f4c2',
         product: {
+          _id: 'product-1',
           name: 'Mochila para Laptop',
           price: 199.99
         },
@@ -36,6 +37,7 @@ OrderStory.args = {
       {
         _id: '61b65e814848e3470a90f4c3',
         product: {
+          _id: 'product-2',
           name: 'Memoria USB',
           price: 100.00
         },

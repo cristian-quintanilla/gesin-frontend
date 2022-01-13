@@ -18,6 +18,9 @@ interface RenderItemsProps {
 const renderItems = ({currentPage, totalRecords, setCurrentPage, paginate}: RenderItemsProps) => {
 	let items: JSX.Element[] = [];
 
+	// If there is only one page, don't render anything
+	if (totalRecords === 1) return;
+
 	for (let number = 1; number <= totalRecords; number++) {
 		items.push(
 			<Button
@@ -44,6 +47,9 @@ const Pagination = ({ page, totalRecords, paginate }: Props): JSX.Element => {
 	useEffect(() => {
 		setCurrentPage(page);
 	}, [page]);
+
+	// If there is only one page, don't render anything
+	if (totalRecords === 1) return <></>;
 
 	return (
 		<section className='flex gap-1'>
