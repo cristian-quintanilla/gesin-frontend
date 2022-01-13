@@ -57,7 +57,7 @@ const renderProducts = (
 const Products = (): JSX.Element => {
 	const { products, deleteProduct, getProducts } = useContext(productsContext);
 
-	const PRODUCTS_PER_PAGE = 2;
+	const PRODUCTS_PER_PAGE = 10;
 	const [ currentPage, setCurrentPage ] = useState<number>(1);
 	const [ idProduct, setIdProduct ] = useState<string>('');
 	const [ isLoading, setIsLoading ] = useState<boolean>(true);

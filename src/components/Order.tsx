@@ -28,7 +28,7 @@ const Order = ({ order }: Props): JSX.Element => {
 		setShowModalDeliver(false);
 	}, []);
 
-	const { client, details, total, delivered } = order;
+	const { client, details, total, delivered, updatedAt } = order;
 	const borderStyles = `border-2 rounded ${ delivered ? 'border-green-600' : 'border-blue-600' }`;
 
 	return (
@@ -64,8 +64,11 @@ const Order = ({ order }: Props): JSX.Element => {
 				<div className='px-1 md:px-3 mb-0 md:mb-1 col-span-12'>
 					{
 						delivered
-						? <h1 className='uppercase text-green-700 text-lg md:text-2xl'>Order Delivered</h1>
-						: (
+						? (
+							<h1 className='uppercase text-green-700 text-lg md:text-2xl'>
+								Order Delivered: { new Date(`${ updatedAt }`).toLocaleDateString('es-MX') }
+							</h1>
+						) : (
 							<div className='flex gap-2'>
 								<div>
 									<Button

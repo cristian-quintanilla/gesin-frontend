@@ -66,7 +66,7 @@ const OrdersState = ({ children }: { children: ReactNode }) => {
 	//* Deliver order
 	const deliverOrder = async (id: string) => {
 		try {
-			const { data } = await clientAxios.put(`/api/v1/orders/delivery/${ id }`);
+			const { data } = await clientAxios.put(`/api/v1/orders/deliver/${ id }`);
 
 			dispatch({
 				type: DELIVER_ORDER,

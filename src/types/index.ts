@@ -51,6 +51,7 @@ export type OrderType = {
 	details: Details[];
 	total: number;
 	delivered: boolean;
+	updatedAt?: string;
 }
 
 export type NewOrderType = {

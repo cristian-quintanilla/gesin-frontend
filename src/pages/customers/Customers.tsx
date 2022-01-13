@@ -69,7 +69,7 @@ const renderCustomers = (
 const Customers = (): JSX.Element => {
 	const { customers, deleteCustomer, getCustomers } = useContext(customersContext);
 
-	const CUSTOMERS_PER_PAGE = 2;
+	const CUSTOMERS_PER_PAGE = 10;
 	const [ currentPage, setCurrentPage ] = useState<number>(1);
 	const [ idCustomer, setIdCustomer ] = useState<string>('');
 	const [ isLoading, setIsLoading ] = useState<boolean>(true);

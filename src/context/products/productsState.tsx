@@ -63,7 +63,7 @@ const ProductsState = ({ children }: { children: ReactNode }) => {
 	//* Add product
 	const addProduct = async (product: ProductType) => {
 		try {
-			const { data } = await clientAxios.post('/api/v1/products/createee', product);
+			const { data } = await clientAxios.post('/api/v1/products/create', product);
 
 			dispatch({
 				type: ADD_PRODUCT,
