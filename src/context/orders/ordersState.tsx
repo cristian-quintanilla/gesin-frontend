@@ -91,9 +91,16 @@ const OrdersState = ({ children }: { children: ReactNode }) => {
 			navigate('/orders');
 		} catch (error) {
 			const err = error as AxiosError;
-			const msg = err.response?.data.msg || 'Error creating order. Try again later or contact support.';
+			let message: string = '';
+			if (err.response?.data.errors) {
+				const { errors } = err.response?.data;
 
-			toast.error(msg, { duration: 5000 });
+				errors.forEach((error: { msg: string; }) => {
+					message += `${ error.msg }\n`;
+				});
+			}
+
+			toast.error(`${ message }`, { duration: 5000 });
 		}
 	}
 

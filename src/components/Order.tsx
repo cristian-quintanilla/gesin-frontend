@@ -29,13 +29,13 @@ const Order = ({ order }: Props): JSX.Element => {
 	}, []);
 
 	const { client, details, total, delivered, updatedAt } = order;
-	const borderStyles = `border-2 rounded ${ delivered ? 'border-green-600' : 'border-blue-600' }`;
+	const borderStyles = `rounded shadow-lg ${ delivered ? 'shadow-green-600' : 'shadow-blue-600' }`;
 
 	return (
 		<>
-			<div className={ `animate__animated animate__fadeIn grid gap-4 grid-cols-12 py-2 px-3 md:px-4 ${ borderStyles }` }>
+			<div className={ `animate__animated animate__fadeIn grid gap-4 grid-cols-12 py-3 md:py-2 px-3 md:px-4 ${ borderStyles }` }>
 				<div className='py-2 px-1 md:px-3 col-span-12 md:col-span-5'>
-					<h1 className='mb-2 text-lg md:text-xl text-yellow-600 font-medium tracking-wide'>
+					<h1 className='mb-2 text-lg md:text-xl font-medium tracking-wide'>
 						Customer: { `${ client.firstName } ${ client.lastName }` }
 					</h1>
 					<p className='mb-2 font-light'>E-mail: { client.email }</p>
@@ -44,13 +44,13 @@ const Order = ({ order }: Props): JSX.Element => {
 				</div>
 
 				<div className='py-2 px-1 md:px-3 col-span-12 md:col-span-7'>
-					<h1 className='mb-2 text-lg md:text-xl text-yellow-600 font-medium tracking-wide'>
+					<h1 className='mb-2 text-lg md:text-xl font-medium tracking-wide'>
 						Resume
 					</h1>
 
 					{
 						details.map(detail => (
-							<article key={ detail._id } className='flex flex-col gap-1 font-light mb-2 border border-gray-500 rounded p-2 px-3'>
+							<article key={ detail._id } className='flex flex-col gap-1 font-light mb-2 py-2'>
 								<p><strong>Product: </strong>{ detail.product.name }</p>
 								<p><strong>Quantity: </strong>{ detail.quantity }</p>
 								<p><strong>Price: </strong>{ detail.product.price }</p>
@@ -58,7 +58,7 @@ const Order = ({ order }: Props): JSX.Element => {
 						))
 					}
 
-					<p className='mt-4 text-green-800 text-lg md:text-2xl font-medium'>Total: ${ total }</p>
+					<p className='mt-4 text-green-700 text-lg md:text-2xl font-medium'>Total: ${ total }</p>
 				</div>
 
 				<div className='px-1 md:px-3 mb-0 md:mb-1 col-span-12'>

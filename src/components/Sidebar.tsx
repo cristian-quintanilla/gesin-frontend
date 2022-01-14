@@ -9,14 +9,14 @@ const Sidebar = (): JSX.Element => {
 	const AuthContext = useContext(authContext);
 	const { logout } = AuthContext;
 
-	const [ collapseShow, setCollapseShow ] = useState('hidden');
+	const [ collapseShow, setCollapseShow ] = useState<string>('hidden');
 
 	return (
 		<>
 			<nav
 				className='md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row
-					md:flex-nowrap md:overflow-hidden bg-white flex flex-wrap border-r-2 border-gray-200
-					justify-between relative md:w-64 z-1 py-4 shadow-md'
+					md:flex-nowrap md:overflow-hidden bg-white flex flex-wrap shadow-blue-400
+					justify-between relative md:w-64 z-20 py-4 shadow-md'
 			>
 				<div
 					className='md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-2 flex flex-wrap
@@ -29,7 +29,7 @@ const Sidebar = (): JSX.Element => {
 							size='small'
 							type='button'
 							icon='fa-bars'
-							onClick={ () => setCollapseShow('bg-white m-2 py-3 px-2') }
+							onClick={ () => setCollapseShow('bg-white py-3 px-2 rounded') }
 						/>
 					</div>
 
@@ -41,7 +41,7 @@ const Sidebar = (): JSX.Element => {
 					{/* Collapse */}
 					<div
 						className={`md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4
-						absolute top-0 left-0 right-0 z-1 overflow-y-auto
+						absolute top-0 left-0 right-0 z-20 overflow-y-auto
 						overflow-x-hidden h-auto items-center flex-1 ${ collapseShow }`}
 					>
 						{/* Collapse header */}
@@ -98,6 +98,15 @@ const Sidebar = (): JSX.Element => {
 					</div>
 				</div>
 			</nav>
+			{
+				/* Mobile */
+				collapseShow.includes('bg-white') && (
+					<div
+						className='opacity-25 fixed inset-0 z-10 bg-black'
+						onClick={ () => setCollapseShow('hidden') }
+					></div>
+				)
+			}
 		</>
 	);
 }

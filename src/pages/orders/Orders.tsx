@@ -114,7 +114,7 @@ const Orders = (): JSX.Element => {
 						<>
 							<form
 								onSubmit={ handleSearch }
-								className='flex items-center justify-between px-5 py-4 shadow-md rounded'
+								className='flex items-center justify-between px-5 py-4 shadow-md shadow-blue-300 rounded'
 							>
 								<Select
 									name='clients'
@@ -136,7 +136,7 @@ const Orders = (): JSX.Element => {
 								</div>
 							</form>
 
-							<section className='mt-4 flex flex-col gap-4'>
+							<section className='mt-6 flex flex-col gap-4'>
 								{
 									orders.map(order => (
 										<Fragment key={ order._id }>

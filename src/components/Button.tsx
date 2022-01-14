@@ -17,8 +17,8 @@ const Button = ({ variant, size, label, type, icon, disabled, onClick, onSubmit 
 	}
 
 	const sizeVariants = {
-		size_normal: 'text-sm md:text-lg px-4 py-1',
-		size_small: 'text-sm px-2 py-1',
+		size_normal: 'text-base md:text-lg px-4 py-2',
+		size_small: 'text-base px-2 py-1',
 		size_large: 'text-lg md:text-xl px-5 py-3',
 	}
 

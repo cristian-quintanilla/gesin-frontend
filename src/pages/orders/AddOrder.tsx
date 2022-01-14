@@ -120,7 +120,7 @@ const AddOrder = (): JSX.Element => {
 					New Order
 				</h1>
 
-				<form onSubmit={ onSubmit } className='mt-4 px-4'>
+				<form onSubmit={ onSubmit } className='py-4 mt-4 mx-8 px-4 shadow-md shadow-blue-300 rounded'>
 					<div className='w-full bg-green-700 shadow-md rounded-md px-4 py-2'>
 						<h3 className='text-gray-100'>Select Customer</h3>
 					</div>
@@ -137,8 +137,8 @@ const AddOrder = (): JSX.Element => {
 					<div className='w-full bg-green-700 shadow-md rounded-md px-4 py-2 mt-8'>
 						<h3 className='text-gray-100'>Select Products and Quantities</h3>
 					</div>
-					<section className='grid gap-8 grid-cols-12 mt-2'>
-						<div className='col-span-12 md:col-span-6'>
+					<section className='grid gap-y-4 grid-cols-12 mt-2'>
+						<div className='col-span-12'>
 							<MultiSelect
 								name='products'
 								options={ productsList }
@@ -147,7 +147,7 @@ const AddOrder = (): JSX.Element => {
 							/>
 						</div>
 
-						<div className='col-span-12 md:col-span-6'>
+						<div className='col-span-12'>
 							{
 								details.map(({ product, quantity, label }) => (
 									<div className='mb-2' key={ product }>
@@ -166,9 +166,11 @@ const AddOrder = (): JSX.Element => {
 						</div>
 					</section>
 
-					<section className='w-full bg-gray-100 shadow-md rounded-md px-4 py-2 mt-8'>
+					<section className='w-full bg-green-100/50 shadow-md shadow-green-300 rounded-md px-4 py-3 mt-8'>
 						<h2 className='text-lg md:text-xl font-medium text-green-700'>
-							Total: ${ total.toFixed(2) }
+							{
+								!isNaN(total) ? <>Total: ${ total.toFixed(2) }</> : <>Calculando Total...</>
+							}
 						</h2>
 					</section>
 

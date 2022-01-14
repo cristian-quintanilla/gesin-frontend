@@ -22,7 +22,7 @@ const Number = ({ id, name, min, max, value, product, onChange }: Props): JSX.El
 				min={ min }
 				max={ max }
 				placeholder='Quantity'
-				value={ value }
+				value={ isNaN(value) ? '' : value }
 				onChange={ onChange }
 			/>
 		</div>

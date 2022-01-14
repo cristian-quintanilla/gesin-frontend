@@ -15,9 +15,7 @@ const Modal = ({ id, setId, onDelete, setShowModal }: Props): JSX.Element => (
 			<div className='relative w-auto my-6 mx-auto max-w-sm'>
 				<div className='border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white'>
 					<div className='flex items-start justify-between p-5'>
-						<h3 className='text-lg md:text-3xl mr-8'>
-							Delete
-						</h3>
+						<h3 className='text-lg md:text-3xl mr-8'>Delete</h3>
 
 						<Button
 							variant='secondary'
