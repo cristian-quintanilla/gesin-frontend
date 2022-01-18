@@ -3,3 +3,6 @@ node_modules
 *.local
 .env.production
 package-lock.json
+
+# Local Netlify folder
+.netlify
