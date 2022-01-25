@@ -1,10 +1,10 @@
 import { createContext } from 'react';
 
-import { ProductInterface } from '../../interfaces';
+import { ProductsInterface } from '../../interfaces';
 import { ProductType } from '../../types';
 
 type ProductsContextInterface = {
-	productsState: ProductInterface;
+	productsState: ProductsInterface;
 	getProducts: () => void;
 	getProduct: (_id: string) => void;
 	addProduct: (product: ProductType) => void;

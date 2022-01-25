@@ -1,18 +1,19 @@
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useState } from 'react';
 
+//* Components
 import Button from './Button';
 import ModalOrder from './ModalOrder';
 
+//* Hooks and Types
+import { useOrders } from '../hooks/useOrders';
 import { OrderType } from '../types/index';
-import ordersContext from '../context/orders/ordersContext';
 
 interface Props {
 	order: OrderType
 }
 
 const Order = ({ order }: Props): JSX.Element => {
-	const OrdersContext = useContext(ordersContext);
-	const { cancelOrder, deliverOrder } = OrdersContext;
+	const { cancelOrder, deliverOrder } = useOrders();
 
 	const [ showModalCancel, setShowModalCancel ] = useState(false);
 	const [ showModalDeliver, setShowModalDeliver ] = useState(false);

@@ -1,10 +1,11 @@
-//* State
+//* Config
 import tokenUser from './config/tokenUser';
 
+//* Providers
 import AlertProvider from './context/alert/AlertProvider';
 import AuthProvider from './context/auth/AuthProvider';
-import CustomersState from './context/customers/customersState';
-import OrdersState from './context/orders/ordersState';
+import CustomersProvider from './context/customers/CustomersProvider';
+import OrdersProvider from './context/orders/OrdersProvider';
 import ProductsProvider from './context/products/ProductsProvider';
 
 //* Router
@@ -17,13 +18,13 @@ function GesinApp() {
 	return (
 		<AuthProvider>
 			<AlertProvider>
-				<CustomersState>
+				<CustomersProvider>
 					<ProductsProvider>
-						<OrdersState>
+						<OrdersProvider>
 							<Router />
-						</OrdersState>
+						</OrdersProvider>
 					</ProductsProvider>
-				</CustomersState>
+				</CustomersProvider>
 			</AlertProvider>
 		</AuthProvider>
 	);

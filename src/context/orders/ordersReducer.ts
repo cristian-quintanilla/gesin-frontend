@@ -5,9 +5,9 @@ import {
 	DELIVER_ORDER,
 } from '../../types';
 
-import { OrderInterface } from './ordersContext';
+import { OrdersInterface } from '../../interfaces';
 
-const ordersReducer = (state: OrderInterface, action: ActionType) => {
+const ordersReducer = (state: OrdersInterface, action: ActionType) => {
 	const { type, payload } = action;
 
 	switch (type) {

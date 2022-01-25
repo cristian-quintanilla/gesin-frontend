@@ -1,18 +1,19 @@
-import { useContext } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
+//* Components
 import Alert from '../../components/Alert';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import LinkRouter from '../../components/LinkRouter';
 
-import customersContext from '../../context/customers/customersContext';
+//* Hooks
+import { useCustomers } from '../../hooks/useCustomers';
 
 const AddCustomer = (): JSX.Element => {
-	const { addCustomer } = useContext(customersContext);
+	const { addCustomer } = useCustomers();
 
 	//* Formik and Yup Validation
 	const formik = useFormik({

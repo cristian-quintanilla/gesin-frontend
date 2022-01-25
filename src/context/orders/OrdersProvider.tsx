@@ -10,19 +10,24 @@ import {
 	DELIVER_ORDER,
 } from '../../types';
 
-import clientAxios from '../../config/axios';
-import ordersContext from './ordersContext';
+import OrdersContext from './OrdersContext';
 import ordersReducer from './ordersReducer';
+import { OrdersInterface } from '../../interfaces/index';
 
-const OrdersState = ({ children }: { children: ReactNode }) => {
+import clientAxios from '../../config/axios';
+
+interface CustonersProviderProps {
+	children: JSX.Element | JSX.Element[];
+}
+
+const INITIAL_STATE: OrdersInterface = {
+	orders: [],
+	totalPages: 0,
+}
+
+const OrdersProvider = ({ children }: CustonersProviderProps) => {
 	const navigate = useNavigate();
-
-	const initialState = {
-		orders: [],
-		totalPages: 0,
-	}
-
-	const [ state, dispatch ] = useReducer(ordersReducer, initialState);
+	const [ ordersState, dispatch ] = useReducer(ordersReducer, INITIAL_STATE);
 
 	//* Get orders
 	const getOrders = async (pagination: string) => {
@@ -105,10 +110,9 @@ const OrdersState = ({ children }: { children: ReactNode }) => {
 	}
 
 	return (
-		<ordersContext.Provider
+		<OrdersContext.Provider
 			value={{
-				orders: state.orders,
-				totalPages: state.totalPages,
+				ordersState,
 				getOrders,
 				addOrder,
 				cancelOrder,
@@ -116,8 +120,8 @@ const OrdersState = ({ children }: { children: ReactNode }) => {
 			}}
 		>
 			{ children }
-		</ordersContext.Provider>
+		</OrdersContext.Provider>
 	);
 }
 
-export default OrdersState;
+export default OrdersProvider;

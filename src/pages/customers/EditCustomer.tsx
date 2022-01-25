@@ -4,16 +4,18 @@ import { Toaster } from 'react-hot-toast';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 
+//* Components
 import Alert from '../../components/Alert';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
 
-import customersContext from '../../context/customers/customersContext';
+//* Hooks and Types
 import { CustomerType } from '../../types';
+import { useCustomers } from '../../hooks/useCustomers';
 
 const EditCustomer = (): JSX.Element => {
-	const { customer, getCustomer, updateCustomer } = useContext(customersContext);
+	const { customer, getCustomer, updateCustomer } = useCustomers();
 	const params = useParams();
 
 	const initialValues = {

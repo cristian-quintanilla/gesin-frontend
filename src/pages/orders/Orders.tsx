@@ -1,7 +1,8 @@
-import { Fragment, useContext, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import Select, { SingleValue } from 'react-select';
 
+//* Components
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
@@ -9,7 +10,8 @@ import Order from '../../components/Order';
 import Pagination from '../../components/Pagination';
 import Spinner from '../../components/Spinner';
 
-import ordersContext from '../../context/orders/ordersContext';
+//* Hooks
+import { useOrders } from '../../hooks/useOrders';
 
 type SelectedOption = {
 	value: boolean | string;
@@ -31,19 +33,15 @@ const arrayOptions: SelectedOption[] = [
 	},
 ];
 
-const Orders = (): JSX.Element => {
-	const { orders, totalPages, getOrders } = useContext(ordersContext);
+const ORDERS_PER_PAGE = 3;
 
-	const ORDERS_PER_PAGE = 2;
+const Orders = (): JSX.Element => {
+	const { orders, totalPages, getOrders } = useOrders();
+
 	const [ currentPage, setCurrentPage ] = useState<number>(1);
 	const [ delivered, setDelivered ] = useState<string | boolean>('');
 	const [ isLoading, setIsLoading ] = useState<boolean>(true);
 	const [ pagination, setPagination ] = useState<string>(`?page=1&size=${ ORDERS_PER_PAGE }`);
-
-	//* Get orders
-	if (orders.length === 0) {
-		getOrders(`?page=1&size=${ ORDERS_PER_PAGE }`);
-	}
 
 	//* Get orders
 	useEffect(() => {
@@ -66,11 +64,13 @@ const Orders = (): JSX.Element => {
 	const handleSearch = (e: React.ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		if (delivered === false || delivered === true) {
+		if (!delivered || delivered) {
 			setPagination(`?page=1&size=${ ORDERS_PER_PAGE }&delivered=${ delivered }`);
 		} else {
 			setPagination(`?page=1&size=${ ORDERS_PER_PAGE }`);
 		}
+
+		setCurrentPage(1);
 	}
 
 	//* Loading
@@ -82,80 +82,68 @@ const Orders = (): JSX.Element => {
 
 			<main className='animate__animated animate__fadeIn w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
 				<section className='flex items-center justify-between px-5 py-4'>
+					<h2 className='text-lg md:text-2xl text-gray-800'>Orders</h2>
+
+					<LinkRouter
+						isButton
+						linkText='New Order'
+						linkTo='/orders/new'
+						size='normal'
+						variant='primary'
+					/>
+				</section>
+
+				<form
+					onSubmit={ handleSearch }
+					className='flex items-center justify-between px-5 py-4 shadow-md shadow-blue-300 rounded'
+				>
+					<Select
+						name='clients'
+						options={ arrayOptions }
+						className='basic-single'
+						classNamePrefix='select'
+						onChange={ onChangeOption }
+						placeholder='Select an option'
+					/>
+
+					<div className='flex gap-3'>
+						<Button
+							variant='primary'
+							size='normal'
+							label='Search'
+							type='submit'
+							icon='fa-search'
+						/>
+					</div>
+				</form>
+
+				<section className='mt-6 flex flex-col gap-4'>
 					{
-						orders.length === 0 ? (
-							<>
-								<h2 className='text-lg md:text-2xl text-gray-800'>No Orders</h2>
-								<LinkRouter
-									isButton
-									linkText='Create Order'
-									linkTo='/orders/new'
-									size='normal'
-									variant='primary'
-								/>
-							</>
+						orders.length > 0
+						? (
+							orders.map(order => (
+								<Fragment key={ order._id }>
+									<Order order={ order } />
+								</Fragment>
+							))
 						) : (
-							<>
-								<h2 className='text-lg md:text-2xl text-gray-800'>Orders</h2>
-								<LinkRouter
-									isButton
-									linkText='New Order'
-									linkTo='/orders/new'
-									size='normal'
-									variant='primary'
-								/>
-							</>
+							<h1 className='text-2xl md:text-3xl text-gray-800'>No Orders.</h1>
 						)
 					}
 				</section>
 
-				{
-					orders.length > 0 && (
-						<>
-							<form
-								onSubmit={ handleSearch }
-								className='flex items-center justify-between px-5 py-4 shadow-md shadow-blue-300 rounded'
-							>
-								<Select
-									name='clients'
-									options={ arrayOptions }
-									className='basic-single'
-									classNamePrefix='select'
-									onChange={ onChangeOption }
-									placeholder='Select an option'
-								/>
-
-								<div className='flex gap-3'>
-									<Button
-										variant='primary'
-										size='normal'
-										label='Search'
-										type='submit'
-										icon='fa-search'
-									/>
-								</div>
-							</form>
-
-							<section className='mt-6 flex flex-col gap-4'>
-								{
-									orders.map(order => (
-										<Fragment key={ order._id }>
-											<Order order={ order } />
-										</Fragment>
-									))
-								}
-							</section>
-
-							<section className='flex justify-end mt-4'>
-								<Pagination
-									page={ currentPage }
-									totalRecords={ totalPages }
-									paginate={ paginate }
-								/>
-							</section>
-						</>
-					)
-				}
+				<section className='flex justify-end mt-4'>
+					{
+						orders.length > 0
+						? (
+							<Pagination
+								page={ currentPage }
+								totalRecords={ totalPages }
+								paginate={ paginate }
+							/>
+						) : null
+					}
+				</section>
 			</main>
 
 			{/* Toast */}

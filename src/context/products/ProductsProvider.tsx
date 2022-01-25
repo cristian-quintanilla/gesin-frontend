@@ -14,7 +14,7 @@ import {
 
 import ProductsContext from './ProductsContext';
 import productsReducer from './productsReducer';
-import { ProductInterface } from '../../interfaces';
+import { ProductsInterface } from '../../interfaces';
 
 import clientAxios from '../../config/axios';
 
@@ -22,7 +22,7 @@ interface ProductsProviderProps {
 	children: JSX.Element | JSX.Element[];
 }
 
-const INITIAL_STATE: ProductInterface = {
+const INITIAL_STATE: ProductsInterface = {
 	products: [],
 	product: null,
 }

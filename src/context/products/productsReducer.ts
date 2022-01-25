@@ -7,9 +7,9 @@ import {
 	UPDATE_PRODUCT,
 } from '../../types';
 
-import { ProductInterface } from '../../interfaces';
+import { ProductsInterface } from '../../interfaces';
 
-const productsReducer = (state: ProductInterface, action: ActionType) => {
+const productsReducer = (state: ProductsInterface, action: ActionType) => {
 	const { type, payload } = action;
 
 	switch (type) {

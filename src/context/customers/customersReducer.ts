@@ -7,9 +7,9 @@ import {
 	UPDATE_CUSTOMER,
 } from '../../types';
 
-import { CustomerInterface } from './customersContext';
+import { CustomersInterface } from '../../interfaces';
 
-const customersReducer = (state: CustomerInterface, action: ActionType) => {
+const customersReducer = (state: CustomersInterface, action: ActionType) => {
 	const { type, payload } = action;
 
 	switch (type) {

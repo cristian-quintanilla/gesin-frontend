@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useCallback, useContext, useState, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 
+//* Components
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
@@ -9,7 +10,8 @@ import Pagination from '../../components/Pagination';
 import Spinner from '../../components/Spinner';
 import TableRecords from '../../components/TableRecords';
 
-import customersContext from '../../context/customers/customersContext';
+//* Hooks and Types
+import { useCustomers } from '../../hooks/useCustomers';
 import { CustomerType } from '../../types';
 
 const renderCustomers = (
@@ -67,7 +69,7 @@ const renderCustomers = (
 );
 
 const Customers = (): JSX.Element => {
-	const { customers, deleteCustomer, getCustomers } = useContext(customersContext);
+	const { customers, deleteCustomer, getCustomers } = useCustomers();
 
 	const CUSTOMERS_PER_PAGE = 10;
 	const [ currentPage, setCurrentPage ] = useState<number>(1);

@@ -1,4 +1,4 @@
-import { MessageType, ProductType, UserType } from '../types';
+import { CustomerType, MessageType, OrderType, ProductType, UserType } from '../types';
 
 export interface AuthInterface {
 	token: string | null;
@@ -12,7 +12,17 @@ export interface AlertInterface {
 	type: 'success' | 'error' | 'default' | null;
 };
 
-export interface ProductInterface {
+export interface CustomersInterface {
+	customers: CustomerType[];
+	customer: CustomerType | null;
+}
+
+export interface OrdersInterface {
+	orders: OrderType[];
+	totalPages: number;
+}
+
+export interface ProductsInterface {
 	products: ProductType[];
 	product: ProductType | null;
 };

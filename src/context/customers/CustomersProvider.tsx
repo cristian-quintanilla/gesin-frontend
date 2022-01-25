@@ -1,4 +1,4 @@
-import { ReactNode, useReducer } from 'react';
+import { useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
@@ -12,19 +12,24 @@ import {
 	UPDATE_CUSTOMER,
 } from '../../types';
 
-import clientAxios from '../../config/axios';
-import customersContext from './customersContext';
+import CustomersContext from './CustomersContext';
 import customersReducer from './customersReducer';
+import { CustomersInterface } from '../../interfaces/index';
 
-const CustomersState = ({ children }: { children: ReactNode }) => {
+import clientAxios from '../../config/axios';
+
+interface CustomersProviderProps {
+	children: JSX.Element | JSX.Element[];
+}
+
+const INITIAL_STATE: CustomersInterface = {
+	customer: null,
+	customers: [],
+}
+
+const CustomersProvider = ({ children }: CustomersProviderProps) => {
 	const navigate = useNavigate();
-
-	const initialState = {
-		customers: [],
-		customer: null,
-	}
-
-	const [ state, dispatch ] = useReducer(customersReducer, initialState);
+	const [ customersState, dispatch ] = useReducer(customersReducer, INITIAL_STATE);
 
 	//* Get customers
 	const getCustomers = async () => {
@@ -121,10 +126,9 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 	}
 
 	return (
-		<customersContext.Provider
+		<CustomersContext.Provider
 			value={{
-				customers: state.customers,
-				customer: state.customer,
+				customersState,
 				getCustomers,
 				getCustomer,
 				addCustomer,
@@ -133,8 +137,8 @@ const CustomersState = ({ children }: { children: ReactNode }) => {
 			}}
 		>
 			{ children }
-		</customersContext.Provider>
+		</CustomersContext.Provider>
 	);
 }
 
-export default CustomersState;
+export default CustomersProvider;

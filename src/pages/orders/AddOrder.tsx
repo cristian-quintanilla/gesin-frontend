@@ -10,8 +10,8 @@ import MultiSelect from '../../components/MultiSelect';
 import Number from '../../components/Number';
 
 //* Hooks
-import customersContext from '../../context/customers/customersContext';
-import ordersContext from '../../context/orders/ordersContext';
+import { useCustomers } from '../../hooks/useCustomers';
+import { useOrders } from '../../hooks/useOrders';
 import { useProducts } from '../../hooks/useProducts';
 
 type SelectedOption = {
@@ -28,8 +28,8 @@ type Details = {
 }
 
 const AddOrder = (): JSX.Element => {
-	const { customers, getCustomers } = useContext(customersContext);
-	const { addOrder } = useContext(ordersContext);
+	const { customers, getCustomers } = useCustomers();
+	const { addOrder } = useOrders();
 	const { products, getProducts } = useProducts();
 
 	const [ customersList, setCustomersList ] = useState<SelectedOption[]>([]);
