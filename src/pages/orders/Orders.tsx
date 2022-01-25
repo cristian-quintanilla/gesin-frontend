@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState, useCallback } from 'react';
 import { Toaster } from 'react-hot-toast';
 import Select, { SingleValue } from 'react-select';
 
@@ -50,18 +50,30 @@ const Orders = (): JSX.Element => {
 	}, [pagination]);
 
 	//* Pagination
-	const paginate = (pageNumber: number) => {
+	const paginate = useCallback((pageNumber: number) => {
 		setPagination(`?page=${ pageNumber }&size=${ ORDERS_PER_PAGE }&delivered=${ delivered }`);
 		setCurrentPage(pageNumber);
-	}
+	}, [delivered, setPagination, setCurrentPage]);
 
 	//* Change order status
-	const onChangeOption = (values: SingleValue<SelectedOption>) => {
+	const onChangeOption = useCallback((values: SingleValue<SelectedOption>) => {
 		setDelivered(values?.value as string | boolean);
-	}
+	}, [setDelivered]);
 
 	//* Search order by status or not status
+	// const handleSearch = useCallback((e: React.ChangeEvent<HTMLFormElement>) => {
+	// 	e.preventDefault();
+
+	// 	if (!delivered || delivered) {
+	// 		setPagination(`?page=1&size=${ ORDERS_PER_PAGE }&delivered=${ delivered }`);
+	// 	} else {
+	// 		setPagination(`?page=1&size=${ ORDERS_PER_PAGE }`);
+	// 	}
+
+	// 	setCurrentPage(1);
+	// }, [delivered, setPagination, setCurrentPage]);
 	const handleSearch = (e: React.ChangeEvent<HTMLFormElement>) => {
+		console.log('handleSearch');
 		e.preventDefault();
 
 		if (!delivered || delivered) {
@@ -71,7 +83,7 @@ const Orders = (): JSX.Element => {
 		}
 
 		setCurrentPage(1);
-	}
+	};
 
 	//* Loading
 	if (isLoading) return <Spinner />;

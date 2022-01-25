@@ -76,10 +76,12 @@ const Products = (): JSX.Element => {
 		deleteProduct(_id);
 		setShowModal(false);
 		setCurrentPage(1);
-	}, []);
+	}, [deleteProduct, setShowModal, setCurrentPage]);
 
 	//* Pagination
-	const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+	const paginate = useCallback((pageNumber: number) => {
+		setCurrentPage(pageNumber)
+	}, [setCurrentPage]);
 
 	//* Get current products
 	const indexOfLastPost = currentPage * PRODUCTS_PER_PAGE;

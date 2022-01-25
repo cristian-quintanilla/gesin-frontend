@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, memo } from 'react';
 
 import { useAuth } from '../hooks/useAuth';
 
-const Header = (): JSX.Element => {
+const Header = memo((): JSX.Element => {
 	const { user, userAuthenticated } = useAuth();
 
   useEffect(() => {
@@ -18,6 +18,7 @@ const Header = (): JSX.Element => {
 			</h1>
 		</header>
 	);
-}
+})
 
+Header.displayName = 'Header';
 export default Header;
