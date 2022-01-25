@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { Formik, Field, Form } from 'formik';
@@ -10,8 +10,8 @@ import Button from '../../components/Button';
 import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
 
-//* Hooks and Types
-import { CustomerType } from '../../types';
+//* Hooks and Interfaces
+import { CustomerInterface } from '../../interfaces';
 import { useCustomers } from '../../hooks/useCustomers';
 
 const EditCustomer = (): JSX.Element => {
@@ -34,8 +34,12 @@ const EditCustomer = (): JSX.Element => {
 		email: Yup.string().required('Email is required.').email('Invalid email address.'),
 	});
 
-	const onSubmit = (fields: CustomerType) => {
-		const customer: CustomerType = { _id: params.id as string, ...fields };
+	const onSubmit = (fields: CustomerInterface) => {
+		const customer: CustomerInterface = {
+			_id: params.id as string,
+			...fields
+		};
+
 		updateCustomer(customer);
 	}
 

@@ -1,12 +1,11 @@
 import { createContext } from 'react';
 
-import { OrdersInterface } from '../../interfaces';
-import { NewOrderType } from '../../types';
+import { NewOrderInterface, OrdersInterface } from '../../interfaces';
 
 interface OrdersContextInterface {
 	ordersState: OrdersInterface;
 	getOrders: (pagination: string) => void;
-	addOrder: (order: NewOrderType) => void;
+	addOrder: (order: NewOrderInterface) => void;
 	cancelOrder: (id: string) => void;
 	deliverOrder: (id: string) => void;
 }

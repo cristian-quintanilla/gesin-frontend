@@ -3,65 +3,6 @@ export type ActionType = {
 	payload?: any;
 };
 
-export type CustomerType = {
-	_id?: string;
-	firstName: string;
-	lastName: string;
-	company: string
-	email: string;
-	address?: string;
-	status?: boolean;
-	phone?: string;
-	__v?: number;
-}
-
-export type ProductType = {
-	_id?: string;
-	name: string;
-	stock: number;
-	price: number;
-	status?: boolean;
-}
-
-export type MessageType = {
-	msg: string;
-	type: 'success' | 'error' | 'default';
-}
-
-export type UserType = {
-	_id: string;
-	name: string;
-	email: string;
-	__v: string | number;
-}
-
-export type Details = {
-	_id: string;
-	product: {
-		_id: string;
-		name: string;
-		price: number;
-	};
-	quantity: number;
-}
-
-export type OrderType = {
-	_id: string;
-	client: CustomerType;
-	details: Details[];
-	total: number;
-	delivered: boolean;
-	updatedAt?: string;
-}
-
-export type NewOrderType = {
-	client: string;
-	details: {
-		product: string;
-		quantity: number;
-	}[];
-}
-
 //* AUTH TYPES
 export const LOGIN_SUCCESS: string = '[AUTH] ADMIN_LOGIN_SUCCESS';
 export const LOGIN_ERROR: string = '[AUTH] ADMIN_LOGIN_ERROR';

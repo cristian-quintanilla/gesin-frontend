@@ -4,7 +4,6 @@ import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
 
 import {
-	NewOrderType,
 	GET_ORDERS,
 	CANCEL_ORDER,
 	DELIVER_ORDER,
@@ -12,7 +11,7 @@ import {
 
 import OrdersContext from './OrdersContext';
 import ordersReducer from './ordersReducer';
-import { OrdersInterface } from '../../interfaces/index';
+import { NewOrderInterface, OrdersInterface } from '../../interfaces/index';
 
 import clientAxios from '../../config/axios';
 
@@ -88,7 +87,7 @@ const OrdersProvider = ({ children }: CustonersProviderProps) => {
 	}
 
 	//* Create a new order
-	const addOrder = async (order: NewOrderType) => {
+	const addOrder = async (order: NewOrderInterface) => {
 		try {
 			const { data } = await clientAxios.post('/api/v1/orders/new', order);
 

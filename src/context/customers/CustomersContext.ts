@@ -1,15 +1,14 @@
 import { createContext } from 'react';
 
-import { CustomersInterface } from '../../interfaces';
-import { CustomerType } from '../../types';
+import { CustomerInterface, CustomersInterface } from '../../interfaces';
 
 interface CustomersContextInterface {
 	customersState: CustomersInterface;
 	getCustomers: () => void;
 	getCustomer: (_id: string) => void;
-	addCustomer: (customer: CustomerType) => void;
+	addCustomer: (customer: CustomerInterface) => void;
 	deleteCustomer: (_id: string) => void;
-	updateCustomer: (customer: CustomerType) => void;
+	updateCustomer: (customer: CustomerInterface) => void;
 }
 
 const CustomersContext = createContext<CustomersContextInterface>({} as CustomersContextInterface);

@@ -1,15 +1,17 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 
+//* Components
 import Alert from '../../components/Alert';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
 
-import { ProductType } from '../../types';
+//* Hooks and Interfaces
+import { ProductInterface } from '../../interfaces';
 import { useProducts } from '../../hooks/useProducts';
 
 const INITIAL_VALUES = {
@@ -33,8 +35,8 @@ const EditProduct = (): JSX.Element => {
 			.min(0, 'Min value for price is 0.')
 	});
 
-	const onSubmit = (fields: ProductType) => {
-		const product: ProductType = {
+	const onSubmit = (fields: ProductInterface) => {
+		const product: ProductInterface = {
 			_id: params.id as string,
 			name: fields.name,
 			stock: Number(fields.stock),

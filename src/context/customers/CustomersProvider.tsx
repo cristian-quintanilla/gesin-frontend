@@ -4,7 +4,6 @@ import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
 
 import {
-	CustomerType,
 	GET_CUSTOMERS,
 	GET_CUSTOMER,
 	ADD_CUSTOMER,
@@ -14,7 +13,7 @@ import {
 
 import CustomersContext from './CustomersContext';
 import customersReducer from './customersReducer';
-import { CustomersInterface } from '../../interfaces/index';
+import { CustomerInterface, CustomersInterface } from '../../interfaces/index';
 
 import clientAxios from '../../config/axios';
 
@@ -66,7 +65,7 @@ const CustomersProvider = ({ children }: CustomersProviderProps) => {
 	}
 
 	//* Add customer
-	const addCustomer = async (customer: CustomerType) => {
+	const addCustomer = async (customer: CustomerInterface) => {
 		try{
 			const { data } = await clientAxios.post('/api/v1/customers/create', customer);
 
@@ -105,7 +104,7 @@ const CustomersProvider = ({ children }: CustomersProviderProps) => {
 	}
 
 	//* Update customer
-	const updateCustomer = async (customer: CustomerType) => {
+	const updateCustomer = async (customer: CustomerInterface) => {
 		try{
 			const { _id, ...customerData } = customer;
 			const { data } = await clientAxios.put(`/api/v1/customers/edit/${ _id }`, customerData);

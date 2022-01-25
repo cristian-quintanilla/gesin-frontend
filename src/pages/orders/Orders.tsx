@@ -117,33 +117,32 @@ const Orders = (): JSX.Element => {
 					</div>
 				</form>
 
-				<section className='mt-6 flex flex-col gap-4'>
-					{
-						orders.length > 0
-						? (
-							orders.map(order => (
-								<Fragment key={ order._id }>
-									<Order order={ order } />
-								</Fragment>
-							))
-						) : (
-							<h1 className='text-2xl md:text-3xl text-gray-800'>No Orders.</h1>
-						)
-					}
-				</section>
+				{
+					orders.length > 0
+					? (
+						<>
+							<section className='mt-6 flex flex-col gap-4'>
+								{
+									orders.map(order => (
+										<Fragment key={ order._id }>
+											<Order order={ order } />
+										</Fragment>
+									))
+								}
+							</section>
 
-				<section className='flex justify-end mt-4'>
-					{
-						orders.length > 0
-						? (
-							<Pagination
-								page={ currentPage }
-								totalRecords={ totalPages }
-								paginate={ paginate }
-							/>
-						) : null
-					}
-				</section>
+							<section className='flex justify-end mt-4'>
+								<Pagination
+									page={ currentPage }
+									totalRecords={ totalPages }
+									paginate={ paginate }
+								/>
+							</section>
+						</>
+					) : (
+						<h1 className='m-4 text-center text-2xl md:text-3xl uppercase'>No Orders.</h1>
+					)
+				}
 			</main>
 
 			{/* Toast */}

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useContext, useState, useEffect } from 'react';
+import { Dispatch, SetStateAction, useCallback, useState, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 
 //* Components
@@ -10,12 +10,12 @@ import Pagination from '../../components/Pagination';
 import Spinner from '../../components/Spinner';
 import TableRecords from '../../components/TableRecords';
 
-//* Hooks and Types
+//* Hooks and Interfaces
+import { CustomerInterface } from '../../interfaces';
 import { useCustomers } from '../../hooks/useCustomers';
-import { CustomerType } from '../../types';
 
 const renderCustomers = (
-	customers: CustomerType[],
+	customers: CustomerInterface[],
 	setShowModal: Dispatch<SetStateAction<boolean>>,
 	setIdCustomer: Dispatch<SetStateAction<string>>
 ): object => customers.map(

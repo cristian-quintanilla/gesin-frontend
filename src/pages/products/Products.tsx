@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useCallback, useState, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 
+//* Components
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
@@ -9,11 +10,12 @@ import Pagination from '../../components/Pagination';
 import Spinner from '../../components/Spinner';
 import TableRecords from '../../components/TableRecords';
 
-import { ProductType } from '../../types';
+//* Hooks and Interfaces
+import { ProductInterface } from '../../interfaces';
 import { useProducts } from '../../hooks/useProducts';
 
 const renderProducts = (
-	products: ProductType[],
+	products: ProductInterface[],
 	setShowModal: Dispatch<SetStateAction<boolean>>,
 	setIdProduct: Dispatch<SetStateAction<string>>
 ): object => products.map(

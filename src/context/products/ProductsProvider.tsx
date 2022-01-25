@@ -4,7 +4,6 @@ import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
 
 import {
-	ProductType,
 	GET_PRODUCTS,
 	GET_PRODUCT,
 	ADD_PRODUCT,
@@ -14,7 +13,7 @@ import {
 
 import ProductsContext from './ProductsContext';
 import productsReducer from './productsReducer';
-import { ProductsInterface } from '../../interfaces';
+import { ProductInterface, ProductsInterface } from '../../interfaces';
 
 import clientAxios from '../../config/axios';
 
@@ -66,7 +65,7 @@ const ProductsProvider = ({ children }: ProductsProviderProps) => {
 	}
 
 	//* Add product
-	const addProduct = async (product: ProductType) => {
+	const addProduct = async (product: ProductInterface) => {
 		try {
 			const { data } = await clientAxios.post('/api/v1/products/create', product);
 
@@ -105,7 +104,7 @@ const ProductsProvider = ({ children }: ProductsProviderProps) => {
 	}
 
 	//* Update product
-	const updateProduct = async (product: ProductType) => {
+	const updateProduct = async (product: ProductInterface) => {
 		try {
 			const { _id, ...productData } = product;
 			const { data } = await clientAxios.put(`/api/v1/products/edit/${ _id }`, productData);

@@ -1,14 +1,15 @@
-import { useContext } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
+//* Components
 import Alert from '../../components/Alert';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import LinkRouter from '../../components/LinkRouter';
 
+//* Hooks
 import { useProducts } from '../../hooks/useProducts';
 
 const AddProduct = (): JSX.Element => {

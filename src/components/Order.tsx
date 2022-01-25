@@ -4,12 +4,12 @@ import { useCallback, useState } from 'react';
 import Button from './Button';
 import ModalOrder from './ModalOrder';
 
-//* Hooks and Types
+//* Hooks and Interfaces
 import { useOrders } from '../hooks/useOrders';
-import { OrderType } from '../types/index';
+import { OrderInterface } from '../interfaces';
 
 interface Props {
-	order: OrderType
+	order: OrderInterface
 }
 
 const Order = ({ order }: Props): JSX.Element => {
