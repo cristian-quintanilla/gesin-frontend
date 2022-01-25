@@ -1,4 +1,4 @@
-import { ReactNode, useReducer } from 'react';
+import { useReducer } from 'react';
 import { AxiosError } from 'axios';
 
 import {
@@ -16,16 +16,15 @@ import authReducer from './authReducer';
 import clientAxios from '../../config/axios';
 import tokenUser from '../../config/tokenUser';
 
+interface AuthProviderProps {
+	children: JSX.Element | JSX.Element[];
+}
 
 const INITIAL_STATE: AuthInterface = {
 	token: typeof window !== 'undefined' ? sessionStorage.getItem('auth-token') : '',
 	authenticated: null,
 	message: null,
 	user: null,
-}
-
-interface AuthProviderProps {
-	children: JSX.Element | JSX.Element[];
 }
 
 const AuthProvider = ({ children }: AuthProviderProps) => {

@@ -1,7 +1,7 @@
 //* State
 import tokenUser from './config/tokenUser';
 
-import AlertState from './context/alert/alertState';
+import AlertProvider from './context/alert/AlertProvider';
 import AuthProvider from './context/auth/AuthProvider';
 import CustomersState from './context/customers/customersState';
 import OrdersState from './context/orders/ordersState';
@@ -16,7 +16,7 @@ if (adminToken) tokenUser(adminToken);
 function GesinApp() {
 	return (
 		<AuthProvider>
-			<AlertState>
+			<AlertProvider>
 				<CustomersState>
 					<ProductsState>
 						<OrdersState>
@@ -24,7 +24,7 @@ function GesinApp() {
 						</OrdersState>
 					</ProductsState>
 				</CustomersState>
-			</AlertState>
+			</AlertProvider>
 		</AuthProvider>
 	);
 }

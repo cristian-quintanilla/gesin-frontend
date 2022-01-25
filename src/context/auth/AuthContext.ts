@@ -9,5 +9,5 @@ interface AuthContextInterface {
 	logout: () => void;
 }
 
-const AuthContext = createContext({} as AuthContextInterface);
+const AuthContext = createContext<AuthContextInterface>({} as AuthContextInterface);
 export default AuthContext;

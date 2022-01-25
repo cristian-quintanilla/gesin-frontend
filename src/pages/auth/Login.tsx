@@ -7,15 +7,13 @@ import Alert from '../../components/Alert';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 
-import alertContext from '../../context/alert/alertContext';
 import { useAuth } from '../../hooks/useAuth';
+import { useAlert } from '../../hooks/useAlert';
 
 const LoginPage = (): JSX.Element => {
 	const navigate = useNavigate();
 
-	const AlertContext = useContext(alertContext);
-	const { msg, type, showAlert } = AlertContext;
-
+	const { msg, type, showAlert } = useAlert();
 	const { authenticated, message, login } = useAuth();
 
 	//* Verify if user is authenticated

@@ -6,3 +6,8 @@ export interface AuthInterface {
 	message: MessageType | null;
 	user: UserType | null;
 }
+
+export interface AlertInterface {
+	msg: string | null;
+	type: 'success' | 'error' | 'default' | null;
+};
