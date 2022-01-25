@@ -8,16 +8,15 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 
 import alertContext from '../../context/alert/alertContext';
-import authContext from '../../context/auth/authContext';
+import { useAuth } from '../../hooks/useAuth';
 
 const LoginPage = (): JSX.Element => {
 	const navigate = useNavigate();
 
 	const AlertContext = useContext(alertContext);
-	const AuthContext = useContext(authContext);
-
 	const { msg, type, showAlert } = AlertContext;
-	const { authenticated, message, login } = AuthContext;
+
+	const { authenticated, message, login } = useAuth();
 
 	//* Verify if user is authenticated
 	useEffect(() => {

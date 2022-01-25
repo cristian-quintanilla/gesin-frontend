@@ -1,18 +1,16 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import Sidebar from '../components/Sidebar';
 
-import authContext from '../context/auth/authContext';
+import { useAuth } from '../hooks/useAuth';
 
 const PrivateRoute = ({ children }: { children: JSX.Element }): JSX.Element => {
 	let location = useLocation();
+	const { authenticated, userAuthenticated } = useAuth();
 
 	//* Set the last route visited
 	localStorage.setItem('last-path', location.pathname);
-
-	const AuthContext = useContext(authContext);
-	const { authenticated, userAuthenticated } = AuthContext;
 
 	useEffect(() => {
 		userAuthenticated();

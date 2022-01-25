@@ -2,7 +2,7 @@
 import tokenUser from './config/tokenUser';
 
 import AlertState from './context/alert/alertState';
-import AuthState from './context/auth/authState';
+import AuthProvider from './context/auth/AuthProvider';
 import CustomersState from './context/customers/customersState';
 import OrdersState from './context/orders/ordersState';
 import ProductsState from './context/products/productsState';
@@ -13,9 +13,9 @@ import Router from './routes/Router';
 const adminToken = sessionStorage.getItem('admin-token');
 if (adminToken) tokenUser(adminToken);
 
-function App() {
+function GesinApp() {
 	return (
-		<AuthState>
+		<AuthProvider>
 			<AlertState>
 				<CustomersState>
 					<ProductsState>
@@ -25,8 +25,8 @@ function App() {
 					</ProductsState>
 				</CustomersState>
 			</AlertState>
-		</AuthState>
+		</AuthProvider>
 	);
 }
 
-export default App;
+export default GesinApp;

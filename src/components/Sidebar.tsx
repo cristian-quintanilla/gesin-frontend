@@ -1,13 +1,12 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 
 import Button from './Button';
 import SidebarLink from './SidebarLink';
 
-import authContext from '../context/auth/authContext';
+import { useAuth } from '../hooks/useAuth';
 
 const Sidebar = (): JSX.Element => {
-	const AuthContext = useContext(authContext);
-	const { logout } = AuthContext;
+	const { logout } = useAuth();
 
 	const [ collapseShow, setCollapseShow ] = useState<string>('hidden');
 

@@ -8,20 +8,28 @@ import {
 	LOGOUT
 } from '../../types';
 
-import authContext from './authContext';
+import { AuthInterface } from '../../interfaces';
+
+import AuthContext from './AuthContext';
 import authReducer from './authReducer';
+
 import clientAxios from '../../config/axios';
 import tokenUser from '../../config/tokenUser';
 
-const AuthState = ({ children }: { children: ReactNode }) => {
-	const initialState = {
-		token: typeof window !== 'undefined' ? sessionStorage.getItem('auth-token') : '',
-		authenticated: null,
-		message: null,
-		user: null,
-	}
 
-	const [ state, dispatch ] = useReducer(authReducer, initialState);
+const INITIAL_STATE: AuthInterface = {
+	token: typeof window !== 'undefined' ? sessionStorage.getItem('auth-token') : '',
+	authenticated: null,
+	message: null,
+	user: null,
+}
+
+interface AuthProviderProps {
+	children: JSX.Element | JSX.Element[];
+}
+
+const AuthProvider = ({ children }: AuthProviderProps) => {
+	const [ authState, dispatch ] = useReducer(authReducer, INITIAL_STATE);
 
 	//* Auth Login
 	const login = async (data: { email: string, password: string }) => {
@@ -78,20 +86,17 @@ const AuthState = ({ children }: { children: ReactNode }) => {
 	}
 
 	return (
-		<authContext.Provider
+		<AuthContext.Provider
 			value={{
-				token: state.token,
-				authenticated: state.authenticated,
-				message: state.message,
-				user: state.user,
+				authState,
 				login,
 				userAuthenticated,
 				logout
 			}}
 		>
 			{ children }
-		</authContext.Provider>
+		</AuthContext.Provider>
 	);
 }
 
-export default AuthState;
+export default AuthProvider;

@@ -6,7 +6,7 @@ import {
 	LOGOUT
 } from '../../types';
 
-import { AuthInterface } from './authContext';
+import { AuthInterface } from '../../interfaces';
 
 const authReducer = (state: AuthInterface, action: ActionType) => {
 	const { type, payload } = action;

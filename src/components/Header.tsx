@@ -1,9 +1,9 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 
-import authContext from '../context/auth/authContext';
+import { useAuth } from '../hooks/useAuth';
 
 const Header = (): JSX.Element => {
-	const { user, userAuthenticated } = useContext(authContext);
+	const { user, userAuthenticated } = useAuth();
 
   useEffect(() => {
 	  if (!user) userAuthenticated();
