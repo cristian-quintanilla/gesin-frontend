@@ -9,10 +9,10 @@ import Header from '../../components/Header';
 import Input from '../../components/Input';
 import LinkRouter from '../../components/LinkRouter';
 
-import productsContext from '../../context/products/productsContext';
+import { useProducts } from '../../hooks/useProducts';
 
 const AddProduct = (): JSX.Element => {
-	const { addProduct } = useContext(productsContext);
+	const { addProduct } = useProducts();
 
 	//* Formik and Yup Validation
 	const formik = useFormik({

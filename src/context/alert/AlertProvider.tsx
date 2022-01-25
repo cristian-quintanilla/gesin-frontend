@@ -1,19 +1,18 @@
-import { ReactNode, useReducer } from 'react';
+import { useReducer } from 'react';
 
 import { SHOW_ALERT, HIDE_ALERT } from '../../types';
 
-import { AlertInterface } from '../../interfaces';
-
 import AlertContext from './AlertContext';
 import alertReducer from './alertReducer';
+import { AlertInterface } from '../../interfaces';
+
+interface AlertProviderProps {
+	children: JSX.Element | JSX.Element[];
+}
 
 const INITIAL_STATE: AlertInterface = {
 	msg: null,
 	type: null,
-}
-
-interface AlertProviderProps {
-	children: JSX.Element | JSX.Element[];
 }
 
 const AlertProvider = ({ children }: AlertProviderProps) => {

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useContext, useState, useEffect } from 'react';
+import { Dispatch, SetStateAction, useCallback, useState, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 
 import Button from '../../components/Button';
@@ -9,8 +9,8 @@ import Pagination from '../../components/Pagination';
 import Spinner from '../../components/Spinner';
 import TableRecords from '../../components/TableRecords';
 
-import productsContext from '../../context/products/productsContext';
 import { ProductType } from '../../types';
+import { useProducts } from '../../hooks/useProducts';
 
 const renderProducts = (
 	products: ProductType[],
@@ -55,7 +55,7 @@ const renderProducts = (
 );
 
 const Products = (): JSX.Element => {
-	const { products, deleteProduct, getProducts } = useContext(productsContext);
+	const { products, deleteProduct, getProducts } = useProducts();
 
 	const PRODUCTS_PER_PAGE = 10;
 	const [ currentPage, setCurrentPage ] = useState<number>(1);

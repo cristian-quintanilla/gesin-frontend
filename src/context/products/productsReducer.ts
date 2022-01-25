@@ -7,7 +7,7 @@ import {
 	UPDATE_PRODUCT,
 } from '../../types';
 
-import { ProductInterface } from './productsContext';
+import { ProductInterface } from '../../interfaces';
 
 const productsReducer = (state: ProductInterface, action: ActionType) => {
 	const { type, payload } = action;

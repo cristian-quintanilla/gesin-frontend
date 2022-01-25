@@ -2,15 +2,17 @@ import { useContext, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import Select, { OnChangeValue, SingleValue } from 'react-select';
 
+//* Components
 import Button from '../../components/Button';
 import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
 import MultiSelect from '../../components/MultiSelect';
 import Number from '../../components/Number';
 
+//* Hooks
 import customersContext from '../../context/customers/customersContext';
 import ordersContext from '../../context/orders/ordersContext';
-import productsContext from '../../context/products/productsContext';
+import { useProducts } from '../../hooks/useProducts';
 
 type SelectedOption = {
 	value: string;
@@ -28,7 +30,7 @@ type Details = {
 const AddOrder = (): JSX.Element => {
 	const { customers, getCustomers } = useContext(customersContext);
 	const { addOrder } = useContext(ordersContext);
-	const { products, getProducts } = useContext(productsContext);
+	const { products, getProducts } = useProducts();
 
 	const [ customersList, setCustomersList ] = useState<SelectedOption[]>([]);
 	const [ client, setClient ] = useState<string>('');

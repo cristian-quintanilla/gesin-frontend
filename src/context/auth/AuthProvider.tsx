@@ -8,10 +8,9 @@ import {
 	LOGOUT
 } from '../../types';
 
-import { AuthInterface } from '../../interfaces';
-
 import AuthContext from './AuthContext';
 import authReducer from './authReducer';
+import { AuthInterface } from '../../interfaces';
 
 import clientAxios from '../../config/axios';
 import tokenUser from '../../config/tokenUser';

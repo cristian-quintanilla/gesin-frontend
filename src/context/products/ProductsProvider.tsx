@@ -1,4 +1,4 @@
-import { ReactNode, useReducer } from 'react';
+import { useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
@@ -12,19 +12,24 @@ import {
 	UPDATE_PRODUCT,
 } from '../../types';
 
-import clientAxios from '../../config/axios';
-import productsContext from './productsContext';
+import ProductsContext from './ProductsContext';
 import productsReducer from './productsReducer';
+import { ProductInterface } from '../../interfaces';
 
-const ProductsState = ({ children }: { children: ReactNode }) => {
+import clientAxios from '../../config/axios';
+
+interface ProductsProviderProps {
+	children: JSX.Element | JSX.Element[];
+}
+
+const INITIAL_STATE: ProductInterface = {
+	products: [],
+	product: null,
+}
+
+const ProductsProvider = ({ children }: ProductsProviderProps) => {
 	const navigate = useNavigate();
-
-	const initialState = {
-		products: [],
-		product: null,
-	}
-
-	const [ state, dispatch ] = useReducer(productsReducer, initialState);
+	const [ productsState, dispatch ] = useReducer(productsReducer, INITIAL_STATE);
 
 	//* Get products
 	const getProducts = async () => {
@@ -121,10 +126,9 @@ const ProductsState = ({ children }: { children: ReactNode }) => {
 	}
 
 	return (
-		<productsContext.Provider
+		<ProductsContext.Provider
 			value={{
-				products: state.products,
-				product: state.product,
+				productsState,
 				getProducts,
 				getProduct,
 				addProduct,
@@ -133,8 +137,8 @@ const ProductsState = ({ children }: { children: ReactNode }) => {
 			}}
 		>
 			{ children }
-		</productsContext.Provider>
+		</ProductsContext.Provider>
 	);
 }
 
-export default ProductsState;
+export default ProductsProvider;

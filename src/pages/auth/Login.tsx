@@ -1,12 +1,14 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
+//* Components
 import Alert from '../../components/Alert';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 
+//* Hooks
 import { useAuth } from '../../hooks/useAuth';
 import { useAlert } from '../../hooks/useAlert';
 

@@ -5,7 +5,7 @@ import AlertProvider from './context/alert/AlertProvider';
 import AuthProvider from './context/auth/AuthProvider';
 import CustomersState from './context/customers/customersState';
 import OrdersState from './context/orders/ordersState';
-import ProductsState from './context/products/productsState';
+import ProductsProvider from './context/products/ProductsProvider';
 
 //* Router
 import Router from './routes/Router';
@@ -18,11 +18,11 @@ function GesinApp() {
 		<AuthProvider>
 			<AlertProvider>
 				<CustomersState>
-					<ProductsState>
+					<ProductsProvider>
 						<OrdersState>
 							<Router />
 						</OrdersState>
-					</ProductsState>
+					</ProductsProvider>
 				</CustomersState>
 			</AlertProvider>
 		</AuthProvider>

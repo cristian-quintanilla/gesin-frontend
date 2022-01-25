@@ -9,18 +9,18 @@ import Button from '../../components/Button';
 import Header from '../../components/Header';
 import LinkRouter from '../../components/LinkRouter';
 
-import productsContext from '../../context/products/productsContext';
-import { ProductType } from '../../types/index';
+import { ProductType } from '../../types';
+import { useProducts } from '../../hooks/useProducts';
+
+const INITIAL_VALUES = {
+	name: '',
+	stock: 0,
+	price: 0,
+}
 
 const EditProduct = (): JSX.Element => {
-	const { product, getProduct, updateProduct } = useContext(productsContext);
+	const { product, getProduct, updateProduct } = useProducts();
 	const params = useParams();
-
-	const initialValues = {
-		name: '',
-		stock: 0,
-		price: 0,
-	}
 
 	const validationSchema = Yup.object().shape({
 		name: Yup.string().required('Product Name is required.'),
@@ -58,7 +58,7 @@ const EditProduct = (): JSX.Element => {
 				}
 
 				<Formik
-					initialValues={ initialValues }
+					initialValues={ INITIAL_VALUES }
 					validationSchema={ validationSchema }
 					onSubmit={ onSubmit }
 				>
