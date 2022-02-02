@@ -9,6 +9,7 @@ import {
 	ADD_CUSTOMER,
 	DELETE_CUSTOMER,
 	UPDATE_CUSTOMER,
+	CLEAN_CUSTOMERS,
 } from '../../types';
 
 import CustomersContext from './CustomersContext';
@@ -124,6 +125,11 @@ const CustomersProvider = ({ children }: CustomersProviderProps) => {
 		}
 	}
 
+	//* Clean Customers
+	const cleanCustomers = () => {
+		dispatch({ type: CLEAN_CUSTOMERS });
+	}
+
 	return (
 		<CustomersContext.Provider
 			value={{
@@ -133,6 +139,7 @@ const CustomersProvider = ({ children }: CustomersProviderProps) => {
 				addCustomer,
 				deleteCustomer,
 				updateCustomer,
+				cleanCustomers,
 			}}
 		>
 			{ children }

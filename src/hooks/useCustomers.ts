@@ -4,7 +4,13 @@ import CustomersContext from '../context/customers/CustomersContext';
 
 export const useCustomers = () => {
   const {
-    customersState, addCustomer, deleteCustomer, getCustomers, getCustomer, updateCustomer
+    customersState,
+    addCustomer,
+    deleteCustomer,
+    getCustomers,
+    getCustomer,
+    updateCustomer,
+    cleanCustomers
   } = useContext(CustomersContext);
 
   const { customer, customers } = customersState;
@@ -16,6 +22,7 @@ export const useCustomers = () => {
     deleteCustomer,
     getCustomer,
     getCustomers,
-    updateCustomer
+    updateCustomer,
+    cleanCustomers,
   }
 }

@@ -5,6 +5,7 @@ import {
 	ADD_CUSTOMER,
 	DELETE_CUSTOMER,
 	UPDATE_CUSTOMER,
+	CLEAN_CUSTOMERS,
 } from '../../types';
 
 import { CustomersInterface } from '../../interfaces';
@@ -39,6 +40,11 @@ const customersReducer = (state: CustomersInterface, action: ActionType) => {
 				...state,
 				customers: state.customers.map(customer => customer._id === payload._id ? payload : customer),
 				customer: null,
+			}
+		case CLEAN_CUSTOMERS:
+			return {
+				...state,
+				customers: [],
 			}
 		default:
 			return state;

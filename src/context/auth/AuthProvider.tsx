@@ -78,9 +78,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
 	//* Logout
 	const logout = () => {
-		dispatch({
-			type: LOGOUT
-		});
+		dispatch({ type: LOGOUT });
 	}
 
 	return (

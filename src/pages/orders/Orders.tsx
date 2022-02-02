@@ -61,17 +61,6 @@ const Orders = (): JSX.Element => {
 	}, [setDelivered]);
 
 	//* Search order by status or not status
-	// const handleSearch = useCallback((e: React.ChangeEvent<HTMLFormElement>) => {
-	// 	e.preventDefault();
-
-	// 	if (!delivered || delivered) {
-	// 		setPagination(`?page=1&size=${ ORDERS_PER_PAGE }&delivered=${ delivered }`);
-	// 	} else {
-	// 		setPagination(`?page=1&size=${ ORDERS_PER_PAGE }`);
-	// 	}
-
-	// 	setCurrentPage(1);
-	// }, [delivered, setPagination, setCurrentPage]);
 	const handleSearch = (e: React.ChangeEvent<HTMLFormElement>) => {
 		console.log('handleSearch');
 		e.preventDefault();
@@ -92,7 +81,7 @@ const Orders = (): JSX.Element => {
 		<>
 			<Header />
 
-			<main className='animate__animated animate__fadeIn w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0'>
+			<main className='animate__animated animate__fadeIn w-full md:w-10/12 mx-auto mb-4 px-6 md:px-0 z-0'>
 				<section className='flex items-center justify-between px-5 py-4'>
 					<h2 className='text-lg md:text-2xl text-gray-800'>Orders</h2>
 

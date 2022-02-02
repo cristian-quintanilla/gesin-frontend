@@ -15,6 +15,7 @@ export const GET_CUSTOMER: string = '[CUSTOMERS] GET_CUSTOMER';
 export const ADD_CUSTOMER: string = '[CUSTOMERS] ADD_CUSTOMER';
 export const DELETE_CUSTOMER: string = '[CUSTOMERS] DELETE_CUSTOMER';
 export const UPDATE_CUSTOMER: string = '[CUSTOMERS] UPDATE_CUSTOMER';
+export const CLEAN_CUSTOMERS: string = '[CUSTOMERS] CLEAN_CUSTOMERS';
 
 //* PRODUCTS TYPES
 export const GET_PRODUCTS: string = '[PRODUCTS] GET_PRODUCTS';

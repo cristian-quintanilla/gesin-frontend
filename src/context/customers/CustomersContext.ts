@@ -9,6 +9,7 @@ interface CustomersContextInterface {
 	addCustomer: (customer: CustomerInterface) => void;
 	deleteCustomer: (_id: string) => void;
 	updateCustomer: (customer: CustomerInterface) => void;
+	cleanCustomers: () => void;
 }
 
 const CustomersContext = createContext<CustomersContextInterface>({} as CustomersContextInterface);
