@@ -3,9 +3,9 @@ import { AxiosError } from 'axios';
 
 import {
 	GET_USER,
-	LOGIN_SUCCESS,
 	LOGIN_ERROR,
-	LOGOUT
+	LOGIN_SUCCESS,
+	LOGOUT,
 } from '../../types';
 
 import AuthContext from './AuthContext';
@@ -86,8 +86,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 			value={{
 				authState,
 				login,
+				logout,
 				userAuthenticated,
-				logout
 			}}
 		>
 			{ children }

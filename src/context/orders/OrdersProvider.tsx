@@ -4,10 +4,10 @@ import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
 
 import {
-	GET_ORDERS,
 	CANCEL_ORDER,
+	CLEAN_ORDERS,
 	DELIVER_ORDER,
-	CLEAN_ORDERS
+	GET_ORDERS,
 } from '../../types';
 
 import OrdersContext from './OrdersContext';

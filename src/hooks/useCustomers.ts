@@ -6,11 +6,12 @@ export const useCustomers = () => {
   const {
     customersState,
     addCustomer,
+    cleanCustomer,
+    cleanCustomers,
     deleteCustomer,
-    getCustomers,
     getCustomer,
+    getCustomers,
     updateCustomer,
-    cleanCustomers
   } = useContext(CustomersContext);
 
   const { customer, customers } = customersState;
@@ -19,10 +20,11 @@ export const useCustomers = () => {
     customer,
     customers,
     addCustomer,
+    cleanCustomer,
+    cleanCustomers,
     deleteCustomer,
     getCustomer,
     getCustomers,
     updateCustomer,
-    cleanCustomers,
   }
 }

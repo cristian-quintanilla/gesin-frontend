@@ -4,12 +4,13 @@ import { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 
 import {
-	GET_CUSTOMERS,
-	GET_CUSTOMER,
 	ADD_CUSTOMER,
-	DELETE_CUSTOMER,
-	UPDATE_CUSTOMER,
+	CLEAN_CUSTOMER,
 	CLEAN_CUSTOMERS,
+	DELETE_CUSTOMER,
+	GET_CUSTOMER,
+	GET_CUSTOMERS,
+	UPDATE_CUSTOMER,
 } from '../../types';
 
 import CustomersContext from './CustomersContext';
@@ -125,6 +126,11 @@ const CustomersProvider = ({ children }: CustomersProviderProps) => {
 		}
 	}
 
+	//* Clean customer
+	const cleanCustomer = () => {
+		dispatch({ type: CLEAN_CUSTOMER });
+	}
+
 	//* Clean Customers
 	const cleanCustomers = () => {
 		dispatch({ type: CLEAN_CUSTOMERS });
@@ -134,12 +140,13 @@ const CustomersProvider = ({ children }: CustomersProviderProps) => {
 		<CustomersContext.Provider
 			value={{
 				customersState,
-				getCustomers,
-				getCustomer,
 				addCustomer,
-				deleteCustomer,
-				updateCustomer,
+				cleanCustomer,
 				cleanCustomers,
+				deleteCustomer,
+				getCustomer,
+				getCustomers,
+				updateCustomer,
 			}}
 		>
 			{ children }

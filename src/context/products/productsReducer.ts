@@ -1,11 +1,12 @@
 import {
 	ActionType,
-	GET_PRODUCTS,
-	GET_PRODUCT,
 	ADD_PRODUCT,
+	CLEAN_PRODUCT,
+	CLEAN_PRODUCTS,
 	DELETE_PRODUCT,
+	GET_PRODUCT,
+	GET_PRODUCTS,
 	UPDATE_PRODUCT,
-	CLEAN_PRODUCTS
 } from '../../types';
 
 import { ProductsInterface } from '../../interfaces';
@@ -49,6 +50,11 @@ const productsReducer = (state: ProductsInterface, action: ActionType) => {
 			return {
 				...state,
 				products: [],
+			}
+		case CLEAN_PRODUCT:
+			return {
+				...state,
+				product: null,
 			}
 		default:
 			return state;

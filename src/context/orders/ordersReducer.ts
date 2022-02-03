@@ -1,9 +1,9 @@
 import {
 	ActionType,
-	GET_ORDERS,
 	CANCEL_ORDER,
-	DELIVER_ORDER,
 	CLEAN_ORDERS,
+	DELIVER_ORDER,
+	GET_ORDERS,
 } from '../../types';
 
 import { OrdersInterface } from '../../interfaces';

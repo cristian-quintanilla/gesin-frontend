@@ -7,9 +7,9 @@ export const useOrders = () => {
 		ordersState,
 		addOrder,
 		cancelOrder,
+		cleanOrders,
 		deliverOrder,
 		getOrders,
-		cleanOrders
 	} = useContext(OrdersContext);
 
 		const { orders, totalPages } = ordersState;
@@ -19,8 +19,8 @@ export const useOrders = () => {
 		totalPages,
 		addOrder,
 		cancelOrder,
+		cleanOrders,
 		deliverOrder,
 		getOrders,
-		cleanOrders
 	}
 }

@@ -1,9 +1,9 @@
 import {
 	ActionType,
 	GET_USER,
-	LOGIN_SUCCESS,
 	LOGIN_ERROR,
-	LOGOUT
+	LOGIN_SUCCESS,
+	LOGOUT,
 } from '../../types';
 
 import { AuthInterface } from '../../interfaces';

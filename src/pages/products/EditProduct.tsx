@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
@@ -8,7 +8,6 @@ import * as Yup from 'yup';
 import Alert from '../../components/Alert';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
-import LinkRouter from '../../components/LinkRouter';
 
 //* Hooks and Interfaces
 import { ProductInterface } from '../../interfaces';
@@ -21,7 +20,8 @@ const INITIAL_VALUES = {
 }
 
 const EditProduct = (): JSX.Element => {
-	const { product, getProduct, updateProduct } = useProducts();
+	const { product, cleanProduct, getProduct, updateProduct } = useProducts();
+	const navigate = useNavigate();
 	const params = useParams();
 
 	const validationSchema = Yup.object().shape({
@@ -35,6 +35,13 @@ const EditProduct = (): JSX.Element => {
 			.min(0, 'Min value for price is 0.')
 	});
 
+	//* Clean product data and navigate to products page
+	const onCancel = (): void => {
+		cleanProduct();
+		navigate('/products');
+	}
+
+	//* Submit form and update customer
 	const onSubmit = (fields: ProductInterface) => {
 		const product: ProductInterface = {
 			_id: params.id as string,
@@ -157,12 +164,13 @@ const EditProduct = (): JSX.Element => {
 										</div>
 
 										<div className='mt-4 col-span-12 flex flex-wrap gap-2 justify-end'>
-											<LinkRouter
-												isButton
-												linkText='Cancel'
-												linkTo='/products'
-												size='normal'
+											<Button
 												variant='danger'
+												size='normal'
+												label='Cancel'
+												type='button'
+												icon='fa-times'
+												onClick={ onCancel }
 											/>
 
 											<Button

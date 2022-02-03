@@ -4,12 +4,13 @@ import { ProductInterface, ProductsInterface } from '../../interfaces';
 
 type ProductsContextInterface = {
 	productsState: ProductsInterface;
-	getProducts: () => void;
-	getProduct: (_id: string) => void;
 	addProduct: (product: ProductInterface) => void;
-	deleteProduct: (_id: string) => void;
-	updateProduct: (product: ProductInterface) => void;
+	cleanProduct: () => void;
 	cleanProducts: () => void;
+	deleteProduct: (_id: string) => void;
+	getProduct: (_id: string) => void;
+	getProducts: () => void;
+	updateProduct: (product: ProductInterface) => void;
 }
 
 const ProductsContext = createContext<ProductsContextInterface>({} as ProductsContextInterface);

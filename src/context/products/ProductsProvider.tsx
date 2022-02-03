@@ -4,12 +4,13 @@ import { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 
 import {
-	GET_PRODUCTS,
-	GET_PRODUCT,
 	ADD_PRODUCT,
-	DELETE_PRODUCT,
-	UPDATE_PRODUCT,
+	CLEAN_PRODUCT,
 	CLEAN_PRODUCTS,
+	DELETE_PRODUCT,
+	GET_PRODUCT,
+	GET_PRODUCTS,
+	UPDATE_PRODUCT,
 } from '../../types';
 
 import ProductsContext from './ProductsContext';
@@ -125,6 +126,11 @@ const ProductsProvider = ({ children }: ProductsProviderProps) => {
 		}
 	}
 
+	//* Clean Product
+	const cleanProduct = () => {
+		dispatch({ type: CLEAN_PRODUCT });
+	}
+
 	//* Clean Products
 	const cleanProducts = () => {
 		dispatch({ type: CLEAN_PRODUCTS });
@@ -134,12 +140,13 @@ const ProductsProvider = ({ children }: ProductsProviderProps) => {
 		<ProductsContext.Provider
 			value={{
 				productsState,
-				getProducts,
-				getProduct,
 				addProduct,
+				cleanProduct,
+				cleanProducts,
 				deleteProduct,
+				getProduct,
+				getProducts,
 				updateProduct,
-				cleanProducts
 			}}
 		>
 			{ children }

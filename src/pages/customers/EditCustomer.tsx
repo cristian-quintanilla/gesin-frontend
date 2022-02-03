@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
@@ -8,14 +8,14 @@ import * as Yup from 'yup';
 import Alert from '../../components/Alert';
 import Button from '../../components/Button';
 import Header from '../../components/Header';
-import LinkRouter from '../../components/LinkRouter';
 
 //* Hooks and Interfaces
 import { CustomerInterface } from '../../interfaces';
 import { useCustomers } from '../../hooks/useCustomers';
 
 const EditCustomer = (): JSX.Element => {
-	const { customer, getCustomer, updateCustomer } = useCustomers();
+	const { customer, cleanCustomer, getCustomer, updateCustomer } = useCustomers();
+	const navigate = useNavigate();
 	const params = useParams();
 
 	const initialValues = {
@@ -34,6 +34,13 @@ const EditCustomer = (): JSX.Element => {
 		email: Yup.string().required('Email is required.').email('Invalid email address.'),
 	});
 
+	//* Clean customer data and navigate to customers page
+	const onCancel = (): void => {
+		cleanCustomer();
+		navigate('/customers');
+	}
+
+	//* Submit form and update customer
 	const onSubmit = (fields: CustomerInterface) => {
 		const customer: CustomerInterface = {
 			_id: params.id as string,
@@ -210,12 +217,13 @@ const EditCustomer = (): JSX.Element => {
 										</div>
 
 										<div className='mt-4 col-span-12 flex flex-wrap gap-2 justify-end'>
-											<LinkRouter
-												isButton
-												linkText='Cancel'
-												linkTo='/customers'
-												size='normal'
+											<Button
 												variant='danger'
+												size='normal'
+												label='Cancel'
+												type='button'
+												icon='fa-times'
+												onClick={ onCancel }
 											/>
 
 											<Button

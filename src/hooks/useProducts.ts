@@ -6,11 +6,12 @@ export const useProducts = () => {
 	const {
 		productsState,
 		addProduct,
+		cleanProduct,
+		cleanProducts,
 		deleteProduct,
 		getProduct,
 		getProducts,
 		updateProduct,
-		cleanProducts,
 	} = useContext(ProductsContext);
 
 	const { product, products } = productsState;
@@ -19,10 +20,11 @@ export const useProducts = () => {
 		product,
 		products,
 		addProduct,
+		cleanProduct,
+		cleanProducts,
 		deleteProduct,
 		getProduct,
 		getProducts,
 		updateProduct,
-		cleanProducts,
 	}
 }

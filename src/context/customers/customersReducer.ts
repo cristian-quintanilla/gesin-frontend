@@ -1,11 +1,12 @@
 import {
 	ActionType,
-	GET_CUSTOMERS,
-	GET_CUSTOMER,
 	ADD_CUSTOMER,
-	DELETE_CUSTOMER,
-	UPDATE_CUSTOMER,
+	CLEAN_CUSTOMER,
 	CLEAN_CUSTOMERS,
+	DELETE_CUSTOMER,
+	GET_CUSTOMER,
+	GET_CUSTOMERS,
+	UPDATE_CUSTOMER,
 } from '../../types';
 
 import { CustomersInterface } from '../../interfaces';
@@ -45,6 +46,11 @@ const customersReducer = (state: CustomersInterface, action: ActionType) => {
 			return {
 				...state,
 				customers: [],
+			}
+		case CLEAN_CUSTOMER:
+			return {
+				...state,
+				customer: null,
 			}
 		default:
 			return state;
