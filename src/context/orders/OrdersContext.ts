@@ -8,6 +8,7 @@ interface OrdersContextInterface {
 	addOrder: (order: NewOrderInterface) => void;
 	cancelOrder: (id: string) => void;
 	deliverOrder: (id: string) => void;
+	cleanOrders: () => void;
 }
 
 const OrdersContext = createContext<OrdersContextInterface>({} as OrdersContextInterface);

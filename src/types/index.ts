@@ -23,11 +23,13 @@ export const GET_PRODUCT: string = '[PRODUCTS] GET_PRODUCT';
 export const ADD_PRODUCT: string = '[PRODUCTS] ADD_PRODUCT';
 export const DELETE_PRODUCT: string = '[PRODUCTS] DELETE_PRODUCT';
 export const UPDATE_PRODUCT: string = '[PRODUCTS] UPDATE_PRODUCT';
+export const CLEAN_PRODUCTS: string = '[PRODUCTS] CLEAN_PRODUCTS';
 
 //* ORDERS TYPES
 export const GET_ORDERS: string = '[ORDERS] GET_ORDERS';
 export const CANCEL_ORDER: string = '[ORDERS] CANCEL_ORDER';
 export const DELIVER_ORDER: string = '[ORDERS] DELIVER_ORDER';
+export const CLEAN_ORDERS: string = '[ORDERS] CLEAN_ORDERS';
 
 //* ALERT TYPES
 export const SHOW_ALERT: string = '[ALERT] SHOW_ALERT';

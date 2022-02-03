@@ -1,7 +1,7 @@
 import { useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
+import toast from 'react-hot-toast';
 
 import {
 	GET_CUSTOMERS,

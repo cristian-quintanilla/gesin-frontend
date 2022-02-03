@@ -3,6 +3,7 @@ import {
 	GET_ORDERS,
 	CANCEL_ORDER,
 	DELIVER_ORDER,
+	CLEAN_ORDERS,
 } from '../../types';
 
 import { OrdersInterface } from '../../interfaces';
@@ -26,6 +27,12 @@ const ordersReducer = (state: OrdersInterface, action: ActionType) => {
 			return {
 				...state,
 				orders: state.orders.map(order => order._id === payload ? { ...order, delivered: true } : order),
+			}
+		case CLEAN_ORDERS:
+			return {
+				...state,
+				orders: [],
+				totalPages: 0,
 			}
 		default:
 			return state;

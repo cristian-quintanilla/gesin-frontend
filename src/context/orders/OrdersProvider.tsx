@@ -7,6 +7,7 @@ import {
 	GET_ORDERS,
 	CANCEL_ORDER,
 	DELIVER_ORDER,
+	CLEAN_ORDERS
 } from '../../types';
 
 import OrdersContext from './OrdersContext';
@@ -108,6 +109,11 @@ const OrdersProvider = ({ children }: CustonersProviderProps) => {
 		}
 	}
 
+	//* Clean orders
+	const cleanOrders = () => {
+		dispatch({ type: CLEAN_ORDERS });
+	}
+
 	return (
 		<OrdersContext.Provider
 			value={{
@@ -116,6 +122,7 @@ const OrdersProvider = ({ children }: CustonersProviderProps) => {
 				addOrder,
 				cancelOrder,
 				deliverOrder,
+				cleanOrders
 			}}
 		>
 			{ children }

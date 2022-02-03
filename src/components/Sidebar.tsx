@@ -5,10 +5,14 @@ import SidebarLink from './SidebarLink';
 
 import { useAuth } from '../hooks/useAuth';
 import { useCustomers } from '../hooks/useCustomers';
+import { useProducts } from '../hooks/useProducts';
+import { useOrders } from '../hooks/useOrders';
 
 const Sidebar = (): JSX.Element => {
 	const { logout } = useAuth();
 	const { cleanCustomers } = useCustomers();
+	const { cleanOrders } = useOrders();
+	const { cleanProducts } = useProducts();
 
 	const [ collapseShow, setCollapseShow ] = useState<string>('hidden');
 
@@ -17,6 +21,8 @@ const Sidebar = (): JSX.Element => {
 
 		// Clean values
 		cleanCustomers();
+		cleanOrders();
+		cleanProducts();
 	}
 
 	return (

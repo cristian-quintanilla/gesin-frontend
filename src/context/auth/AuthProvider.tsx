@@ -39,7 +39,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 				payload: result.data
 			});
 
-			//_ Get user authenticated
+			// Get user authenticated
 			userAuthenticated();
 		}catch (error) {
 			const err = error as AxiosError;
@@ -58,7 +58,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 	const userAuthenticated = async () => {
 		const userToken = sessionStorage.getItem('auth-token');
 
-		//_ Send token via headers
+		// Send token via headers
 		if (userToken) tokenUser(userToken);
 
 		try{

@@ -3,8 +3,16 @@ import { useContext } from 'react';
 import OrdersContext from '../context/orders/OrdersContext';
 
 export const useOrders = () => {
-	const { ordersState, addOrder, cancelOrder, deliverOrder, getOrders } = useContext(OrdersContext);
-	const { orders, totalPages } = ordersState;
+	const {
+		ordersState,
+		addOrder,
+		cancelOrder,
+		deliverOrder,
+		getOrders,
+		cleanOrders
+	} = useContext(OrdersContext);
+
+		const { orders, totalPages } = ordersState;
 
 	return {
 		orders,
@@ -12,6 +20,7 @@ export const useOrders = () => {
 		addOrder,
 		cancelOrder,
 		deliverOrder,
-		getOrders
+		getOrders,
+		cleanOrders
 	}
 }

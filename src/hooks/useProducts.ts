@@ -4,7 +4,13 @@ import ProductsContext from '../context/products/ProductsContext';
 
 export const useProducts = () => {
 	const {
-		productsState, addProduct, deleteProduct, getProduct, getProducts, updateProduct
+		productsState,
+		addProduct,
+		deleteProduct,
+		getProduct,
+		getProducts,
+		updateProduct,
+		cleanProducts,
 	} = useContext(ProductsContext);
 
 	const { product, products } = productsState;
@@ -16,6 +22,7 @@ export const useProducts = () => {
 		deleteProduct,
 		getProduct,
 		getProducts,
-		updateProduct
+		updateProduct,
+		cleanProducts,
 	}
 }

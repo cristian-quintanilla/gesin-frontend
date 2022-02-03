@@ -9,6 +9,7 @@ type ProductsContextInterface = {
 	addProduct: (product: ProductInterface) => void;
 	deleteProduct: (_id: string) => void;
 	updateProduct: (product: ProductInterface) => void;
+	cleanProducts: () => void;
 }
 
 const ProductsContext = createContext<ProductsContextInterface>({} as ProductsContextInterface);

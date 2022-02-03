@@ -1,7 +1,7 @@
 import { useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
+import toast from 'react-hot-toast';
 
 import {
 	GET_PRODUCTS,
@@ -9,6 +9,7 @@ import {
 	ADD_PRODUCT,
 	DELETE_PRODUCT,
 	UPDATE_PRODUCT,
+	CLEAN_PRODUCTS,
 } from '../../types';
 
 import ProductsContext from './ProductsContext';
@@ -124,6 +125,11 @@ const ProductsProvider = ({ children }: ProductsProviderProps) => {
 		}
 	}
 
+	//* Clean Products
+	const cleanProducts = () => {
+		dispatch({ type: CLEAN_PRODUCTS });
+	}
+
 	return (
 		<ProductsContext.Provider
 			value={{
@@ -133,6 +139,7 @@ const ProductsProvider = ({ children }: ProductsProviderProps) => {
 				addProduct,
 				deleteProduct,
 				updateProduct,
+				cleanProducts
 			}}
 		>
 			{ children }

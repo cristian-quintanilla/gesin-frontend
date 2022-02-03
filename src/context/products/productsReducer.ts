@@ -5,6 +5,7 @@ import {
 	ADD_PRODUCT,
 	DELETE_PRODUCT,
 	UPDATE_PRODUCT,
+	CLEAN_PRODUCTS
 } from '../../types';
 
 import { ProductsInterface } from '../../interfaces';
@@ -44,6 +45,11 @@ const productsReducer = (state: ProductsInterface, action: ActionType) => {
 		    message: null,
 				product: null,
 		  }
+		case CLEAN_PRODUCTS:
+			return {
+				...state,
+				products: [],
+			}
 		default:
 			return state;
 	}
