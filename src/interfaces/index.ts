@@ -64,6 +64,7 @@ export interface AuthInterface {
 	authenticated: boolean | null;
 	message: MessageInterface | null;
 	user: UserInterface | null;
+	isLoading: boolean;
 };
 
 export interface AlertInterface {

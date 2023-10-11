@@ -14,9 +14,8 @@ import { useAlert } from '../../hooks/useAlert';
 
 const LoginPage = (): JSX.Element => {
 	const navigate = useNavigate();
-
 	const { msg, type, showAlert } = useAlert();
-	const { authenticated, message, login } = useAuth();
+	const { authenticated, isLoading, message, login } = useAuth();
 
 	//* Verify if user is authenticated
 	useEffect(() => {
@@ -116,7 +115,8 @@ const LoginPage = (): JSX.Element => {
 							size='normal'
 							label='Login'
 							type='submit'
-							icon='fa-sign-in-alt'
+							icon={ isLoading ? 'fa-spinner fa-spin' : 'fa-sign-in-alt' }
+							disabled={ isLoading }
 						/>
 					</div>
 				</form>

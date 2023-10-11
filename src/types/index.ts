@@ -8,6 +8,7 @@ export const GET_USER: string = '[AUTH] GET_USER';
 export const LOGIN_ERROR: string = '[AUTH] ADMIN_LOGIN_ERROR';
 export const LOGIN_SUCCESS: string = '[AUTH] ADMIN_LOGIN_SUCCESS';
 export const LOGOUT: string = '[AUTH] ADMIN_LOGOUT';
+export const SET_LOADING = '[AUTH] SET_LOADING';
 
 //* CUSTOMERS TYPES
 export const ADD_CUSTOMER: string = '[CUSTOMERS] ADD_CUSTOMER';

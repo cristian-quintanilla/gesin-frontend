@@ -6,6 +6,7 @@ import {
 	LOGIN_ERROR,
 	LOGIN_SUCCESS,
 	LOGOUT,
+	SET_LOADING,
 } from '../../types';
 
 import AuthContext from './AuthContext';
@@ -24,6 +25,7 @@ const INITIAL_STATE: AuthInterface = {
 	authenticated: null,
 	message: null,
 	user: null,
+	isLoading: false,
 }
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
@@ -31,7 +33,9 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
 	//* Auth Login
 	const login = async (data: { email: string, password: string }) => {
-		try{
+		dispatch({ type: SET_LOADING, payload: true });
+
+		try {
 			const result = await clientAxios.post('/api/v1/auth/login', data);
 
 			dispatch({
@@ -41,7 +45,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
 			// Get user authenticated
 			userAuthenticated();
-		}catch (error) {
+			dispatch({ type: SET_LOADING, payload: false });
+		} catch (error) {
 			const err = error as AxiosError;
 			const msg = err.response?.data.msg || 'Network Error';
 			const type = 'error';
@@ -51,6 +56,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 				type: LOGIN_ERROR,
 				payload: alert
 			});
+
+			dispatch({ type: SET_LOADING, payload: false });
 		}
 	}
 
