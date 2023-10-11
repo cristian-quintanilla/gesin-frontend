@@ -96,7 +96,7 @@ const Orders = (): JSX.Element => {
 
 				<form
 					onSubmit={ handleSearch }
-					className='flex items-center justify-between px-5 py-4 shadow-md shadow-blue-300 rounded'
+					className='flex items-center justify-between px-5 py-4 shadow-md rounded'
 				>
 					<Select
 						name='clients'

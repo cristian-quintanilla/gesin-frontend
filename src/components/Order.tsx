@@ -30,7 +30,7 @@ const Order = ({ order }: Props): JSX.Element => {
 	}, []);
 
 	const { client, details, total, delivered, updatedAt } = order;
-	const borderStyles = `rounded shadow-lg ${ delivered ? 'shadow-green-600' : 'shadow-blue-600' }`;
+	const borderStyles = `rounded shadow-md ${ delivered ? 'shadow-green-300' : 'shadow-blue-300' }`;
 
 	return (
 		<>

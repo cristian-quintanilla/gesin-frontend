@@ -29,7 +29,7 @@ const Sidebar = (): JSX.Element => {
 		<>
 			<nav
 				className='md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row
-					md:flex-nowrap md:overflow-hidden bg-white flex flex-wrap shadow-blue-400
+					md:flex-nowrap md:overflow-hidden bg-white flex flex-wrap shadow-gray-300
 					justify-between relative md:w-64 py-4 shadow-md'
 			>
 				<div
@@ -112,15 +112,6 @@ const Sidebar = (): JSX.Element => {
 					</div>
 				</div>
 			</nav>
-			{
-				/* Mobile */
-				collapseShow.includes('bg-white') && (
-					<div
-						className='opacity-25 fixed inset-0 z-10 bg-black'
-						onClick={ () => setCollapseShow('hidden') }
-					></div>
-				)
-			}
 		</>
 	);
 }

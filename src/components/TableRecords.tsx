@@ -4,7 +4,7 @@ interface Props {
 }
 
 const TableRecords = ({ headings, content }: Props): JSX.Element => (
-  <div className='bg-white shadow-md shadow-blue-300 rounded-sm border border-gray-200'>
+  <div className='bg-white shadow-md rounded-sm border border-gray-200'>
     <div className='p-3'>
       <div className='overflow-x-auto'>
         <table className='table-auto w-full'>
